@@ -1,0 +1,18 @@
+{
+  "files.exclude": {
+    "*.diff": true,
+    "*.patch": true,
+    "*.orig": true,
+    "*.rej": true,
+    "**/dist": true,
+    "**/node_modules": true
+  },
+  "[typescript]": {
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": true
+  },
+  "[html]": {
+    "editor.formatOnSave": false,
+    "editor.formatOnPaste": false
+  }
+}
