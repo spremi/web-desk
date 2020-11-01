@@ -1,6 +1,7 @@
 {
   "name": "web-desk",
   "version": "0.0.0",
+  "license": "BSD-3-Clause",
   "author": {
     "name": "Sanjeev Premi",
     "email": "spremi@ymail.com",
