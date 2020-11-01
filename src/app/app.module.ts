@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { BodyComponent } from './parts/body/body.component';
 import { FooterComponent } from './parts/footer/footer.component';
 import { HeaderComponent } from './parts/header/header.component';
 import { AboutComponent } from './routes/about/about.component';
@@ -16,6 +17,7 @@ import { HomeComponent } from './routes/home/home.component';
     AboutComponent,
     HeaderComponent,
     FooterComponent,
+    BodyComponent,
   ],
   imports: [
     BrowserModule,
