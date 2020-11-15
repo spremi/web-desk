@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>Web Desk</title>
+
+  <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self'; script-src 'self'" />
+  <meta http-equiv="X-Content-Security-Policy"
+    content="default-src 'self'; script-src 'self'" />
+</head>
+
+<body>
+  <h1>Welcome!</h1>
+  <p>Web Desk is ready. It is powered by:</p>
+  <ul>
+    <li>Node.js v<span id="node-version"></span></li>
+    <li>Chromium v<span id="chrome-version"></span></li>
+    <li>Electron v<span id="electron-version"></span></li>
+  </ul>
+
+  <script src="./dist/renderer.js"></script>
+</body>
+
+</html>
