@@ -7,13 +7,18 @@
     "email": "spremi@ymail.com",
     "url": "https://github.com/spremi"
   },
+  "main": "dist/main.js",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "ele-build": "cd electron && tsc",
+    "ele-watch": "cd electron && tsc -w",
+    "ele-lint": "cd electron && eslint -c .eslintrc --ext .ts ./src",
+    "ele-start": "electron dist/main.js"
   },
   "private": true,
   "dependencies": {
