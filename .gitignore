@@ -10,6 +10,7 @@
 /tmp
 /out-tsc
 /bazel-out
+/pkg
 
 # --- Dependencies
 /node_modules
