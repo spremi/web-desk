@@ -10,6 +10,7 @@ import { HeaderComponent } from './parts/header/header.component';
 import { AboutComponent } from './routes/about/about.component';
 import { HomeComponent } from './routes/home/home.component';
 import { LicenseComponent } from './routes/license/license.component';
+import { SettingsComponent } from './routes/settings/settings.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { LicenseComponent } from './routes/license/license.component';
     FooterComponent,
     BodyComponent,
     LicenseComponent,
+    SettingsComponent,
   ],
   imports: [
     BrowserModule,
