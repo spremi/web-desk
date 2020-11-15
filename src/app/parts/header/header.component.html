@@ -1,1 +1,19 @@
-<p>header works!</p>
+<mat-toolbar color="primary">
+  <button mat-icon-button aria-label="Go home"
+    [routerLink]="['/home']">
+    <mat-icon>home</mat-icon>
+  </button>
+  <span>WEB DESK</span>
+
+  <span class="h-spacer"></span>
+
+  <button mat-icon-button aria-label="Settings"
+    [routerLink]="['/settings']">
+    <mat-icon>settings</mat-icon>
+  </button>
+
+  <button mat-icon-button aria-label="About"
+    [routerLink]="['/about']">
+    <mat-icon>anchor</mat-icon>
+  </button>
+</mat-toolbar>
