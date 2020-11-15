@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AboutComponent } from '@routes/about/about.component';
 import { HomeComponent } from '@routes/home/home.component';
+import { LicenseComponent } from '@routes/license/license.component';
+import { SettingsComponent } from '@routes/settings/settings.component';
 
 const routes: Routes = [
   {
@@ -17,6 +19,14 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
+  },
+  {
+    path: 'license',
+    component: LicenseComponent,
+  },
+  {
+    path: 'settings',
+    component: SettingsComponent,
   },
 ];
 
