@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { PreviousRouteService } from '@services/previous-route.service';
 
 @Component({
   selector: 'sp-license',
@@ -7,9 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LicenseComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router,
+              private prevRouteSvc: PreviousRouteService) { }
 
   ngOnInit(): void {
   }
 
+  goBack(): void {
+    const prev = this.prevRouteSvc.get();
+
+    if (prev === null) {
+      this.router.navigateByUrl('/home');
+    } else {
+      this.router.navigateByUrl(prev);
+    }
+  }
 }
