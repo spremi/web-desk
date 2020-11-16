@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { PreviousRouteService } from '@services/previous-route.service';
 
 @Component({
   selector: 'sp-root',
@@ -7,4 +8,6 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'web-desk';
+
+  constructor(private prevRouteSvc: PreviousRouteService) { }
 }
