@@ -1,0 +1,50 @@
+\:host
+  display: flex
+  height: 100%
+  width: 100%
+  box-sizing: border-box
+  flex-direction: column
+
+  padding: 16px 64px
+
+  font-family: 'Lekton', monospace
+
+  p
+    margin: 8px 0
+    text-align: justify
+
+  li
+    margin: 16px 0
+
+  .info
+    font-weight: 500
+
+  .title
+    margin: 8px 0
+    line-height: 32px
+    font-size: 20px
+
+    font-weight: 600
+
+  p.copy
+    font-weight: 600
+
+    span:first-child
+      color: #2196f3
+
+    span:nth-child(2)
+      color: #ff5722
+
+  .license-text
+    overflow-y: auto
+
+  .back-button
+    align-self: end
+
+@media only screen and (max-width: 480px)
+  \:host
+    padding: 16px
+
+@media only screen and (max-height: 640px)
+  \:host
+    padding: 16px
