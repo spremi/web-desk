@@ -15,10 +15,13 @@ import { app, ipcMain, BrowserWindow } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
 
+import { ensureConfig, readConfig } from './config';
 import { ipcHandler } from './ipc';
+import { DeskConfig } from './models/desk-config';
 import { IPC_NG2E } from './models/ipc-request';
 
 let appWin: Electron.BrowserWindow = null;
+let appCfg: DeskConfig = null;
 
 /**
  * Create the browser window.
@@ -69,6 +72,10 @@ function createWindow(): void {
 // Create the browser window.
 //
 app.on('ready', () => {
+  ensureConfig();
+
+  appCfg = readConfig();
+
   createWindow();
 });
 
