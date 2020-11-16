@@ -10,9 +10,13 @@
 // Entry point for the application.
 //
 
-import { app, BrowserWindow } from 'electron';
+import { app, ipcMain, BrowserWindow } from 'electron';
+
 import * as path from 'path';
 import * as url from 'url';
+
+import { ipcHandler } from './ipc';
+import { IPC_NG2E } from './models/ipc-request';
 
 let appWin: Electron.BrowserWindow = null;
 
@@ -53,6 +57,11 @@ function createWindow(): void {
   appWin.on('closed', () => {
     appWin = null;
   });
+
+  //
+  // Listen to IPC requests.
+  //
+  ipcMain.on(IPC_NG2E, ipcHandler);
 }
 
 //
