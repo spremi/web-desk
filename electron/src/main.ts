@@ -29,6 +29,7 @@ function createWindow(): void {
     webPreferences: {
       defaultEncoding: 'utf-8',
       preload: path.join(__dirname, 'preload.js'),
+      contextIsolation: true,
     },
   });
 
