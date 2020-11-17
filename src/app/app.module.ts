@@ -17,6 +17,7 @@ import { AppComponent } from './app.component';
 import { BodyComponent } from './parts/body/body.component';
 import { FooterComponent } from './parts/footer/footer.component';
 import { HeaderComponent } from './parts/header/header.component';
+import { ItemComponent } from './parts/item/item.component';
 import { AboutComponent } from './routes/about/about.component';
 import { HomeComponent } from './routes/home/home.component';
 import { LicenseComponent } from './routes/license/license.component';
@@ -32,6 +33,7 @@ import { SettingsComponent } from './routes/settings/settings.component';
     BodyComponent,
     LicenseComponent,
     SettingsComponent,
+    ItemComponent,
   ],
   imports: [
     BrowserModule,
