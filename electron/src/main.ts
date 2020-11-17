@@ -17,6 +17,7 @@ import * as url from 'url';
 
 import { ensureConfig, readConfig } from './config';
 import { ipcHandler } from './ipc';
+import { createAppMenu } from './menu';
 import { DeskConfig } from './models/desk-config';
 import { IPC_NG2E } from './models/ipc-request';
 
@@ -77,6 +78,7 @@ app.on('ready', () => {
   appCfg = readConfig();
 
   createWindow();
+  createAppMenu(appWin, appCfg);
 });
 
 //
