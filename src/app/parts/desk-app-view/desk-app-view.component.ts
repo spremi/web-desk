@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+
+import { DeskApp } from '@models/desk-config';
 
 @Component({
   selector: 'sp-desk-app-view',
@@ -7,9 +9,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DeskAppViewComponent implements OnInit {
 
+  @Input() data: DeskApp;
+
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  onOptions(ev: MouseEvent): void {
+    ev.preventDefault();
+    ev.stopPropagation();
+
+    console.log('TODO: Show options.');
+  }
+
+  onLaunch(ev: MouseEvent): void {
+    ev.preventDefault();
+    ev.stopPropagation();
+
+    console.log('TODO: Launch application.');
+  }
 }
