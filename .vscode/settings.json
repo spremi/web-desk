@@ -14,5 +14,8 @@
   "[html]": {
     "editor.formatOnSave": false,
     "editor.formatOnPaste": false
-  }
+  },
+  "cSpell.words": [
+    "submenu"
+  ]
 }
