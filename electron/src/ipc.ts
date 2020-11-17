@@ -9,8 +9,8 @@
 
 import { IpcMainEvent } from 'electron/main';
 
+import { readConfig } from './config';
 import { initIpcResponse, IpcRequest } from './models/ipc-request';
-
 
 /**
  * Handle IPC requests from Angular application.
@@ -26,17 +26,31 @@ export function ipcHandler(event: IpcMainEvent, arg: IpcRequest): void {
 
   console.log('[I] IPC: Received request - ' + arg.reqKey);
 
-  if (arg.reqKey === 'test-string') {
-    event.sender.send(arg.resChannel,
-      JSON.stringify(initIpcResponse(true, 'Hello!'))
-    );
+  let ret = '';
+
+  switch (arg.reqKey) {
+    case 'config': {
+        const cfg = readConfig();
+
+        ret = JSON.stringify(initIpcResponse(true, cfg));
+        break;
+      }
+
+    case 'test-string': {
+      ret = JSON.stringify(initIpcResponse(true, 'Hello!'));
+      break;
+    }
+
+    case 'test-object': {
+      const test = { msg: 'Hello again!'};
+
+      ret = JSON.stringify(initIpcResponse(true, test));
+      break;
+    }
+
+    default:
+      break;
   }
 
-  if (arg.reqKey === 'test-object') {
-    const test = { msg: 'Hello again!'};
-
-    event.sender.send(arg.resChannel,
-      JSON.stringify(initIpcResponse(true, test))
-    );
-  }
+  event.sender.send(arg.resChannel, ret);
 }
