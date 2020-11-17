@@ -1,1 +1,3 @@
-<p>home works!</p>
+<ng-container *ngIf="config">
+  <sp-item *ngFor="let app of config.apps" [data]="app"></sp-item>
+</ng-container>
