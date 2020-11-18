@@ -21,7 +21,7 @@
     "ele-lint": "cd electron && eslint -c .eslintrc --ext .ts ./src",
     "ele-start": "electron dist/main.js",
     "pkg-linux-64": "electron-packager . web-desk --overwrite --asar --platform=linux --arch=x64  --icon=src/assets/app-logo.png --prune=true --out=pkg",
-    "rpm-linux-64": "electron-installer-redhat --src pkg/web-desk-linux-x64 --dest pkg/rpms --arch x86_64"
+    "rpm-linux-64": "electron-installer-redhat --config rpm64.json"
   },
   "private": true,
   "dependencies": {
