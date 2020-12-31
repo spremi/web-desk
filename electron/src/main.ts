@@ -54,7 +54,9 @@ function createWindow(): void {
   //
   // Open developer console.
   //
-  appWin.webContents.openDevTools();
+  if (!app.isPackaged) {
+    appWin.webContents.openDevTools();
+  }
 
   //
   // Explicitly set the window object
