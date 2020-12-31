@@ -7,10 +7,10 @@
 //
 
 
-import { IpcMainEvent } from 'electron/main';
+import { BrowserWindow, IpcMainEvent } from 'electron/main';
 
 import { readConfig } from './config';
-import { initIpcResponse, IpcNg2E, IpcRequest } from './models/ipc-request';
+import { initIpcResponse, IpcNg2E, IpcRequest, IPC_E2NG } from './models/ipc-request';
 
 /**
  * Handle IPC requests from Angular application.
@@ -53,4 +53,15 @@ export function ipcHandler(event: IpcMainEvent, arg: IpcRequest): void {
   }
 
   event.sender.send(arg.resChannel, ret);
+}
+
+/**
+ * Send notification to specified window.
+ */
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
+export function ipcNotify(win: BrowserWindow, type: string, arg: any): void {
+
+  console.log('[I] IPC: Notify - ' + type);
+
+  win.webContents.send(IPC_E2NG, type, arg);
 }
