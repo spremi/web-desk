@@ -55,6 +55,14 @@ function ipcReceive(channel: string, func: () => void): void {
   }
 }
 
+function ipcListen(channel: string, func: () => void): void {
+  if (channel.startsWith(IPC_E2NG)) {
+    ipcRenderer.on(channel, func);
+  } else {
+    console.log('[E] Unknown IPC channel (listen) - ' + channel + '.');
+  }
+}
+
 //
 // Expose custom 'ipc' object via 'window' object.
 //
@@ -62,5 +70,6 @@ contextBridge.exposeInMainWorld(
   'ipc', {
     send: ipcSend,
     receive: ipcReceive,
+    listen: ipcListen,
     }
 );
