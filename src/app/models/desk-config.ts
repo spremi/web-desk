@@ -69,3 +69,44 @@ export function initDeskConfig(): DeskConfig {
     apps: [],
   };
 }
+
+/**
+ * Describes various events related to the web application.
+ */
+export abstract class DeskAppEvents {
+  static readonly OPENED    = 'win-opened';
+  static readonly CLOSED    = 'win-closed';
+  static readonly MINIMIZED = 'win-minimized';
+  static readonly RESTORED  = 'win-restored';
+  static readonly HIDDEN    = 'win-hidden';
+  static readonly VISIBLE   = 'win-visible';
+}
+
+/**
+ * Describes event received from desk application.
+ */
+export interface DeskAppEvent {
+  /** Event being notified. */
+  event: DeskAppEvents;
+
+  /** Id of desk application. */
+  aid: string;
+
+  /** Id of application window. */
+  wid: number;
+}
+
+/**
+ * Initializer for DeskAppEvent.
+ */
+export function initDeskAppEvent(
+  evt: DeskAppEvents,
+  aid: string,
+  wid: number
+  ): DeskAppEvent {
+  return {
+    event: (evt ? evt : null),
+    aid: (typeof aid === 'string' ? aid : ''),
+    wid: (typeof wid === 'number' ? wid : -1),
+  };
+}
