@@ -1,6 +1,8 @@
 import { Injectable, NgZone } from '@angular/core';
+import { DeskAppEvents } from '@models/desk-config';
 
-import { IpcRequest, IpcResponse, IPC_NG2E } from '@models/ipc-request';
+import { IpcRequest, IpcResponse, IPC_E2NG, IPC_NG2E } from '@models/ipc-request';
+import { BehaviorSubject } from 'rxjs';
 
 /**
  * Extend window object to include custom additions in 'electron/preload.js'.
@@ -17,6 +19,8 @@ declare let window: EleWindow;
 })
 export class IpcService {
   private ipc = null;
+
+  private appEvents: BehaviorSubject<DeskAppEvents> = new BehaviorSubject<DeskAppEvents>(null);
 
   /**
    * Owing to the async nature of the IPC calls, the response channel must be
@@ -109,7 +113,36 @@ export class IpcService {
         return false;
     }
 
+    this.listen();
+
     return true;
+  }
+
+  /**
+   * Listen to notifications from 'electron'.
+   */
+  private listen(): void {
+    if (!this.init()) {
+      return;
+    }
+
+    //
+    // Create promise object for response from Electron.
+    //
+    this.ngZone.run(async () => {
+      this.ipc.listen(IPC_E2NG, (event: any, type: string, data: any) => {
+        switch (type) {
+          case 'DeskAppEvent':
+            console.log(data);
+            this.appEvents.next(data as DeskAppEvents);
+            break;
+
+          default:
+            console.log('[E] Received unknown event. (' + type + ')');
+            break;
+        }
+      });
+    });
   }
 
   /**
