@@ -20,6 +20,7 @@ import { ipcHandler } from './ipc';
 import { createAppMenu } from './menu';
 import { DeskConfig } from './models/desk-config';
 import { IPC_NG2E } from './models/ipc-request';
+import { createTrayMenu } from './tray';
 
 let appWin: Electron.BrowserWindow = null;
 let appCfg: DeskConfig = null;
@@ -79,6 +80,7 @@ app.on('ready', () => {
 
   createWindow();
   createAppMenu(appWin, appCfg);
+  createTrayMenu(appWin, appCfg);
 });
 
 //
