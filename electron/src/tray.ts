@@ -12,6 +12,7 @@ import { Menu, MenuItem, Tray } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
 
+import { launchDeskApp } from './desk-app';
 import { DeskApp, DeskConfig } from './models/desk-config';
 
 
@@ -83,12 +84,12 @@ export function createTrayMenu(
   const trayMenu = Menu.buildFromTemplate(trayTemplate);
   const trayApps = trayMenu.getMenuItemById('apps');
 
-  cfg.apps.forEach((arg: DeskApp) => {
+  cfg.apps.forEach((arg: DeskApp, idx: number) => {
     trayApps.submenu.append(new MenuItem({
       id: arg.aid,
       label: arg.label,
-      click: async () => {
-        await win.loadURL(arg.url);
+      click: () => {
+        launchDeskApp(idx);
       },
     }));
   });
