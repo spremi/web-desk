@@ -11,7 +11,8 @@ import { BrowserWindow } from 'electron';
 
 import * as path from 'path';
 
-import { DeskConfig } from './models/desk-config';
+import { ipcNotify } from './ipc';
+import { initDeskAppEvent, DeskAppEvents, DeskConfig } from './models/desk-config';
 
 
 /**
@@ -44,7 +45,7 @@ export function initDeskApps(
 /**
  * Launch desk application.
  */
-export function launchDeskApp(idx: number): void {
+export function launchDeskApp(aid: string, idx: number): void {
   if (idx < 0 || idx > refCfg.apps.length) {
     return;
   }
@@ -80,6 +81,10 @@ export function launchDeskApp(idx: number): void {
       }
 
       deskApp = null;
+
+      ipcNotify(refMain,
+        'DeskAppEvent',
+        initDeskAppEvent(DeskAppEvents.CLOSED, aid, i));
     });
 
     deskApp.setSkipTaskbar(true);
@@ -87,6 +92,10 @@ export function launchDeskApp(idx: number): void {
     deskApp.loadURL(refCfg.apps[idx].url);
 
     deskApps[idx] = deskApp;
+
+    ipcNotify(refMain,
+      'DeskAppEvent',
+      initDeskAppEvent(DeskAppEvents.OPENED, aid, idx));
   }
 
   const choice = deskApps[idx];

@@ -89,7 +89,7 @@ export function createTrayMenu(
       id: arg.aid,
       label: arg.label,
       click: () => {
-        launchDeskApp(idx);
+        launchDeskApp(arg.aid, idx);
       },
     }));
   });
