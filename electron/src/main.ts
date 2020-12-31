@@ -16,6 +16,7 @@ import * as path from 'path';
 import * as url from 'url';
 
 import { ensureConfig, readConfig } from './config';
+import { initDeskApps } from './desk-app';
 import { ipcHandler } from './ipc';
 import { createAppMenu } from './menu';
 import { DeskConfig } from './models/desk-config';
@@ -83,6 +84,8 @@ app.on('ready', () => {
   createWindow();
   createAppMenu(appWin, appCfg);
   createTrayMenu(appWin, appCfg);
+
+  initDeskApps(appWin, appCfg);
 });
 
 //
