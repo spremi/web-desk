@@ -2,7 +2,8 @@ import { Injectable, NgZone } from '@angular/core';
 import { DeskAppEvents } from '@models/desk-config';
 
 import { IpcRequest, IpcResponse, IPC_E2NG, IPC_NG2E } from '@models/ipc-request';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
 /**
  * Extend window object to include custom additions in 'electron/preload.js'.
@@ -93,6 +94,10 @@ export class IpcService {
 
       return retPromise;
     }
+  }
+
+  public getAppEvents(): Observable<DeskAppEvents> {
+    return this.appEvents.asObservable().pipe(filter(o => o !== null));
   }
 
   /**
