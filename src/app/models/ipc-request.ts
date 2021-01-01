@@ -27,6 +27,10 @@ export abstract class IpcNg2E {
   static readonly APP_DELETE    = 'app-delete';
   static readonly APP_MODIFY    = 'app-modify';
   static readonly APP_LAUNCH    = 'app-launch';
+
+  static readonly WIN_MINIMIZE  = 'win-minimize';
+  static readonly WIN_RESTORE   = 'win-restore';
+  static readonly WIN_CLOSE     = 'win-close';
 }
 
 /**
