@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { DeskAppEvent, DeskAppEvents } from '@models/desk-config';
 import { initIpcRequest } from '@models/ipc-request';
 import { IpcService } from '@services/ipc.service';
 import { PreviousRouteService } from '@services/previous-route.service';
+import { Subscription } from 'rxjs';
 
 interface TestMessage {
   msg: string;
@@ -14,6 +16,9 @@ interface TestMessage {
 })
 export class AppComponent implements OnInit {
   title = 'web-desk';
+
+  private runningApps = 0;
+  private sub: Subscription;
 
   constructor(private prevRouteSvc: PreviousRouteService,
               private ipcSvc: IpcService
@@ -42,6 +47,21 @@ export class AppComponent implements OnInit {
       }
     }).catch(err => {
         console.log(err);
+    });
+
+    this.sub = this.ipcSvc.getAppEvents().subscribe((ev: DeskAppEvent) => {
+      switch (ev.event) {
+        case DeskAppEvents.OPENED:
+          this.runningApps++;
+          break;
+
+        case DeskAppEvents.CLOSED:
+          this.runningApps--;
+          break;
+
+        default:
+          break;
+      }
     });
   }
 }
