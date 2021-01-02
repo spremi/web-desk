@@ -5,10 +5,6 @@ import { IpcService } from '@services/ipc.service';
 import { PreviousRouteService } from '@services/previous-route.service';
 import { Subscription } from 'rxjs';
 
-interface TestMessage {
-  msg: string;
-}
-
 @Component({
   selector: 'sp-root',
   templateUrl: './app.component.html',
@@ -25,30 +21,6 @@ export class AppComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    const testString = initIpcRequest('test-string');
-
-    this.ipcSvc.send<string>(testString).then(result => {
-      if (result) {
-        console.log('IPC success. Result = ' + result);
-      } else {
-        console.log('IPC failure.');
-      }
-    }).catch(err => {
-        console.log(err);
-    });
-
-    const testObject = initIpcRequest('test-object');
-
-    this.ipcSvc.send<TestMessage>(testObject).then(result => {
-      if (result) {
-        console.log('IPC success. Result = ' + JSON.stringify(result));
-      } else {
-        console.log('IPC failure.');
-      }
-    }).catch(err => {
-        console.log(err);
-    });
-
     this.sub = this.ipcSvc.getAppEvents().subscribe((ev: DeskAppEvent) => {
       switch (ev.event) {
         case DeskAppEvents.OPENED:
