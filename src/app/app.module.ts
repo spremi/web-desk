@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { MatButtonModule } from '@angular/material/button';
@@ -41,6 +42,8 @@ import { SettingsComponent } from './routes/settings/settings.component';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
     MatButtonModule,
     MatCardModule,
     MatFormFieldModule,
