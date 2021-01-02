@@ -43,6 +43,16 @@ export function initDeskApps(
 }
 
 /**
+ * Returns true, if any desk app is running.
+ */
+export function isDeskAppRunning(): boolean {
+  const i = deskApps.findIndex((elem) =>
+                elem !== null && typeof elem === 'object');
+
+  return i !== -1;
+}
+
+/**
  * Launch desk application.
  */
 export function launchDeskApp(aid: string, idx: number): void {
