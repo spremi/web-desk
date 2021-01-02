@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { DeskAppEvent, DeskAppEvents } from '@models/desk-config';
-import { initIpcRequest } from '@models/ipc-request';
+import { initIpcRequest, IpcNg2E } from '@models/ipc-request';
 import { IpcService } from '@services/ipc.service';
 import { PreviousRouteService } from '@services/previous-route.service';
 import { Subscription } from 'rxjs';
@@ -63,5 +63,27 @@ export class AppComponent implements OnInit {
           break;
       }
     });
+  }
+
+  @HostListener('window:beforeunload', ['$event'])
+  beforeWinClose(e: Event): void {
+    if (this.runningApps > 0) {
+      e.preventDefault();
+      e.returnValue = false;
+
+      //
+      // Don't close the application.
+      // Instead, request electron to minimize window.
+      //
+      const req = initIpcRequest(IpcNg2E.WIN_MINIMIZE);
+
+      this.ipcSvc.send<string>(req).then(result => {
+        if (!result) {
+          console.log('IPC failure during WIN_MINIMIZE.');
+        }
+      }).catch(err => {
+          console.log(err);
+      });
+    }
   }
 }
