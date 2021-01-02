@@ -12,6 +12,19 @@ import { BrowserWindow, IpcMainEvent } from 'electron/main';
 import { readConfig } from './config';
 import { initIpcResponse, IpcNg2E, IpcRequest, IPC_E2NG } from './models/ipc-request';
 
+
+/**
+ * Reference to main application window.
+ */
+let mainWin: BrowserWindow = null;
+
+/**
+ * Initialize IPC Handler.
+ */
+export function initIpcHandler(arg: BrowserWindow): void {
+  mainWin = arg;
+}
+
 /**
  * Handle IPC requests from Angular application.
  */

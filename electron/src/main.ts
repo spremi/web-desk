@@ -17,7 +17,7 @@ import * as url from 'url';
 
 import { ensureConfig, readConfig } from './config';
 import { initDeskApps } from './desk-app';
-import { ipcHandler } from './ipc';
+import { initIpcHandler, ipcHandler } from './ipc';
 import { createAppMenu } from './menu';
 import { DeskConfig } from './models/desk-config';
 import { IPC_NG2E } from './models/ipc-request';
@@ -65,6 +65,8 @@ function createWindow(): void {
   appWin.on('closed', () => {
     appWin = null;
   });
+
+  initIpcHandler(appWin);
 
   //
   // Listen to IPC requests.
