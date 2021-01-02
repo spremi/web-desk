@@ -9,7 +9,7 @@
 
 import { BrowserWindow, IpcMainEvent } from 'electron/main';
 
-import { readConfig } from './config';
+import { addDeskApp, readConfig } from './config';
 import { initIpcResponse, IpcNg2E, IpcRequest, IPC_E2NG } from './models/ipc-request';
 
 
@@ -47,6 +47,15 @@ export function ipcHandler(event: IpcMainEvent, arg: IpcRequest): void {
         const cfg = readConfig();
 
         ret = JSON.stringify(initIpcResponse(true, cfg));
+        break;
+      }
+
+    case IpcNg2E.APP_CREATE: {
+        const res = addDeskApp(arg.reqParams[0],
+                               arg.reqParams[1],
+                               arg.reqParams[2]);
+
+        ret = JSON.stringify(initIpcResponse(true, res));
         break;
       }
 
