@@ -65,18 +65,6 @@ export function ipcHandler(event: IpcMainEvent, arg: IpcRequest): void {
         break;
       }
 
-    case 'test-string': {
-      ret = JSON.stringify(initIpcResponse(true, 'Hello!'));
-      break;
-    }
-
-    case 'test-object': {
-      const test = { msg: 'Hello again!'};
-
-      ret = JSON.stringify(initIpcResponse(true, test));
-      break;
-    }
-
     default:
       break;
   }
