@@ -40,12 +40,19 @@ export function ipcHandler(event: IpcMainEvent, arg: IpcRequest): void {
   console.log('[I] IPC: Received request - ' + arg.reqKey);
 
   let ret = '';
+  let consume = false;
 
   switch (arg.reqKey) {
     case IpcNg2E.GET_APPS: {
         const cfg = readConfig();
 
         ret = JSON.stringify(initIpcResponse(true, cfg));
+        break;
+      }
+
+    case IpcNg2E.WIN_MINIMIZE: {
+        consume = true;
+        mainWin.hide();
         break;
       }
 
@@ -65,7 +72,9 @@ export function ipcHandler(event: IpcMainEvent, arg: IpcRequest): void {
       break;
   }
 
-  event.sender.send(arg.resChannel, ret);
+  if (!consume) {
+    event.sender.send(arg.resChannel, ret);
+  }
 }
 
 /**
