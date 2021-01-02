@@ -15,6 +15,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BodyComponent } from './parts/body/body.component';
+import { DeskAppViewComponent } from './parts/desk-app-view/desk-app-view.component';
 import { FooterComponent } from './parts/footer/footer.component';
 import { HeaderComponent } from './parts/header/header.component';
 import { AboutComponent } from './routes/about/about.component';
@@ -32,6 +33,7 @@ import { SettingsComponent } from './routes/settings/settings.component';
     BodyComponent,
     LicenseComponent,
     SettingsComponent,
+    DeskAppViewComponent,
   ],
   imports: [
     BrowserModule,
