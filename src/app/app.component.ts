@@ -1,6 +1,7 @@
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { DeskAppEvent, DeskAppEvents } from '@models/desk-config';
 import { initIpcRequest, IpcNg2E } from '@models/ipc-request';
+import { DataService } from '@services/data.service';
 import { IpcService } from '@services/ipc.service';
 import { PreviousRouteService } from '@services/previous-route.service';
 import { Subscription } from 'rxjs';
@@ -17,10 +18,13 @@ export class AppComponent implements OnInit, OnDestroy {
   private sub: Subscription;
 
   constructor(private prevRouteSvc: PreviousRouteService,
+              private dataSvc: DataService,
               private ipcSvc: IpcService
   ) { }
 
   ngOnInit(): void {
+    this.dataSvc.init();
+
     this.sub = this.ipcSvc.getAppEvents().subscribe((ev: DeskAppEvent) => {
       switch (ev.event) {
         case DeskAppEvents.OPENED:

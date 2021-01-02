@@ -1,30 +1,29 @@
-import { Component, OnInit } from '@angular/core';
-import { DeskConfig } from '@models/desk-config';
-import { initIpcRequest, IpcNg2E } from '@models/ipc-request';
-import { IpcService } from '@services/ipc.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { DeskApp } from '@models/desk-config';
+import { DataService } from '@services/data.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'sp-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.sass'],
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
+  private sub: Subscription;
 
-  config: DeskConfig = null;
+  apps: DeskApp[];
 
-  constructor(private ipcSvc: IpcService) { }
+  constructor(private dataSvc: DataService) { }
 
   ngOnInit(): void {
-    const reqConfig = initIpcRequest(IpcNg2E.GET_APPS);
-
-    this.ipcSvc.send<DeskConfig>(reqConfig).then(result => {
-      if (result) {
-        this.config = result;
-      } else {
-        console.log('IPC failure.');
-      }
-    }).catch(err => {
-        console.log(err);
+    this.sub = this.dataSvc.getDeskApps().subscribe(result => {
+      this.apps = result;
     });
+  }
+
+  ngOnDestroy(): void {
+    if (this.sub) {
+      this.sub.unsubscribe();
+    }
   }
 }
