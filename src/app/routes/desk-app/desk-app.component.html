@@ -1,1 +1,43 @@
-<p>desk-app works!</p>
+<mat-toolbar>
+  <span>Desk Application</span>
+
+  <span class="h-spacer"></span>
+
+  <button mat-icon-button aria-label="Delete"
+    [disabled]="edit || delete"
+    (click)="onDelete()">
+    <mat-icon>delete</mat-icon>
+  </button>
+  <button mat-icon-button aria-label="Edit"
+    [disabled]="edit || delete"
+    (click)="onEdit()">
+    <mat-icon>edit</mat-icon>
+  </button>
+  <button mat-icon-button aria-label="Close"
+    (click)="onClose()">
+    <mat-icon>close</mat-icon>
+  </button>
+</mat-toolbar>
+
+<div class="content-area">
+  <sp-desk-app-edit *ngIf="edit"
+    [data]="app"
+    (status)="onStatus($event)"
+    ></sp-desk-app-edit>
+
+  <sp-desk-app-view *ngIf="!edit"
+    [app]="app"
+    ></sp-desk-app-view>
+
+  <div class="delete-bar" *ngIf="delete">
+    <button mat-raised-button aria-label="Cancel deletion"
+      [disabled]="deleteConfirm"
+      (click)="onDeleteCancel()"
+      >CANCEL</button>
+
+    <button mat-raised-button color="warn" aria-label="Confirm deletion"
+      [disabled]="deleteConfirm"
+      (click)="onDeleteConfirm()"
+      >DELETE</button>
+  </div>
+</div>
