@@ -1,1 +1,22 @@
-<p>settings works!</p>
+<mat-toolbar>
+  <span>Settings</span>
+
+  <span class="h-spacer"></span>
+
+  <button mat-icon-button aria-label="Close">
+    <mat-icon (click)="onClose()">close</mat-icon>
+  </button>
+</mat-toolbar>
+
+<div class="content-area">
+  <mat-list>
+    <mat-list-item>
+      <span matLine>Edit applications</span>
+
+      <mat-slide-toggle color="accent"
+        [checked]="canEdit"
+        (change)="toggleEdit($event)"
+        ></mat-slide-toggle>
+    </mat-list-item>
+  </mat-list>
+</div>

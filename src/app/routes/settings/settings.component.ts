@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSlideToggleChange } from '@angular/material/slide-toggle';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'sp-settings',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SettingsComponent implements OnInit {
 
-  constructor() { }
+  canEdit = false;
+
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
   }
 
+  onClose(): void {
+    this.router.navigate(['home']);
+  }
+
+  toggleEdit(ev: MatSlideToggleChange): void {
+  }
 }
