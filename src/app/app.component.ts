@@ -4,6 +4,7 @@ import { initIpcRequest, IpcNg2E } from '@models/ipc-request';
 import { DataService } from '@services/data.service';
 import { IpcService } from '@services/ipc.service';
 import { PreviousRouteService } from '@services/previous-route.service';
+import { RunStateService } from '@services/run-state.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -19,11 +20,13 @@ export class AppComponent implements OnInit, OnDestroy {
 
   constructor(private prevRouteSvc: PreviousRouteService,
               private dataSvc: DataService,
+              private runSvc: RunStateService,
               private ipcSvc: IpcService
   ) { }
 
   ngOnInit(): void {
     this.dataSvc.init();
+    this.runSvc.init();
 
     this.sub = this.ipcSvc.getAppEvents().subscribe((ev: DeskAppEvent) => {
       switch (ev.event) {
