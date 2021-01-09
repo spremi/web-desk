@@ -1,5 +1,5 @@
 <ng-container *ngIf="apps">
-  <sp-desk-app-view
-    *ngFor="let app of apps" [data]="app">
-  </sp-desk-app-view>
+  <sp-widget
+    *ngFor="let app of apps" [app]="app">
+  </sp-widget>
 </ng-container>
