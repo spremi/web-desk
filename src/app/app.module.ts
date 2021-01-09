@@ -21,6 +21,7 @@ import { DeskAppViewComponent } from './parts/desk-app-view/desk-app-view.compon
 import { FooterComponent } from './parts/footer/footer.component';
 import { HeaderComponent } from './parts/header/header.component';
 import { AboutComponent } from './routes/about/about.component';
+import { DeskAppComponent } from './routes/desk-app/desk-app.component';
 import { HomeComponent } from './routes/home/home.component';
 import { LicenseComponent } from './routes/license/license.component';
 import { SettingsComponent } from './routes/settings/settings.component';
@@ -37,6 +38,7 @@ import { SettingsComponent } from './routes/settings/settings.component';
     SettingsComponent,
     DeskAppViewComponent,
     DeskAppEditComponent,
+    DeskAppComponent,
   ],
   imports: [
     BrowserModule,
