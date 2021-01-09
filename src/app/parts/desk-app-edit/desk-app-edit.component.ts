@@ -1,8 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { DeskApp } from '@models/desk-config';
 import { initIpcRequest, IpcNg2E, IpcRequest } from '@models/ipc-request';
+import { OpStatus } from '@models/op-status';
 import { IpcService } from '@services/ipc.service';
 
 @Component({
@@ -15,6 +16,8 @@ export class DeskAppEditComponent implements OnInit {
   appForm: FormGroup;
 
   @Input() data: DeskApp;
+
+  @Output() status = new EventEmitter<OpStatus>();
 
   constructor(private ipcSvc: IpcService) { }
 
@@ -60,20 +63,21 @@ export class DeskAppEditComponent implements OnInit {
       cmd.reqParams = params;
 
       this.ipcSvc.send<DeskApp>(cmd).then(result => {
-        if (!result) {
-          console.log('IPC failure save.');
+        if (result) {
+          this.status.emit(OpStatus.SUCCESS);
+        } else {
+          this.status.emit(OpStatus.FAILURE);
         }
-
-        this.appForm.reset();
       }).catch(err => {
-          console.log(err);
-
           this.appForm.enable();
+
+          this.status.emit(OpStatus.FAILURE);
       });
     }
   }
 
   onCancel(): void {
     this.appForm.reset();
+    this.status.emit(OpStatus.CANCEL);
   }
 }
