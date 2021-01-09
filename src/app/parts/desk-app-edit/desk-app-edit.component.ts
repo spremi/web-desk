@@ -30,6 +30,10 @@ export class DeskAppEditComponent implements OnInit {
   }
 
   onSubmit(): void {
+    if (this.appForm.pristine) {
+      return;
+    }
+
     const DEFAULT_GID = '0';
 
     if (this.appForm.valid) {
@@ -67,5 +71,9 @@ export class DeskAppEditComponent implements OnInit {
           this.appForm.enable();
       });
     }
+  }
+
+  onCancel(): void {
+    this.appForm.reset();
   }
 }
