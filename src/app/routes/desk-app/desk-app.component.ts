@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DeskApp, DeskConfig } from '@models/desk-config';
@@ -6,6 +6,8 @@ import { initIpcRequest, IpcNg2E } from '@models/ipc-request';
 import { OpStatus } from '@models/op-status';
 import { DataService } from '@services/data.service';
 import { IpcService } from '@services/ipc.service';
+import { RunStateService } from '@services/run-state.service';
+import { Subscription } from 'rxjs';
 
 const ADD_SUCCESS = 'Desk application added.';
 const ADD_FAILURE = 'Unable to add desk application.';
@@ -21,10 +23,14 @@ const DEL_FAILURE = 'Unable to delete the desk application.';
   templateUrl: './desk-app.component.html',
   styleUrls: ['./desk-app.component.sass'],
 })
-export class DeskAppComponent implements OnInit {
+export class DeskAppComponent implements OnInit, OnDestroy {
+  private sub: Subscription;
+
   app: DeskApp;
 
   aid: string = null;
+
+  canEdit = false;
 
   edit = false;
   delete = false;
@@ -35,6 +41,7 @@ export class DeskAppComponent implements OnInit {
     private route: ActivatedRoute,
     private dataSvc: DataService,
     private ipcSvc: IpcService,
+    private runSvc: RunStateService,
     private snackBar: MatSnackBar
    ) { }
 
@@ -42,6 +49,16 @@ export class DeskAppComponent implements OnInit {
     this.aid = this.route.snapshot.paramMap.get('id');
 
     this.app = this.dataSvc.getDeskApp(this.aid);
+
+    this.sub = this.runSvc.getEdit().subscribe(flag => {
+      this.canEdit = flag;
+    });
+  }
+
+  ngOnDestroy(): void {
+    if (this.sub) {
+      this.sub.unsubscribe();
+    }
   }
 
   onDelete(): void {

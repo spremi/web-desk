@@ -4,12 +4,12 @@
   <span class="h-spacer"></span>
 
   <button mat-icon-button aria-label="Delete"
-    [disabled]="edit || delete"
+    [disabled]="!canEdit || edit || delete"
     (click)="onDelete()">
     <mat-icon>delete</mat-icon>
   </button>
   <button mat-icon-button aria-label="Edit"
-    [disabled]="edit || delete"
+    [disabled]="!canEdit || edit || delete"
     (click)="onEdit()">
     <mat-icon>edit</mat-icon>
   </button>
