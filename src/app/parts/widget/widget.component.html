@@ -1,1 +1,18 @@
-<p>widget works!</p>
+<ng-container *ngIf="app">
+  <div class="banner">
+    <mat-icon>bookmark</mat-icon>
+
+    <span class="h-spacer"></span>
+
+    <button mat-icon-button aria-label="Details"
+      (click)="onDetails()">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+  </div>
+
+  <div class="content mat-h2" aria-label="Launch"
+
+    (click)="onLaunch()">
+    {{app.label}}
+  </div>
+</ng-container>
