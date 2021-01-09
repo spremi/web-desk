@@ -1,18 +1,30 @@
-<ng-container *ngIf="data">
-  <div class="banner">
-    <mat-icon>bookmark</mat-icon>
+<mat-card *ngIf="app">
+  <mat-card-content>
+    <p class="mat-title">Label</p>
+    <p class="mat-subheading-2">{{app.label}}</p>
 
-    <span class="h-spacer"></span>
+    <p class="mat-title">URL</p>
+    <p class="mat-subheading-2">{{app.url}}</p>
 
-    <button mat-icon-button aria-label="Options"
-      (click)="onOptions($event)">
-      <mat-icon>more_vert</mat-icon>
+    <p class="mat-title dim-text">Application ID</p>
+    <p class="mat-subheading-2 dim-text">{{app.aid}}</p>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <button mat-icon-button aria-label="Toggle visibility"
+      [disabled]="!isRunning"
+      (click)="onVisibility()">
+      <mat-icon>{{isVisible ? 'visibility_off' : 'visibility'}}</mat-icon>
     </button>
-  </div>
 
-  <div class="content mat-h2" aria-label="Launch"
+    <button *ngIf="!isRunning" mat-icon-button aria-label="Start application"
+      (click)="onStart()">
+      <mat-icon>play_circle</mat-icon>
+    </button>
 
-    (click)="onLaunch($event)">
-    {{data.label}}
-  </div>
-</ng-container>
+    <button *ngIf="isRunning" mat-icon-button aria-label="Stop application"
+      (click)="onStop()">
+      <mat-icon>stop_circle</mat-icon>
+    </button>
+  </mat-card-actions>
+</mat-card>

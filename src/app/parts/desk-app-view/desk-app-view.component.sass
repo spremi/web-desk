@@ -1,40 +1,11 @@
 \:host
-  margin: 8px
+  margin: 32px
   display: flex
   flex-direction: column
 
-  width: 144px
-  height: max-content
-  border: 1px solid #f0f0f0
+  .dim-text
+    color: rgba(144, 144, 144, 0.87)
 
-  align-items: stretch
-  box-sizing: border-box
-
-  transition: border-color 0.2s ease-in-out
-
-  .banner
+  mat-card-actions
     display: flex
-    flex-direction: row
-
-    padding: 0 8px
-    box-sizing: border-box
-
-    align-items: center
-    justify-content: space-between
-
-    background-color: #f0f0f0
-
-  .content
-    display: flex
-
-    min-height: 64px
-
-    align-items: center
-    justify-content: center
-
-    padding: 8px
-    box-sizing: border-box
-
-  &:hover
-    cursor: pointer
-    border-color: #424242
+    justify-content: flex-end
