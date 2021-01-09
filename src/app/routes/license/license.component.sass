@@ -5,25 +5,26 @@
   box-sizing: border-box
   flex-direction: column
 
-  padding: 16px 64px
-
   font-family: 'Lekton', monospace
+  font-weight: 500
 
   p
     margin: 8px 0
     text-align: justify
 
-  li
-    margin: 16px 0
+  p ~ p
+    margin-top: 0
 
-  .info
-    font-weight: 500
+  ol
+    margin: 8px 0
+
+  li
+    margin: 8px 0
 
   .title
-    margin: 8px 0
     line-height: 32px
-    font-size: 20px
 
+    font-size: 20px
     font-weight: 600
 
   p.copy
@@ -40,11 +41,3 @@
 
   .back-button
     align-self: end
-
-@media only screen and (max-width: 480px)
-  \:host
-    padding: 16px
-
-@media only screen and (max-height: 640px)
-  \:host
-    padding: 16px

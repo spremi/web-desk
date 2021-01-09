@@ -1,15 +1,24 @@
-<p class="info">WebDESK is available under terms of the 3-Clause BSD License.</p>
+<mat-toolbar>
+  <span>Software License</span>
 
-<div class="license-head">
+  <span class="h-spacer"></span>
+
+  <button mat-icon-button aria-label="Close"
+    (click)="goBack()">
+    <mat-icon>close</mat-icon>
+  </button>
+</mat-toolbar>
+
+<div class="content-head">
+  <p>WebDESK is available under terms of the 3-Clause BSD License.</p>
   <p class="title">The 3-Clause BSD License</p>
-
   <p class="copy">
-    <span>Copyright (c) 2020</span>, <span>Sanjeev Premi</span>.
+    <span>Copyright &copy; 2020</span>, <span>Sanjeev Premi</span>.
   </p>
   <p>All rights reserved.</p>
 </div>
 
-<div class="license-text">
+<div class="content-area">
   <p>Redistribution and use in source and binary forms, with or without
     modification, are permitted provided that the following conditions
     are met:</p>
@@ -39,8 +48,3 @@
       (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
       OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</p>
 </div>
-
-  <button class="back-button" mat-icon-button aria-label="Go back"
-    (click)="goBack()">
-    <mat-icon>arrow_back</mat-icon>
-  </button>

@@ -7,6 +7,13 @@ body
 .h-spacer
   flex-grow: 1
 
+.content-head
+  display: flex
+  flex-direction: column
+
+  margin: 8px 0
+  padding: 0 64px
+
 .content-area
   display: flex
   flex-direction: column
@@ -17,10 +24,19 @@ body
 
   overflow-y: auto
 
+.content-head + .content-area
+  margin-top: 0
+
 @media only screen and (max-width: 480px)
+  .content-head
+    padding: 0 16px
+
   .content-area
     padding: 0 16px
 
 @media only screen and (max-height: 640px)
+  .content-head
+    padding: 0 16px
+
   .content-area
     padding: 0 16px
