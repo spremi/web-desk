@@ -1,4 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { DeskApp, DeskAppEvent } from '@models/desk-config';
 import { IpcService } from '@services/ipc.service';
 import { Subscription } from 'rxjs';
@@ -13,7 +14,7 @@ export class WidgetComponent implements OnInit, OnDestroy {
 
   @Input() app: DeskApp;
 
-  constructor(private ipcSvc: IpcService) { }
+  constructor(private router: Router, private ipcSvc: IpcService) { }
 
   ngOnInit(): void {
     const subEvents = this.ipcSvc.getAppEvents().subscribe((ev: DeskAppEvent) => {
@@ -32,7 +33,7 @@ export class WidgetComponent implements OnInit, OnDestroy {
   }
 
   onDetails(): void {
-    console.log('TODO: Show details.');
+    this.router.navigate(['desk-app', {id: this.app.aid}]);
   }
 
   onLaunch(): void {
