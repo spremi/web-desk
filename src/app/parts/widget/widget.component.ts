@@ -1,11 +1,13 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { DeskApp, DeskAppEvent } from '@models/desk-config';
+import { RuntimeAttrs } from '@models/app-state';
+import { DeskApp } from '@models/desk-config';
 import { initIpcRequest, IpcNg2E } from '@models/ipc-request';
 import { IpcService } from '@services/ipc.service';
 import { RunStateService } from '@services/run-state.service';
 import { Subscription } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 
 const START_SUCCESS = 'Desk application started.';
 const START_FAILURE = 'Unable to start the desk application.';
@@ -20,6 +22,8 @@ export class WidgetComponent implements OnInit, OnDestroy {
 
   @Input() app: DeskApp;
 
+  runAttrs: RuntimeAttrs;
+
   constructor(
     private router: Router,
     private ipcSvc: IpcService,
@@ -27,11 +31,16 @@ export class WidgetComponent implements OnInit, OnDestroy {
     private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
-    const subEvents = this.ipcSvc.getAppEvents().subscribe((ev: DeskAppEvent) => {
-      console.log('Received event "' + ev.event + '" from desk app ' + ev.aid);
-    });
+    const runState = this.runSvc.getApps().pipe(
+        // Continue if 'our' key is present.
+        filter(obj => this.app.aid in obj),
+        // Extract value of 'our' key.
+        map(obj => obj[this.app.aid])
+      ).subscribe((attrs: RuntimeAttrs) => {
+        this.runAttrs = attrs;
+      });
 
-    this.subs.push(subEvents);
+    this.subs.push(runState);
   }
 
   ngOnDestroy(): void {
