@@ -138,7 +138,6 @@ export class IpcService {
       this.ipc.listen(IPC_E2NG, (event: any, type: string, data: any) => {
         switch (type) {
           case 'DeskAppEvent':
-            console.log(data);
             this.appEvents.next(data as DeskAppEvents);
             break;
 
