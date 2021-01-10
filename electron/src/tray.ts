@@ -84,12 +84,12 @@ export function createTrayMenu(
   const trayMenu = Menu.buildFromTemplate(trayTemplate);
   const trayApps = trayMenu.getMenuItemById('apps');
 
-  cfg.apps.forEach((arg: DeskApp, idx: number) => {
+  cfg.apps.forEach((arg: DeskApp) => {
     trayApps.submenu.append(new MenuItem({
       id: arg.aid,
       label: arg.label,
       click: () => {
-        launchDeskApp(arg.aid, idx);
+        launchDeskApp(arg.aid);
       },
     }));
   });

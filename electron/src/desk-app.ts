@@ -61,8 +61,13 @@ export function isDeskAppRunning(): boolean {
 /**
  * Launch desk application.
  */
-export function launchDeskApp(aid: string, idx: number): void {
-  if (idx < 0 || idx > refCfg.apps.length) {
+export function launchDeskApp(aid: string): void {
+  //
+  // Find index of the application with 'aid' in configuration.
+  //
+  const idx = refCfg.apps.findIndex(o => o.aid === aid);
+
+  if (idx === -1) {
     return;
   }
 
