@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { RuntimeAttrs } from '@models/app-state';
 
@@ -30,7 +30,9 @@ export class DeskAppViewComponent implements OnInit, OnDestroy {
   constructor(
     private ipcSvc: IpcService,
     private runSvc: RunStateService,
-    private snackBar: MatSnackBar) { }
+    private snackBar: MatSnackBar,
+    private cd: ChangeDetectorRef
+  ) { }
 
   ngOnInit(): void {
     this.sub = this.runSvc.getApps().pipe(
@@ -39,6 +41,8 @@ export class DeskAppViewComponent implements OnInit, OnDestroy {
     ).subscribe((attrs: RuntimeAttrs) => {
       this.isRunning = attrs.isRunning;
       this.isVisible = attrs.isMinimized;
+
+      this.cd.detectChanges();              // Force immediate detection
     });
   }
 
