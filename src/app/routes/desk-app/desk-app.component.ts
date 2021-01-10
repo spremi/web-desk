@@ -81,6 +81,8 @@ export class DeskAppComponent implements OnInit, OnDestroy {
       this.snackBar.open(msg, 'DISMISS');
 
       if (result) {
+        this.dataSvc.delDeskApp(this.aid);
+
         this.router.navigate(['home']);
       } else {
         this.delete = false;
