@@ -25,7 +25,9 @@ export class DeskAppViewComponent implements OnInit, OnDestroy {
   isRunning = false;
   isVisible = false;
 
-  constructor(private ipcSvc: IpcService, private snackBar: MatSnackBar) { }
+  constructor(
+    private ipcSvc: IpcService,
+    private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.sub = this.ipcSvc.getAppEvents().subscribe((ev: DeskAppEvent) => {
@@ -44,10 +46,10 @@ export class DeskAppViewComponent implements OnInit, OnDestroy {
     cmd.reqParams = [ this.app.aid ];
 
     this.ipcSvc.send<boolean>(cmd).then(result => {
-      if (result) {
-        this.isRunning = true;
-        this.isVisible = true;
-      } else {
+      //
+      // Successful launch is reported via parallel event channel.
+      //
+      if (!result) {
         this.snackBar.open(START_FAILURE, 'DISMISS');
       }
     }).catch(err => {
@@ -60,10 +62,10 @@ export class DeskAppViewComponent implements OnInit, OnDestroy {
     cmd.reqParams = [ this.app.aid ];
 
     this.ipcSvc.send<boolean>(cmd).then(result => {
-      if (result) {
-        this.isRunning = false;
-        this.isVisible = false;
-      } else {
+      //
+      // Successful closure is reported via parallel event channel.
+      //
+      if (!result) {
         this.snackBar.open(STOP_FAILURE, 'DISMISS');
       }
     }).catch(err => {
