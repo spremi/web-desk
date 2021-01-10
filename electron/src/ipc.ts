@@ -9,7 +9,7 @@
 
 import { BrowserWindow, IpcMainEvent } from 'electron/main';
 
-import { addDeskApp, readConfig } from './config';
+import { addDeskApp, modDeskApp, readConfig } from './config';
 import { initIpcResponse, IpcNg2E, IpcRequest, IPC_E2NG } from './models/ipc-request';
 
 
@@ -56,6 +56,22 @@ export function ipcHandler(event: IpcMainEvent, arg: IpcRequest): void {
                                arg.reqParams[2]);
 
         ret = JSON.stringify(initIpcResponse(true, res));
+        break;
+      }
+
+    case IpcNg2E.APP_MODIFY: {
+        if (arg.reqParams.length < 5) {
+          ret = JSON.stringify(initIpcResponse(false, 'Missing parameters'));
+        } else {
+          const res = modDeskApp(arg.reqParams[0],              // gid
+                                arg.reqParams[1],               // aid
+                                parseInt(arg.reqParams[2], 10), // seq
+                                arg.reqParams[3],               // label
+                                arg.reqParams[4]);              // url
+
+          ret = JSON.stringify(initIpcResponse(true, res));
+        }
+
         break;
       }
 
