@@ -10,6 +10,7 @@
 import { BrowserWindow, IpcMainEvent } from 'electron/main';
 
 import { addDeskApp, delDeskApp, modDeskApp, readConfig } from './config';
+import { launchDeskApp } from './desk-app';
 import { initIpcResponse, IpcNg2E, IpcRequest, IPC_E2NG } from './models/ipc-request';
 
 
@@ -79,6 +80,17 @@ export function ipcHandler(event: IpcMainEvent, arg: IpcRequest): void {
         const res = delDeskApp(arg.reqParams[0]);
 
         ret = JSON.stringify(initIpcResponse(true, res));
+        break;
+      }
+
+    case IpcNg2E.APP_LAUNCH: {
+        launchDeskApp(arg.reqParams[0]);
+
+        //
+        // Return a 'truthy' status to indicate successful operation.
+        // Not sure if there is an immediate reason for failure.
+        //
+        ret = JSON.stringify(initIpcResponse(true, true));
         break;
       }
 
