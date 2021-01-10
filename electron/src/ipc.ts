@@ -9,7 +9,7 @@
 
 import { BrowserWindow, IpcMainEvent } from 'electron/main';
 
-import { addDeskApp, modDeskApp, readConfig } from './config';
+import { addDeskApp, delDeskApp, modDeskApp, readConfig } from './config';
 import { initIpcResponse, IpcNg2E, IpcRequest, IPC_E2NG } from './models/ipc-request';
 
 
@@ -72,6 +72,13 @@ export function ipcHandler(event: IpcMainEvent, arg: IpcRequest): void {
           ret = JSON.stringify(initIpcResponse(true, res));
         }
 
+        break;
+      }
+
+    case IpcNg2E.APP_DELETE: {
+        const res = delDeskApp(arg.reqParams[0]);
+
+        ret = JSON.stringify(initIpcResponse(true, res));
         break;
       }
 
