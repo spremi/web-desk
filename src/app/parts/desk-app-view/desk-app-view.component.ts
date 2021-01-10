@@ -1,10 +1,13 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { RuntimeAttrs } from '@models/app-state';
 
-import { DeskApp, DeskAppEvent } from '@models/desk-config';
+import { DeskApp } from '@models/desk-config';
 import { initIpcRequest, IpcNg2E } from '@models/ipc-request';
 import { IpcService } from '@services/ipc.service';
+import { RunStateService } from '@services/run-state.service';
 import { Subscription } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 
 const START_FAILURE = 'Unable to start the desk application.';
 const STOP_FAILURE = 'Unable to stop the desk application.';
@@ -17,21 +20,25 @@ const RESTORE_FAILURE = 'Unable to restore desk application window.';
   styleUrls: ['./desk-app-view.component.sass'],
 })
 export class DeskAppViewComponent implements OnInit, OnDestroy {
+  private sub: Subscription;
 
   @Input() app: DeskApp;
-
-  private sub: Subscription;
 
   isRunning = false;
   isVisible = false;
 
   constructor(
     private ipcSvc: IpcService,
+    private runSvc: RunStateService,
     private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
-    this.sub = this.ipcSvc.getAppEvents().subscribe((ev: DeskAppEvent) => {
-      console.log('Received event "' + ev.event + '" from desk app ' + ev.aid);
+    this.sub = this.runSvc.getApps().pipe(
+      filter(obj => this.app.aid in obj),   // Continue if 'aid' exists as key
+      map(obj => obj[this.app.aid])         // Extract attributes for the 'aid'
+    ).subscribe((attrs: RuntimeAttrs) => {
+      this.isRunning = attrs.isRunning;
+      this.isVisible = attrs.isMinimized;
     });
   }
 
