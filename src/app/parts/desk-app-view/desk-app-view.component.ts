@@ -65,7 +65,7 @@ export class DeskAppViewComponent implements OnInit, OnDestroy {
   }
 
   onStop(): void {
-    const cmd = initIpcRequest(IpcNg2E.WIN_CLOSE);
+    const cmd = initIpcRequest(IpcNg2E.APP_CLOSE);
     cmd.reqParams = [ this.app.aid ];
 
     this.ipcSvc.send<boolean>(cmd).then(result => {
