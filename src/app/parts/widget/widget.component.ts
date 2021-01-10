@@ -1,8 +1,14 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { DeskApp, DeskAppEvent } from '@models/desk-config';
+import { initIpcRequest, IpcNg2E } from '@models/ipc-request';
 import { IpcService } from '@services/ipc.service';
+import { RunStateService } from '@services/run-state.service';
 import { Subscription } from 'rxjs';
+
+const START_SUCCESS = 'Desk application started.';
+const START_FAILURE = 'Unable to start the desk application.';
 
 @Component({
   selector: 'sp-widget',
@@ -14,7 +20,11 @@ export class WidgetComponent implements OnInit, OnDestroy {
 
   @Input() app: DeskApp;
 
-  constructor(private router: Router, private ipcSvc: IpcService) { }
+  constructor(
+    private router: Router,
+    private ipcSvc: IpcService,
+    private runSvc: RunStateService,
+    private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     const subEvents = this.ipcSvc.getAppEvents().subscribe((ev: DeskAppEvent) => {
@@ -37,6 +47,18 @@ export class WidgetComponent implements OnInit, OnDestroy {
   }
 
   onLaunch(): void {
-    console.log('TODO: Launch application.');
+    const cmd = initIpcRequest(IpcNg2E.APP_LAUNCH);
+    cmd.reqParams = [ this.app.aid ];
+
+    this.ipcSvc.send<boolean>(cmd).then(result => {
+      //
+      // Successful launch is reported via parallel event channel.
+      //
+      if (!result) {
+        this.snackBar.open(START_FAILURE, 'DISMISS');
+      }
+    }).catch(err => {
+      this.snackBar.open(START_FAILURE, 'DISMISS');
+    });
   }
 }
