@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DeskApp } from '@models/desk-config';
 import { initIpcRequest, IpcNg2E, IpcRequest } from '@models/ipc-request';
 import { OpStatus } from '@models/op-status';
+import { DataService } from '@services/data.service';
 import { IpcService } from '@services/ipc.service';
 
 @Component({
@@ -19,7 +20,7 @@ export class DeskAppEditComponent implements OnInit {
 
   @Output() status = new EventEmitter<OpStatus>();
 
-  constructor(private ipcSvc: IpcService) { }
+  constructor(private ipcSvc: IpcService, private dataSvc: DataService) { }
 
   ngOnInit(): void {
     this.appForm = new FormGroup({
@@ -64,6 +65,15 @@ export class DeskAppEditComponent implements OnInit {
 
       this.ipcSvc.send<DeskApp>(cmd).then(result => {
         if (result) {
+          if (cmd.reqKey === IpcNg2E.APP_CREATE) {
+            this.dataSvc.addDeskApp(result);
+          } else {
+            this.data.label = this.appForm.get('label').value;
+            this.data.url = this.appForm.get('url').value;
+
+            this.dataSvc.modDeskApp(result);
+          }
+
           this.status.emit(OpStatus.SUCCESS);
         } else {
           this.status.emit(OpStatus.FAILURE);
