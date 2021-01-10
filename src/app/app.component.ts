@@ -31,10 +31,12 @@ export class AppComponent implements OnInit, OnDestroy {
     this.sub = this.ipcSvc.getAppEvents().subscribe((ev: DeskAppEvent) => {
       switch (ev.event) {
         case DeskAppEvents.OPENED:
+          this.runSvc.appOpen(ev.aid);
           this.runningApps++;
           break;
 
         case DeskAppEvents.CLOSED:
+          this.runSvc.appClose(ev.aid);
           this.runningApps--;
           break;
 
