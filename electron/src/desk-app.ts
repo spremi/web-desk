@@ -125,3 +125,23 @@ export function launchDeskApp(aid: string): void {
     choice.restore();
   }
 }
+
+/**
+ * Close desk application.
+ */
+export function closeDeskApp(aid: string): void {
+  //
+  // Find index of the application with 'aid' in configuration.
+  //
+  const idx = refCfg.apps.findIndex(o => o.aid === aid);
+
+  if (idx === -1) {
+    return;
+  }
+
+  if (deskApps[idx] !== null) {
+    const choice = deskApps[idx];
+
+    choice.close();
+  }
+}
