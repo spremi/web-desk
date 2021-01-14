@@ -46,16 +46,16 @@ export class DeskAppEditComponent implements OnInit {
       let cmd: IpcRequest;
       const params: string[] = [];
 
-      if (this.data === null) {
-        cmd = initIpcRequest(IpcNg2E.APP_CREATE);
-
-        params.push(DEFAULT_GID);
-      } else {
+      if (this.data) {
         cmd = initIpcRequest(IpcNg2E.APP_MODIFY);
 
         params.push(this.data.gid);
         params.push(this.data.aid);
         params.push(this.data.seq.toString());
+      } else {
+        cmd = initIpcRequest(IpcNg2E.APP_CREATE);
+
+        params.push(DEFAULT_GID);
       }
 
       params.push(this.appForm.get('label').value);
