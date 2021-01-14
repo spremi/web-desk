@@ -40,6 +40,14 @@ export class AppComponent implements OnInit, OnDestroy {
           this.runningApps--;
           break;
 
+        case DeskAppEvents.MINIMIZED:
+          this.runSvc.appMinimize(ev.aid, true);
+          break;
+
+        case DeskAppEvents.RESTORED:
+          this.runSvc.appMinimize(ev.aid, false);
+          break;
+
         default:
           break;
       }
