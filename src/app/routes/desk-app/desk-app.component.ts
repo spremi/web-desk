@@ -119,9 +119,15 @@ export class DeskAppComponent implements OnInit, OnDestroy {
         msg = status === OpStatus.SUCCESS ? MOD_SUCCESS : MOD_FAILURE;
       } else {
         msg = status === OpStatus.SUCCESS ? ADD_SUCCESS : ADD_FAILURE;
+
+        this.router.navigate(['home']);
       }
 
       this.snackBar.open(msg, 'DISMISS');
+    } else {
+      if (this.add) {
+        this.router.navigate(['home']);
+      }
     }
 
     this.edit = false;
