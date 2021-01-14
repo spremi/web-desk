@@ -145,3 +145,51 @@ export function closeDeskApp(aid: string): void {
     choice.close();
   }
 }
+
+/**
+ * Minimize desk application.
+ */
+export function minimizeDeskApp(aid: string): void {
+  //
+  // Find index of the application with 'aid' in configuration.
+  //
+  const idx = refCfg.apps.findIndex(o => o.aid === aid);
+
+  if (idx === -1) {
+    return;
+  }
+
+  if (deskApps[idx] !== null) {
+    const choice = deskApps[idx];
+
+    choice.minimize();
+
+    ipcNotify(refMain,
+      'DeskAppEvent',
+      initDeskAppEvent(DeskAppEvents.MINIMIZED, aid, idx));
+  }
+}
+
+/**
+ * Restore desk application.
+ */
+export function restoreDeskApp(aid: string): void {
+  //
+  // Find index of the application with 'aid' in configuration.
+  //
+  const idx = refCfg.apps.findIndex(o => o.aid === aid);
+
+  if (idx === -1) {
+    return;
+  }
+
+  if (deskApps[idx] !== null) {
+    const choice = deskApps[idx];
+
+    choice.restore();
+
+    ipcNotify(refMain,
+      'DeskAppEvent',
+      initDeskAppEvent(DeskAppEvents.RESTORED, aid, idx));
+  }
+}
