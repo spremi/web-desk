@@ -108,6 +108,26 @@ export function launchDeskApp(aid: string): void {
         initDeskAppEvent(DeskAppEvents.CLOSED, aid, i));
     });
 
+    deskApp.on('minimize', () => {
+      const i = deskApps.findIndex((elem) => elem !== null &&
+                                    typeof elem === 'object' &&
+                                    elem.id === deskApp.id);
+
+      ipcNotify(refMain,
+        'DeskAppEvent',
+        initDeskAppEvent(DeskAppEvents.MINIMIZED, aid, i));
+    });
+
+    deskApp.on('restore', () => {
+      const i = deskApps.findIndex((elem) => elem !== null &&
+                                    typeof elem === 'object' &&
+                                    elem.id === deskApp.id);
+
+      ipcNotify(refMain,
+        'DeskAppEvent',
+        initDeskAppEvent(DeskAppEvents.RESTORED, aid, i));
+    });
+
     deskApp.setSkipTaskbar(true);
     deskApp.setTitle(refCfg.apps[idx].label);
     deskApp.loadURL(refCfg.apps[idx].url, { userAgent: UserAgent });
@@ -159,15 +179,11 @@ export function minimizeDeskApp(aid: string): void {
     return;
   }
 
-  if (deskApps[idx] !== null) {
-    const choice = deskApps[idx];
-
-    choice.minimize();
-
-    ipcNotify(refMain,
-      'DeskAppEvent',
-      initDeskAppEvent(DeskAppEvents.MINIMIZED, aid, idx));
+  if (deskApps[idx] === null) {
+    return;
   }
+
+  deskApps[idx].minimize();
 }
 
 /**
@@ -183,13 +199,9 @@ export function restoreDeskApp(aid: string): void {
     return;
   }
 
-  if (deskApps[idx] !== null) {
-    const choice = deskApps[idx];
-
-    choice.restore();
-
-    ipcNotify(refMain,
-      'DeskAppEvent',
-      initDeskAppEvent(DeskAppEvents.RESTORED, aid, idx));
+  if (deskApps[idx] === null) {
+    return;
   }
+
+  deskApps[idx].restore();
 }
