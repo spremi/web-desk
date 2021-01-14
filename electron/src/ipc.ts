@@ -10,7 +10,7 @@
 import { BrowserWindow, IpcMainEvent } from 'electron/main';
 
 import { addDeskApp, delDeskApp, modDeskApp, readConfig } from './config';
-import { closeDeskApp, launchDeskApp } from './desk-app';
+import { closeDeskApp, launchDeskApp, minimizeDeskApp, restoreDeskApp } from './desk-app';
 import { initIpcResponse, IpcNg2E, IpcRequest, IPC_E2NG } from './models/ipc-request';
 
 
@@ -100,7 +100,20 @@ export function ipcHandler(event: IpcMainEvent, arg: IpcRequest): void {
       }
 
     case IpcNg2E.WIN_MINIMIZE: {
-        mainWin.hide();
+        if (arg.reqParams && arg.reqParams.length > 0) {
+          minimizeDeskApp(arg.reqParams[0]);
+
+        } else {
+          mainWin.minimize();
+          mainWin.hide();
+        }
+
+        ret = JSON.stringify(initIpcResponse(true, true));
+        break;
+      }
+
+    case IpcNg2E.WIN_RESTORE: {
+        restoreDeskApp(arg.reqParams[0]);
 
         ret = JSON.stringify(initIpcResponse(true, true));
         break;
