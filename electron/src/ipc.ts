@@ -28,6 +28,9 @@ export function initIpcHandler(arg: BrowserWindow): void {
 
 /**
  * Handle IPC requests from Angular application.
+ *
+ * Some requests result in action - without any 'real' value to be returned
+ * back. In such, cases, simply return a truthy status as acknowledgement.
  */
 export function ipcHandler(event: IpcMainEvent, arg: IpcRequest): void {
   if (!arg) {
@@ -41,7 +44,6 @@ export function ipcHandler(event: IpcMainEvent, arg: IpcRequest): void {
   console.log('[I] IPC: Received request - ' + arg.reqKey);
 
   let ret = '';
-  let consume = false;
 
   switch (arg.reqKey) {
     case IpcNg2E.GET_APPS: {
@@ -86,10 +88,6 @@ export function ipcHandler(event: IpcMainEvent, arg: IpcRequest): void {
     case IpcNg2E.APP_LAUNCH: {
         launchDeskApp(arg.reqParams[0]);
 
-        //
-        // Return a 'truthy' status to indicate successful operation.
-        // Not sure if there is an immediate reason for failure.
-        //
         ret = JSON.stringify(initIpcResponse(true, true));
         break;
       }
@@ -97,17 +95,14 @@ export function ipcHandler(event: IpcMainEvent, arg: IpcRequest): void {
     case IpcNg2E.APP_CLOSE: {
         closeDeskApp(arg.reqParams[0]);
 
-        //
-        // Return a 'truthy' status to indicate successful operation.
-        // Not sure if there is an immediate reason for failure.
-        //
         ret = JSON.stringify(initIpcResponse(true, true));
         break;
       }
 
     case IpcNg2E.WIN_MINIMIZE: {
-        consume = true;
         mainWin.hide();
+
+        ret = JSON.stringify(initIpcResponse(true, true));
         break;
       }
 
@@ -115,9 +110,7 @@ export function ipcHandler(event: IpcMainEvent, arg: IpcRequest): void {
       break;
   }
 
-  if (!consume) {
-    event.sender.send(arg.resChannel, ret);
-  }
+  event.sender.send(arg.resChannel, ret);
 }
 
 /**
