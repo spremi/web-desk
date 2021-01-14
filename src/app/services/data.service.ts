@@ -56,7 +56,7 @@ export class DataService {
    * Add new desk application.
    */
   public addDeskApp(app: DeskApp): void {
-    const apps = { ... this.config.apps, app };
+    const apps = [ ... this.config.apps, app ];
 
     this.config.apps = apps;
 
