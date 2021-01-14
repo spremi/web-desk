@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { RuntimeAttrs } from '@models/app-state';
@@ -9,8 +9,10 @@ import { RunStateService } from '@services/run-state.service';
 import { Subscription } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 
-const START_SUCCESS = 'Desk application started.';
 const START_FAILURE = 'Unable to start the desk application.';
+const STOP_FAILURE = 'Unable to stop the desk application.';
+const MINIMIZE_FAILURE = 'Unable to minimize desk application window.';
+const RESTORE_FAILURE = 'Unable to restore desk application window.';
 
 @Component({
   selector: 'sp-widget',
@@ -22,25 +24,26 @@ export class WidgetComponent implements OnInit, OnDestroy {
 
   @Input() app: DeskApp;
 
-  runAttrs: RuntimeAttrs;
+  isRunning = false;
+  isMinimized = false;
 
   constructor(
     private router: Router,
     private ipcSvc: IpcService,
     private runSvc: RunStateService,
+    private cd: ChangeDetectorRef,
     private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     const runState = this.runSvc.getApps().pipe(
-        // Continue if 'our' key is present.
-        filter(obj => this.app.aid in obj),
-        // Extract value of 'our' key.
-        map(obj => obj[this.app.aid])
-      ).subscribe((attrs: RuntimeAttrs) => {
-        this.runAttrs = attrs;
-      });
+      filter(obj => this.app.aid in obj),   // Continue if 'aid' exists as key
+      map(obj => obj[this.app.aid])         // Extract attributes for the 'aid'
+    ).subscribe((attrs: RuntimeAttrs) => {
+      this.isRunning = attrs.isRunning;
+      this.isMinimized = attrs.isMinimized;
 
-    this.subs.push(runState);
+      this.cd.detectChanges();              // Force immediate detection
+    });
   }
 
   ngOnDestroy(): void {
@@ -55,7 +58,7 @@ export class WidgetComponent implements OnInit, OnDestroy {
     this.router.navigate(['desk-app', {id: this.app.aid}]);
   }
 
-  onLaunch(): void {
+  onStart(): void {
     const cmd = initIpcRequest(IpcNg2E.APP_LAUNCH);
     cmd.reqParams = [ this.app.aid ];
 
@@ -68,6 +71,40 @@ export class WidgetComponent implements OnInit, OnDestroy {
       }
     }).catch(err => {
       this.snackBar.open(START_FAILURE, 'DISMISS');
+    });
+  }
+
+  onStop(): void {
+    const cmd = initIpcRequest(IpcNg2E.APP_CLOSE);
+    cmd.reqParams = [ this.app.aid ];
+
+    this.ipcSvc.send<boolean>(cmd).then(result => {
+      //
+      // Successful closure is reported via parallel event channel.
+      //
+      if (!result) {
+        this.snackBar.open(STOP_FAILURE, 'DISMISS');
+      }
+    }).catch(err => {
+      this.snackBar.open(STOP_FAILURE, 'DISMISS');
+    });
+  }
+
+  onVisibility(): void {
+    const cmd = initIpcRequest(
+                  this.isMinimized ? IpcNg2E.WIN_RESTORE : IpcNg2E.WIN_MINIMIZE);
+    cmd.reqParams = [ this.app.aid ];
+
+    const failMsg = this.isMinimized ? RESTORE_FAILURE : MINIMIZE_FAILURE;
+
+    this.ipcSvc.send<boolean>(cmd).then(result => {
+      if (result) {
+        this.isMinimized = !this.isMinimized;
+      } else {
+        this.snackBar.open(failMsg, 'DISMISS');
+      }
+    }).catch(err => {
+      this.snackBar.open(failMsg, 'DISMISS');
     });
   }
 }
