@@ -36,7 +36,7 @@ export class DeskAppViewComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.sub = this.runSvc.getApps().pipe(
-      filter(obj => this.app.aid in obj),   // Continue if 'aid' exists as key
+      filter(obj => this.app?.aid in obj),  // Continue if 'aid' exists as key
       map(obj => obj[this.app.aid])         // Extract attributes for the 'aid'
     ).subscribe((attrs: RuntimeAttrs) => {
       this.isRunning = attrs.isRunning;
