@@ -25,7 +25,7 @@ export class DeskAppViewComponent implements OnInit, OnDestroy {
   @Input() app: DeskApp;
 
   isRunning = false;
-  isVisible = false;
+  isMinimized = false;
 
   constructor(
     private ipcSvc: IpcService,
@@ -40,7 +40,7 @@ export class DeskAppViewComponent implements OnInit, OnDestroy {
       map(obj => obj[this.app.aid])         // Extract attributes for the 'aid'
     ).subscribe((attrs: RuntimeAttrs) => {
       this.isRunning = attrs.isRunning;
-      this.isVisible = attrs.isMinimized;
+      this.isMinimized = attrs.isMinimized;
 
       this.cd.detectChanges();              // Force immediate detection
     });
@@ -86,14 +86,14 @@ export class DeskAppViewComponent implements OnInit, OnDestroy {
 
   onVisibility(): void {
     const cmd = initIpcRequest(
-                  this.isVisible ? IpcNg2E.WIN_MINIMIZE : IpcNg2E.WIN_RESTORE);
+                  this.isMinimized ? IpcNg2E.WIN_RESTORE : IpcNg2E.WIN_MINIMIZE);
     cmd.reqParams = [ this.app.aid ];
 
-    const failMsg = this.isVisible ? MINIMIZE_FAILURE : RESTORE_FAILURE;
+    const failMsg = this.isMinimized ? RESTORE_FAILURE : MINIMIZE_FAILURE;
 
     this.ipcSvc.send<boolean>(cmd).then(result => {
       if (result) {
-        this.isVisible = !this.isVisible;
+        this.isMinimized = !this.isMinimized;
       } else {
         this.snackBar.open(failMsg, 'DISMISS');
       }

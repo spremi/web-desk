@@ -14,7 +14,7 @@
     <button mat-icon-button aria-label="Toggle visibility"
       [disabled]="!isRunning"
       (click)="onVisibility()">
-      <mat-icon>{{isVisible ? 'visibility_off' : 'visibility'}}</mat-icon>
+      <mat-icon>{{isMinimized ? 'visibility' : 'visibility_off'}}</mat-icon>
     </button>
 
     <button *ngIf="!isRunning" mat-icon-button aria-label="Start application"
