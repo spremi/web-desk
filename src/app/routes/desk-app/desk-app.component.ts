@@ -32,6 +32,7 @@ export class DeskAppComponent implements OnInit, OnDestroy {
 
   canEdit = false;
 
+  add = false;
   edit = false;
   delete = false;
   deleteConfirm = false;
@@ -48,11 +49,17 @@ export class DeskAppComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.aid = this.route.snapshot.paramMap.get('id');
 
-    this.app = this.dataSvc.getDeskApp(this.aid);
+    if (this.aid) {
+      this.app = this.dataSvc.getDeskApp(this.aid);
 
-    this.sub = this.runSvc.getEdit().subscribe(flag => {
-      this.canEdit = flag;
-    });
+      this.sub = this.runSvc.getEdit().subscribe(flag => {
+        this.canEdit = flag;
+      });
+    } else {
+      this.add = true;
+      this.edit = true;
+      this.canEdit = true;
+    }
   }
 
   ngOnDestroy(): void {
