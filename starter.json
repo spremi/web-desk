@@ -1,0 +1,34 @@
+{
+  "ver": 0,
+  "seq": 4,
+  "apps": [
+    {
+      "aid": "3f229605-9c39-4cb2-ab9e-1851443a4264",
+      "gid": "0",
+      "label": "Google",
+      "seq": 0,
+      "url": "https://www.google.com"
+    },
+    {
+      "aid": "bfbd65d8-8d69-40d2-a08d-c387e74c3104",
+      "gid": "0",
+      "label": "DuckDuckGo",
+      "seq": 1,
+      "url": "https://www.duckduckgo.com"
+    },
+    {
+      "aid": "2e2f9377-3be2-4b83-a573-c997f82ff8c5",
+      "gid": "0",
+      "label": "StartPage",
+      "seq": 2,
+      "url": "https://www.startpage.com"
+    },
+    {
+      "aid": "e93aaccd-6720-45e0-b898-c41ae972db7e",
+      "gid": "0",
+      "seq": 4,
+      "label": "Swiss Cows",
+      "url": "https://www.swisscows.com/"
+    }
+  ]
+}
