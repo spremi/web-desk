@@ -10,7 +10,9 @@
 import { BrowserWindow, IpcMainEvent } from 'electron/main';
 
 import { addDeskApp, delDeskApp, modDeskApp, readConfig } from './config';
-import { closeDeskApp, launchDeskApp, minimizeDeskApp, restoreDeskApp } from './desk-app';
+import {
+  addRunConfig, closeDeskApp, delRunConfig, launchDeskApp, minimizeDeskApp, modRunConfig, restoreDeskApp
+} from './desk-app';
 import { initIpcResponse, IpcNg2E, IpcRequest, IPC_E2NG } from './models/ipc-request';
 
 
@@ -59,6 +61,8 @@ export function ipcHandler(event: IpcMainEvent, arg: IpcRequest): void {
                                arg.reqParams[2]);
 
         ret = JSON.stringify(initIpcResponse(true, res));
+
+        addRunConfig(res);
         break;
       }
 
@@ -73,6 +77,8 @@ export function ipcHandler(event: IpcMainEvent, arg: IpcRequest): void {
                                 arg.reqParams[4]);              // url
 
           ret = JSON.stringify(initIpcResponse(true, res));
+
+          modRunConfig(res);
         }
 
         break;
@@ -82,6 +88,8 @@ export function ipcHandler(event: IpcMainEvent, arg: IpcRequest): void {
         const res = delDeskApp(arg.reqParams[0]);
 
         ret = JSON.stringify(initIpcResponse(true, res));
+
+        delRunConfig(arg.reqParams[0]);
         break;
       }
 

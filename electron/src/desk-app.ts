@@ -12,7 +12,7 @@ import { BrowserWindow } from 'electron';
 import * as path from 'path';
 
 import { ipcNotify } from './ipc';
-import { initDeskAppEvent, DeskAppEvents, DeskConfig } from './models/desk-config';
+import { initDeskAppEvent, DeskApp, DeskAppEvents, DeskConfig } from './models/desk-config';
 
 
 /**
@@ -46,6 +46,46 @@ export function initDeskApps(
     refCfg = cfg;
 
     deskApps = new Array(cfg.apps.length).fill(null);
+}
+
+/**
+ * Add new app to run-time configuration.
+ */
+export function addRunConfig(app: DeskApp): void {
+  refCfg.apps.push(app);
+  deskApps.push(null);
+}
+
+/**
+ * Modify app in run-time configuration.
+ */
+export function modRunConfig(app: DeskApp): void {
+  const i = refCfg.apps.findIndex((elem) =>
+                elem !== null && typeof elem === 'object' && elem.aid === app.aid);
+
+  if (i === -1) {
+    return;
+  }
+
+  refCfg.apps.splice(i, 1, app);
+
+  const win = deskApps[i];
+
+  if (win !== null && typeof win === 'object') {
+    win.setTitle(app.label);
+    win.loadURL(app.url);
+  }
+}
+
+/**
+ * Remove app from run-time configuration.
+ */
+export function delRunConfig(aid: string): void {
+  const i = refCfg.apps.findIndex((elem) =>
+                elem !== null && typeof elem === 'object' && elem.aid === aid);
+
+  refCfg.apps.splice(i, 1);
+  deskApps.splice(i, 1);
 }
 
 /**
