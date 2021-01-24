@@ -7,10 +7,9 @@
 //
 
 
-import { Menu, MenuItem, Tray } from 'electron';
+import { BrowserWindow, Menu, MenuItem, Tray } from 'electron';
 
 import * as path from 'path';
-import * as url from 'url';
 
 import { launchDeskApp } from './desk-app';
 import { DeskApp, DeskConfig } from './models/desk-config';
@@ -19,9 +18,47 @@ import { DeskApp, DeskConfig } from './models/desk-config';
 const assetsDir = path.join(__dirname, './web-desk/assets');
 
 /**
+ * Main application window
+ */
+let refMain: BrowserWindow = null;
+
+/**
  * Application delegate in the system tray.
  */
 let deskTray: Tray = null;
+
+/**
+ * Template for tr
+ */
+const trayTemplate: Electron.MenuItemConstructorOptions[] = [
+  {
+    id: 'apps',
+    label: 'Application',
+    submenu: [],
+  },
+  {
+    type: 'separator',
+  },
+  {
+    role: 'quit',
+  },
+];
+
+/**
+ * Toggle visibility of application window.
+ */
+function toggleWindow(): void {
+  if (!refMain) {
+    return;
+  }
+
+  if (refMain.isVisible()) {
+    refMain.hide();
+  } else {
+    refMain.focus();
+    refMain.show();
+  }
+}
 
 /**
  * Create tray menu.
@@ -30,45 +67,8 @@ export function createTrayMenu(
     win: Electron.BrowserWindow,
     cfg: DeskConfig
   ): void {
-  const trayTemplate: Electron.MenuItemConstructorOptions[] = [
-      {
-        label: 'Configure',
-        click: async () => {
-          await win.loadURL(url.format({
-              pathname: path.join(__dirname, './web-desk/index.html'),
-              protocol: 'file:',
-              slashes: true,
-            }));
-        },
-      },
-    {
-      id: 'apps',
-      label: 'Application',
-      submenu: [],
-    },
-    {
-      type: 'separator',
-    },
-    {
-      role: 'quit',
-    },
-  ];
 
-  /**
-   * Toggle visibility of application window.
-   */
-  const toggleWindow = (): void => {
-    if (!win) {
-      return;
-    }
-
-    if (win.isVisible()) {
-      win.hide();
-    } else {
-      win.focus();
-      win.show();
-    }
-  };
+  refMain = win;
 
   deskTray = new Tray(path.join(assetsDir, 'app-tray.png'));
 
@@ -78,10 +78,15 @@ export function createTrayMenu(
   deskTray.setIgnoreDoubleClickEvents(true);
   deskTray.on('click', toggleWindow);
 
-  //
-  // Add configured applications to sub-menu.
-  //
+  updateTrayMenu(cfg);
+}
+
+/**
+ * Update tray menu.
+ */
+export function updateTrayMenu(cfg: DeskConfig): void {
   const trayMenu = Menu.buildFromTemplate(trayTemplate);
+
   const trayApps = trayMenu.getMenuItemById('apps');
 
   cfg.apps.forEach((arg: DeskApp) => {
