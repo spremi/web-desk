@@ -13,6 +13,7 @@ import { addDeskApp, delDeskApp, modDeskApp, readConfig } from './config';
 import {
   addRunConfig, closeDeskApp, delRunConfig, launchDeskApp, minimizeDeskApp, modRunConfig, restoreDeskApp
 } from './desk-app';
+import { logI, logW } from './logger';
 import { initIpcResponse, IpcNg2E, IpcRequest, IPC_E2NG } from './models/ipc-request';
 import { updateTrayMenu } from './tray';
 
@@ -37,14 +38,14 @@ export function initIpcHandler(arg: BrowserWindow): void {
  */
 export function ipcHandler(event: IpcMainEvent, arg: IpcRequest): void {
   if (!arg) {
-    console.log('[E] IPC: Received empty request.');
+    logW('IPC: Received empty request.');
 
     event.sender.send(arg.resChannel, JSON.stringify(initIpcResponse(false)));
 
     return;
   }
 
-  console.log('[I] IPC: Received request - ' + arg.reqKey);
+  logI('IPC: Received request - ' + arg.reqKey);
 
   let ret = '';
 
@@ -152,7 +153,7 @@ export function ipcHandler(event: IpcMainEvent, arg: IpcRequest): void {
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 export function ipcNotify(win: BrowserWindow, type: string, arg: any): void {
 
-  console.log('[I] IPC: Notify - ' + type);
+  logI('IPC: Notify - ' + type);
 
   win.webContents.send(IPC_E2NG, type, arg);
 }

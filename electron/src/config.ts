@@ -15,6 +15,7 @@ import { v4 as uuidV4 } from 'uuid';
 import * as fs from 'fs';
 import * as path from 'path';
 
+import { logE } from './logger';
 import { initDeskApp, initDeskConfig, DeskApp, DeskConfig } from './models/desk-config';
 
 /**
@@ -42,7 +43,7 @@ export function readConfig(): DeskConfig {
     try {
       cfg = JSON.parse(cfgStr);
     } catch (e) {
-      console.log('[E] : ' + e.name + ' ' + e.message);
+      logE(+ e.name + ' ' + e.message);
 
       err = true;
     }
@@ -88,7 +89,7 @@ export function ensureConfig(): void {
     if (e.code === 'ENOENT') {
       saveConfig(initDeskConfig());
     } else {
-      console.log('[E] : ' + e.name + ' ' + e.message);
+      logE(e.name + ' ' + e.message);
     }
   }
 }
