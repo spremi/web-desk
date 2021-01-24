@@ -67,13 +67,20 @@ export function modRunConfig(app: DeskApp): void {
     return;
   }
 
+  const oldUrl = refCfg.apps[i].url;
+
   refCfg.apps.splice(i, 1, app);
 
   const win = deskApps[i];
 
   if (win !== null && typeof win === 'object') {
     win.setTitle(app.label);
-    win.loadURL(app.url);
+
+    if (oldUrl !== app.url) {
+      win.webContents.session.clearStorageData().then(() => {
+        win.loadURL(app.url);
+      });
+    }
   }
 }
 
