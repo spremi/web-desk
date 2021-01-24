@@ -14,6 +14,7 @@ import {
   addRunConfig, closeDeskApp, delRunConfig, launchDeskApp, minimizeDeskApp, modRunConfig, restoreDeskApp
 } from './desk-app';
 import { initIpcResponse, IpcNg2E, IpcRequest, IPC_E2NG } from './models/ipc-request';
+import { updateTrayMenu } from './tray';
 
 
 /**
@@ -47,6 +48,8 @@ export function ipcHandler(event: IpcMainEvent, arg: IpcRequest): void {
 
   let ret = '';
 
+  let updateTray = false;
+
   switch (arg.reqKey) {
     case IpcNg2E.GET_APPS: {
         const cfg = readConfig();
@@ -63,6 +66,7 @@ export function ipcHandler(event: IpcMainEvent, arg: IpcRequest): void {
         ret = JSON.stringify(initIpcResponse(true, res));
 
         addRunConfig(res);
+        updateTray = true;
         break;
       }
 
@@ -79,6 +83,7 @@ export function ipcHandler(event: IpcMainEvent, arg: IpcRequest): void {
           ret = JSON.stringify(initIpcResponse(true, res));
 
           modRunConfig(res);
+          updateTray = true;
         }
 
         break;
@@ -90,6 +95,7 @@ export function ipcHandler(event: IpcMainEvent, arg: IpcRequest): void {
         ret = JSON.stringify(initIpcResponse(true, res));
 
         delRunConfig(arg.reqParams[0]);
+        updateTray = true;
         break;
       }
 
@@ -132,6 +138,12 @@ export function ipcHandler(event: IpcMainEvent, arg: IpcRequest): void {
   }
 
   event.sender.send(arg.resChannel, ret);
+
+  if (updateTray) {
+    const cfg = readConfig();
+
+    updateTrayMenu(cfg);
+  }
 }
 
 /**
