@@ -13,7 +13,9 @@ import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/mater
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
+import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { IconService } from '@services/icon.service';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BodyComponent } from './parts/body/body.component';
@@ -48,6 +50,7 @@ import { SettingsComponent } from './routes/settings/settings.component';
     AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,
+    HttpClientModule,
     ReactiveFormsModule,
     MatButtonModule,
     MatCardModule,
@@ -68,4 +71,8 @@ import { SettingsComponent } from './routes/settings/settings.component';
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {
+  constructor(private iconSvc: IconService) {
+    this.iconSvc.register();
+  }
+}
