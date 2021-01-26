@@ -19,7 +19,6 @@ import { ensureConfig, readConfig } from './config';
 import { initDeskApps } from './desk-app';
 import { initIpcHandler, ipcHandler } from './ipc';
 import { initLogger } from './logger';
-import { createAppMenu } from './menu';
 import { DeskConfig } from './models/desk-config';
 import { IPC_NG2E } from './models/ipc-request';
 import { createTrayMenu } from './tray';
@@ -90,7 +89,8 @@ app.on('ready', () => {
   appCfg = readConfig();
 
   createWindow();
-  createAppMenu(appWin, appCfg);
+  appWin.setMenu(null);
+
   createTrayMenu(appWin, appCfg);
 
   initDeskApps(appWin, appCfg);
