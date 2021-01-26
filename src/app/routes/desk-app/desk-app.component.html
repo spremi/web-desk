@@ -6,16 +6,16 @@
   <button mat-icon-button aria-label="Delete"
     [disabled]="!canEdit || edit || delete || add"
     (click)="onDelete()">
-    <mat-icon>delete</mat-icon>
+    <mat-icon svgIcon="delete"></mat-icon>
   </button>
   <button mat-icon-button aria-label="Edit"
     [disabled]="!canEdit || edit || delete"
     (click)="onEdit()">
-    <mat-icon>edit</mat-icon>
+    <mat-icon svgIcon="edit"></mat-icon>
   </button>
   <button mat-icon-button aria-label="Close"
     (click)="onClose()">
-    <mat-icon>close</mat-icon>
+    <mat-icon svgIcon="close"></mat-icon>
   </button>
 </mat-toolbar>
 
