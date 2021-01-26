@@ -85,6 +85,10 @@ export class DeskAppViewComponent implements OnInit, OnDestroy {
   }
 
   onVisibility(): void {
+    if (!this.isRunning) {
+      return;
+    }
+
     const cmd = initIpcRequest(
                   this.isMinimized ? IpcNg2E.WIN_RESTORE : IpcNg2E.WIN_MINIMIZE);
     cmd.reqParams = [ this.app.aid ];
