@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'sp-icon',
@@ -7,9 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class IconComponent implements OnInit {
 
+  @Input() icon: string;
+  @Input() label: string;
+  @Input() disabled = false;
+
   constructor() { }
 
   ngOnInit(): void {
   }
-
 }
