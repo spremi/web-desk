@@ -23,6 +23,7 @@ import { DeskAppEditComponent } from './parts/desk-app-edit/desk-app-edit.compon
 import { DeskAppViewComponent } from './parts/desk-app-view/desk-app-view.component';
 import { FooterComponent } from './parts/footer/footer.component';
 import { HeaderComponent } from './parts/header/header.component';
+import { IconComponent } from './parts/icon/icon.component';
 import { WidgetComponent } from './parts/widget/widget.component';
 import { AboutComponent } from './routes/about/about.component';
 import { DeskAppComponent } from './routes/desk-app/desk-app.component';
@@ -44,6 +45,7 @@ import { SettingsComponent } from './routes/settings/settings.component';
     DeskAppEditComponent,
     DeskAppComponent,
     WidgetComponent,
+    IconComponent,
   ],
   imports: [
     BrowserModule,
