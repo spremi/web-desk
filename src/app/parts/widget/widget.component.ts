@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, HostBinding, Input, OnDestroy, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { RuntimeAttrs } from '@models/app-state';
@@ -91,6 +91,10 @@ export class WidgetComponent implements OnInit, OnDestroy {
   }
 
   onVisibility(): void {
+    if (!this.isRunning) {
+      return;
+    }
+
     const cmd = initIpcRequest(
                   this.isMinimized ? IpcNg2E.WIN_RESTORE : IpcNg2E.WIN_MINIMIZE);
     cmd.reqParams = [ this.app.aid ];

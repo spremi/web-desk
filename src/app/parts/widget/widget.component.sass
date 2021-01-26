@@ -10,19 +10,23 @@
   align-items: stretch
   box-sizing: border-box
 
-  transition: border-color 0.2s ease-in-out
+  padding: 2px
+
+  background-color: #b3e5fc
+
+  transition: background-color 0.3s ease-in-out
+
+  &:hover
+    background-color: #ffecb3
 
   .banner
     display: flex
     flex-direction: row
 
-    padding: 0 8px
     box-sizing: border-box
 
     align-items: center
     justify-content: space-between
-
-    background-color: #f0f0f0
 
   .content
     display: flex
@@ -37,5 +41,5 @@
 
     user-select: none
 
-  &:hover
-    border-color: #424242
+  sp-icon
+    color: black
