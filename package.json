@@ -53,6 +53,7 @@
     "@typescript-eslint/parser": "^4.6.0",
     "codelyzer": "^6.0.0",
     "electron": "^11.2.1",
+    "electron-installer-debian": "^3.1.0",
     "electron-packager": "^15.2.0",
     "eslint": "^7.12.1",
     "jasmine-core": "~3.6.0",
