@@ -57,6 +57,7 @@
     "@typescript-eslint/eslint-plugin": "4.28.2",
     "@typescript-eslint/parser": "4.28.2",
     "electron": "^15.3.5",
+    "electron-installer-debian": "^3.1.0",
     "electron-packager": "^15.4.0",
     "eslint": "^7.26.0",
     "eslint-plugin-import": "latest",
