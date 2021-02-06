@@ -129,6 +129,10 @@ export function launchDeskApp(aid: string): void {
       },
     });
 
+    deskApp.webContents.on('devtools-opened', () => {
+      deskApp.webContents.closeDevTools();
+    });
+
     deskApp.on('page-title-updated', (e: Event) => {
       //
       // Prevent title getting changed.

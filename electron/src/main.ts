@@ -58,9 +58,13 @@ function createWindow(): void {
   initLogger(!app.isPackaged);
 
   //
-  // Open developer console.
+  // En(dis)able developer console.
   //
-  if (!app.isPackaged) {
+  if (app.isPackaged) {
+    appWin.webContents.on('devtools-opened', () => {
+      appWin.webContents.closeDevTools();
+    });
+  } else {
     appWin.webContents.openDevTools();
   }
 
