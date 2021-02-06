@@ -1,0 +1,12 @@
+{
+  "arch": "x86_64",
+  "src": "pkg/web-desk-linux-x64",
+  "dest": "pkg/debs",
+  "icon": "src/assets/app-logo.png",
+  "categories": [
+    "Utility"
+  ],
+  "lintianOverrides": [
+    "changelog-file-missing-in-native-package"
+  ]
+}

@@ -22,7 +22,7 @@
     "ele-start": "electron dist/main.js",
     "ele-seed": "cp starter.json dist/config.json",
     "pkg-linux-64": "electron-packager . web-desk --overwrite --asar --platform=linux --arch=x64  --icon=src/assets/app-logo.png --prune=true --out=pkg",
-    "rpm-linux-64": "electron-installer-redhat --config rpm64.json"
+    "deb-linux-64": "electron-installer-debian --config deb64.json"
   },
   "private": true,
   "dependencies": {
