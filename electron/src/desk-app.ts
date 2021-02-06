@@ -175,6 +175,7 @@ export function launchDeskApp(aid: string): void {
         initDeskAppEvent(DeskAppEvents.RESTORED, aid, i));
     });
 
+    deskApp.setMenu(null);
     deskApp.setSkipTaskbar(true);
     deskApp.setTitle(refCfg.apps[idx].label);
     deskApp.loadURL(refCfg.apps[idx].url, { userAgent: UserAgent });
