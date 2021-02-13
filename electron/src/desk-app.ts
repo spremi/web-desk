@@ -126,6 +126,7 @@ export function launchDeskApp(aid: string): void {
         defaultEncoding: 'utf-8',
         preload: path.join(__dirname, 'preload.js'),
         contextIsolation: true,
+        sandbox: true,
       },
     });
 
