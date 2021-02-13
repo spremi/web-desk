@@ -21,7 +21,12 @@ import { initDeskApp, initDeskConfig, DeskApp, DeskConfig } from './models/desk-
 /**
  * Directory containing the configuration.
  */
-const ConfDir = __dirname;
+let ConfDir = __dirname;
+
+/**
+ * Application directory
+ */
+const AppDir = 'web-desk';
 
 /**
  * Configuration file.
@@ -80,7 +85,20 @@ export function saveConfig(cfg: DeskConfig): boolean {
  * Ensure that configuration file exists.
  * If it doesn't, create one.
  */
-export function ensureConfig(): void {
+export function ensureConfig(packaged: boolean, dir: string): void {
+
+  if (packaged) {
+    ConfDir = path.join(dir, AppDir);
+
+    try {
+      fs.statSync(ConfDir);
+    } catch (e) {
+      fs.mkdirSync(ConfDir, '700');
+    }
+  } else {
+    ConfDir = __dirname;
+  }
+
   const cfgFile = path.join(ConfDir, ConfFile);
 
   try {

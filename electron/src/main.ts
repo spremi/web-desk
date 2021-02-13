@@ -88,7 +88,7 @@ function createWindow(): void {
 // Create the browser window.
 //
 app.on('ready', () => {
-  ensureConfig();
+  ensureConfig(app.isPackaged, app.getPath('appData'));
 
   appCfg = readConfig();
 
