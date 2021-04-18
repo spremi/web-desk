@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { initDeskApp, DeskApp, DeskConfig } from '@models/desk-config';
 import { initGroup } from '@models/group';
 import { initIpcRequest, IpcNg2E } from '@models/ipc-request';
+import { initTheme } from '@models/theme';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { distinctUntilChanged, filter } from 'rxjs/operators';
 import { IpcService } from './ipc.service';
@@ -96,6 +97,9 @@ export class DataService {
       seq: 5,
       groups: [
         initGroup(),
+      ],
+      themes: [
+        initTheme(),
       ],
       apps: [
         initDeskApp(

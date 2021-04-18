@@ -8,6 +8,7 @@
 
 
 import { Group } from './group';
+import { Theme } from './theme';
 
 /**
  * Describes a web application.
@@ -42,6 +43,9 @@ export interface DeskConfig {
   /** Array of groups. */
   groups: Group[];
 
+  /** Array of themes. */
+  themes: Theme[];
+
   /** Array of desk applications. */
   apps: DeskApp[];
 }
@@ -72,6 +76,7 @@ export function initDeskConfig(): DeskConfig {
     ver: 0,
     seq: 0,
     groups: [],
+    themes: [],
     apps: [],
   };
 }
