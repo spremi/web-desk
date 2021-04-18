@@ -7,6 +7,8 @@
 //
 
 
+import { THEME_ID } from './theme';
+
 /*
  * Attributes of 'default' general group.
  */
@@ -20,6 +22,9 @@ export interface Group {
   /** Unique identifier of the group. */
   gid: string;
 
+  /** Unique identifier of the theme. */
+  tid: string;
+
   /** Label for the group. */
   label: string;
 }
@@ -27,9 +32,10 @@ export interface Group {
 /**
  * Initializer for Group.
  */
-export function initGroup(gid?: string, label?: string): Group {
+export function initGroup(gid?: string, tid?: string, label?: string): Group {
   return {
     gid: (typeof gid === 'string' ? gid : GENERAL_ID),
+    tid: (typeof tid === 'string' ? tid : THEME_ID),
     label: (typeof label === 'string' ? label : GENERAL_LABEL),
   };
 }
