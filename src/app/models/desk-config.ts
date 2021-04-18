@@ -7,6 +7,8 @@
 //
 
 
+import { Group } from './group';
+
 /**
  * Describes a web application.
  */
@@ -14,7 +16,7 @@ export interface DeskApp {
   /** Unique identifier of the application. */
   aid: string;
 
-  /** Unique identifier of the group. (For future use) */
+  /** Unique identifier of the group. */
   gid: string;
 
   /** Sequence for relative placement. */
@@ -36,6 +38,9 @@ export interface DeskConfig {
 
   /** Current sequence number. Useful for display order. */
   seq: number;
+
+  /** Array of groups. */
+  groups: Group[];
 
   /** Array of desk applications. */
   apps: DeskApp[];
@@ -66,6 +71,7 @@ export function initDeskConfig(): DeskConfig {
   return {
     ver: 0,
     seq: 0,
+    groups: [],
     apps: [],
   };
 }

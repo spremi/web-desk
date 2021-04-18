@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { initDeskApp, DeskApp, DeskConfig } from '@models/desk-config';
+import { initGroup } from '@models/group';
 import { initIpcRequest, IpcNg2E } from '@models/ipc-request';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { distinctUntilChanged, filter } from 'rxjs/operators';
@@ -93,28 +94,31 @@ export class DataService {
     this.config = {
       ver: 0,
       seq: 5,
+      groups: [
+        initGroup(),
+      ],
       apps: [
         initDeskApp(
           '3f229605-9c39-4cb2-ab9e-1851443a4264',
-          '0',
+          null,
           0,
           'Google',
           'https://www.google.com'),
         initDeskApp(
           'bfbd65d8-8d69-40d2-a08d-c387e74c3104',
-          '0',
+          null,
           0,
           'DuckDuckGo',
           'https://www.duckduckgo.com'),
         initDeskApp(
           '2e2f9377-3be2-4b83-a573-c997f82ff8c5',
-          '0',
+          null,
           0,
           'StartPage',
           'https://www.startpage.com'),
         initDeskApp(
           'e93aaccd-6720-45e0-b898-c41ae972db7e',
-          '0',
+          null,
           0,
           'Swiss Cows',
           'https://www.swisscows.com/'),
