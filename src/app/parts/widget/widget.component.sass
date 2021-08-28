@@ -1,3 +1,9 @@
+$normal: #e1f5fe
+$normal-hover: #b3e5fc
+
+$running: #fff8e1
+$running-hover: #ffecb3
+
 \:host
   margin: 8px
   display: flex
@@ -5,39 +11,61 @@
 
   width: 144px
   height: max-content
-  border: 1px solid #f0f0f0
+  border: 2px solid $normal
 
   align-items: stretch
   box-sizing: border-box
 
-  padding: 2px
+  background-color: $normal
+  transition: all 0.3s linear
 
-  background-color: #b3e5fc
-
-  transition: background-color 0.3s ease-in-out
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px
 
   &:hover
-    background-color: #ffecb3
+    background-color: $normal
+    border-color: $normal-hover
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px
+
+    .banner
+      background-color: $normal-hover
+
+  &.running
+    background-color: $running
+    border-color: $running
+    box-shadow: rgba(96, 96, 96, 0.24) 0px 2px 8px 0px
+
+    &:hover
+      background-color: $running
+      border-color: $running-hover
+      box-shadow: rgba(64, 64, 64, 0.24) 0px 6px 12px -2px, rgba(0, 0, 0, 0.24) 0px 4px 8px -4px
+
+      .banner
+        background-color: $running-hover
 
   .banner
     display: flex
     flex-direction: row
 
     box-sizing: border-box
+    border: none
 
     align-items: center
     justify-content: space-between
+
+    transition: all 0.3s linear
 
   .content
     display: flex
 
     min-height: 64px
 
+    padding: 8px
+
     align-items: center
     justify-content: center
 
-    padding: 8px
     box-sizing: border-box
+    border: none
 
     user-select: none
 
