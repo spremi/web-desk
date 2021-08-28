@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, HostBinding, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, HostBinding, Input, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { RuntimeAttrs } from '@models/app-state';
@@ -28,6 +28,8 @@ export class WidgetComponent implements OnInit, OnDestroy {
   isMinimized = false;
 
   constructor(
+    private renderer: Renderer2,
+    private elem: ElementRef,
     private router: Router,
     private ipcSvc: IpcService,
     private runSvc: RunStateService,
@@ -35,6 +37,8 @@ export class WidgetComponent implements OnInit, OnDestroy {
     private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
+    this.toggleState();
+
     const runState = this.runSvc.getApps().pipe(
       filter(obj => this.app.aid in obj),   // Continue if 'aid' exists as key
       map(obj => obj[this.app.aid])         // Extract attributes for the 'aid'
@@ -43,6 +47,8 @@ export class WidgetComponent implements OnInit, OnDestroy {
       this.isMinimized = attrs.isMinimized;
 
       this.cd.detectChanges();              // Force immediate detection
+
+      this.toggleState();
     });
   }
 
@@ -110,5 +116,13 @@ export class WidgetComponent implements OnInit, OnDestroy {
     }).catch(err => {
       this.snackBar.open(failMsg, 'DISMISS');
     });
+  }
+
+  private toggleState(): void {
+    if (this.isRunning) {
+      this.renderer.addClass(this.elem.nativeElement, 'running');
+    } else {
+      this.renderer.removeClass(this.elem.nativeElement, 'running');
+    }
   }
 }
