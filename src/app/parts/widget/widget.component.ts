@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, HostBinding, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, HostBinding, HostListener, Input, OnDestroy, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { RuntimeAttrs } from '@models/app-state';
@@ -27,6 +27,9 @@ export class WidgetComponent implements OnInit, OnDestroy {
   @HostBinding('class.running')
   isRunning = false;
   isMinimized = false;
+
+  @HostBinding('class.hovered')
+  isHover = false;
 
   constructor(
     private router: Router,
@@ -111,5 +114,15 @@ export class WidgetComponent implements OnInit, OnDestroy {
     }).catch(err => {
       this.snackBar.open(failMsg, 'DISMISS');
     });
+  }
+
+  @HostListener('mouseenter')
+  onMouseEnter(ev: MouseEvent): void {
+    this.isHover = true;
+  }
+
+  @HostListener('mouseleave')
+  onMouseLeave(ev: MouseEvent): void {
+    this.isHover = false;
   }
 }
