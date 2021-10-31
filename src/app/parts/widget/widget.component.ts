@@ -24,6 +24,7 @@ export class WidgetComponent implements OnInit, OnDestroy {
 
   @Input() app: DeskApp;
 
+  @HostBinding('class.running')
   isRunning = false;
   isMinimized = false;
 
