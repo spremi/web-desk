@@ -24,11 +24,9 @@ export class WidgetComponent implements OnInit, OnDestroy {
 
   @Input() app: DeskApp;
 
-  @HostBinding('class.running')
   isRunning = false;
   isMinimized = false;
 
-  @HostBinding('class.hovered')
   isHover = false;
 
   constructor(
@@ -124,5 +122,20 @@ export class WidgetComponent implements OnInit, OnDestroy {
   @HostListener('mouseleave')
   onMouseLeave(ev: MouseEvent): void {
     this.isHover = false;
+  }
+
+  @HostBinding('class.running')
+  get running(): boolean {
+    return this.isRunning;
+  }
+
+  @HostBinding('class.hovered')
+  get hovered(): boolean {
+    return this.isHover;
+  }
+
+  @HostBinding('class')
+  get elevation(): string {
+    return this.isHover ? 'mat-elevation-z8' : 'mat-elevation-z1';
   }
 }

@@ -1,32 +1,61 @@
+$bg-body: #344955
+$bg-body-hover: #344955
+
+$fg-body: #f0f0f0
+$fg-body-hover: #fffffff
+
+$bg-indicator: #72deff
+$bg-indicator-running: #ffcf44
+
+$bg-bar: #232534
+$bg-body-hover-bar: #232534
+
+$fg-icon: #ffffff
+$fg-icon-start: #1eb980
+$fg-icon-stop: #ff6897
+
+
 \:host
   margin: 8px
   display: flex
   flex-direction: column
 
-  width: 144px
+  width: 208px
   height: max-content
-  border: 1px solid #f0f0f0
 
   align-items: stretch
   box-sizing: border-box
 
-  padding: 2px
+  padding: 0
 
-  background-color: #b3e5fc
+  background-color: $bg-body
+  color: $fg-body
 
-  transition: background-color 0.3s ease-in-out
+  transition: all 0.3s ease-in-out
 
   &:hover
-    background-color: #ffecb3
+    background-color: $bg-body-hover
+    color: $fg-body-hover
 
-  .banner
+    .bar
+      background-color: $bg-body-hover-bar
+      opacity: 1.0
+
+  .bar
     display: flex
     flex-direction: row
+
+    padding: 2px
 
     box-sizing: border-box
 
     align-items: center
     justify-content: space-between
+
+    background-color: $bg-bar
+    opacity: 0.0
+
+    transition: all 0.6s ease-in-out
 
   .content
     display: flex
@@ -34,12 +63,28 @@
     min-height: 64px
 
     align-items: center
-    justify-content: center
+    justify-content: left
 
     padding: 8px
     box-sizing: border-box
 
     user-select: none
 
+  .indicator
+    display: block
+    height: 5px
+
+    background-color: $bg-indicator
+    transition: all 0.3s ease-in-out
+
+    &.running
+      background-color: $bg-indicator-running
+
   sp-icon
-    color: black
+    color: $fg-icon
+
+    &.start
+      color: $fg-icon-start
+
+    &.stop
+      color: $fg-icon-stop

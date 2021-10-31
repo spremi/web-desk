@@ -1,5 +1,9 @@
 <ng-container *ngIf="app">
-  <div class="banner">
+  <div class="content mat-h2" aria-label="Application Name">
+    {{app.label}}
+  </div>
+
+  <div class="bar" [ngClass]="{'running' : isRunning}">
     <sp-icon icon="view"
       label="Details"
       (click)="onDetails()"></sp-icon>
@@ -14,19 +18,17 @@
     <ng-container *ngIf="isRunning; then stopApp; else startApp"></ng-container>
 
     <ng-template #stopApp>
-      <sp-icon icon="stop"
+      <sp-icon class="stop" icon="stop"
         label="Stop application"
         (click)="onStop()"></sp-icon>
     </ng-template>
 
     <ng-template #startApp>
-      <sp-icon icon="start"
+      <sp-icon class="start" icon="start"
         label="Start application"
         (click)="onStart()"></sp-icon>
     </ng-template>
   </div>
 
-  <div class="content mat-h2" aria-label="Application Name">
-    {{app.label}}
-  </div>
+  <div class="indicator" [ngClass]="{'running' : isRunning}"></div>
 </ng-container>
