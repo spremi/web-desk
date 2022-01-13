@@ -28,6 +28,23 @@ export interface DeskApp {
 }
 
 /**
+ * Describes a group of web application.
+ */
+export interface DeskGroup {
+  /** Unique identifier of the group. */
+  gid: string;
+
+  /** Label for the group. */
+  label: string;
+
+  /** Brief description of the group. */
+  desc?: string;
+
+  /** Sequence for relative placement. */
+  seq: number;
+}
+
+/**
  * Describes stored configuration.
  */
 export interface DeskConfig {
@@ -36,6 +53,9 @@ export interface DeskConfig {
 
   /** Current sequence number. Useful for display order. */
   seq: number;
+
+  /** Array of desk application groups. */
+  groups: DeskGroup[];
 
   /** Array of desk applications. */
   apps: DeskApp[];
@@ -60,12 +80,29 @@ export function initDeskApp(
 }
 
 /**
+ * Initializer for DeskGroup.
+ */
+export function initDeskGroup(
+  gid: string,
+  label: string,
+  group: string,
+  seq?: number): DeskGroup {
+  return {
+    gid: (typeof gid === 'string' ? gid : null),
+    label: (typeof label === 'string' ? label : null),
+    desc: (typeof label === 'string' ? group : null),
+    seq: (typeof seq === 'number' ? seq : -1),
+  };
+}
+
+/**
  * Initializer for DeskConfig.
  */
 export function initDeskConfig(): DeskConfig {
   return {
     ver: 0,
     seq: 0,
+    groups: [],
     apps: [],
   };
 }

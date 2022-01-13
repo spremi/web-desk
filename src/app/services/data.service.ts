@@ -3,6 +3,7 @@ import { initDeskApp, DeskApp, DeskConfig } from '@models/desk-config';
 import { initIpcRequest, IpcNg2E } from '@models/ipc-request';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { distinctUntilChanged, filter } from 'rxjs/operators';
+import { initDeskGroup } from '@models/desk-config';
 import { IpcService } from './ipc.service';
 
 @Injectable({
@@ -93,6 +94,26 @@ export class DataService {
     this.config = {
       ver: 0,
       seq: 5,
+      groups: [
+        initDeskGroup(
+          'f2e4ad07-10ad-4dc1-b251-65b568157048',
+          'Group 0',
+          'This is group 0',
+          0
+        ),
+        initDeskGroup(
+          '22b6bee4-d05d-4f20-ba7f-25de7fb5aee2',
+          'Group 1',
+          'This is group 1',
+          1
+        ),
+        initDeskGroup(
+          '08fd0aa2-3a5f-413f-b518-b4072958ddd4',
+          'Group 2',
+          'This is group 2',
+          2
+        ),
+      ],
       apps: [
         initDeskApp(
           '3f229605-9c39-4cb2-ab9e-1851443a4264',
