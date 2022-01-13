@@ -3,6 +3,7 @@ import { initDeskApp, DeskApp, DeskConfig } from '@models/desk-config';
 import { initIpcRequest, IpcNg2E } from '@models/ipc-request';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { distinctUntilChanged, filter } from 'rxjs/operators';
+import { initDeskGroup } from '@models/desk-config';
 import { IpcService } from './ipc.service';
 
 @Injectable({
@@ -93,28 +94,48 @@ export class DataService {
     this.config = {
       ver: 0,
       seq: 5,
+      groups: [
+        initDeskGroup(
+          'f2e4ad07-10ad-4dc1-b251-65b568157048',
+          'Group 0',
+          'This is group 0',
+          0
+        ),
+        initDeskGroup(
+          '22b6bee4-d05d-4f20-ba7f-25de7fb5aee2',
+          'Group 1',
+          'This is group 1',
+          1
+        ),
+        initDeskGroup(
+          '08fd0aa2-3a5f-413f-b518-b4072958ddd4',
+          'Group 2',
+          'This is group 2',
+          2
+        ),
+      ],
       apps: [
         initDeskApp(
           '3f229605-9c39-4cb2-ab9e-1851443a4264',
-          '0',
+          'f2e4ad07-10ad-4dc1-b251-65b568157048',
           0,
           'Google',
           'https://www.google.com'),
         initDeskApp(
           'bfbd65d8-8d69-40d2-a08d-c387e74c3104',
-          '0',
+          '22b6bee4-d05d-4f20-ba7f-25de7fb5aee2',
           0,
           'DuckDuckGo',
           'https://www.duckduckgo.com'),
         initDeskApp(
           '2e2f9377-3be2-4b83-a573-c997f82ff8c5',
-          '0',
+          '22b6bee4-d05d-4f20-ba7f-25de7fb5aee2',
           0,
           'StartPage',
           'https://www.startpage.com'),
         initDeskApp(
           'e93aaccd-6720-45e0-b898-c41ae972db7e',
-          '0',
+          'f2e4ad07-10ad-4dc1-b251-65b568157048',
           0,
           'Swiss Cows',
           'https://www.swisscows.com/'),

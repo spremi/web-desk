@@ -1,31 +1,51 @@
 {
   "ver": 0,
   "seq": 4,
+  "groups": [
+    {
+      "gid": "f2e4ad07-10ad-4dc1-b251-65b568157048",
+      "label": "Group 0",
+      "desc": "This is group 0",
+      "seq": 0
+    },
+    {
+      "gid": "22b6bee4-d05d-}f20-ba7f-25de7fb5aee2",
+      "label": "Group 1",
+      "desc": "This is group 1",
+      "seq": 1
+    },
+    {
+      "gid": "08fd0aa2-3a5f-413f-b518-b4072958ddd4",
+      "label": "Group 2",
+      "desc": "This is group 2",
+      "seq": 2
+    }
+  ],
   "apps": [
     {
       "aid": "3f229605-9c39-4cb2-ab9e-1851443a4264",
-      "gid": "0",
+      "gid": "f2e4ad07-10ad-4dc1-b251-65b568157048",
       "label": "Google",
       "seq": 0,
       "url": "https://www.google.com"
     },
     {
       "aid": "bfbd65d8-8d69-40d2-a08d-c387e74c3104",
-      "gid": "0",
+      "gid": "22b6bee4-d05d-}f20-ba7f-25de7fb5aee2",
       "label": "DuckDuckGo",
       "seq": 1,
       "url": "https://www.duckduckgo.com"
     },
     {
       "aid": "2e2f9377-3be2-4b83-a573-c997f82ff8c5",
-      "gid": "0",
+      "gid": "f2e4ad07-10ad-4dc1-b251-65b568157048",
       "label": "StartPage",
       "seq": 2,
       "url": "https://www.startpage.com"
     },
     {
       "aid": "e93aaccd-6720-45e0-b898-c41ae972db7e",
-      "gid": "0",
+      "gid": "08fd0aa2-3a5f-413f-b518-b4072958ddd4",
       "seq": 4,
       "label": "Swiss Cows",
       "url": "https://www.swisscows.com/"
