@@ -19,6 +19,10 @@ export const AppIcons: IconSet = {
       file: 'anchor-24px.svg',
     },
     {
+      icon: 'category',
+      file: 'category-24px.svg',
+    },
+    {
       icon: 'info',
       file: 'info-24px.svg',
     },
