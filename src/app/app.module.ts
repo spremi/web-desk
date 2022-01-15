@@ -27,6 +27,7 @@ import { IconComponent } from './parts/icon/icon.component';
 import { WidgetComponent } from './parts/widget/widget.component';
 import { AboutComponent } from './routes/about/about.component';
 import { DeskAppComponent } from './routes/desk-app/desk-app.component';
+import { DeskGroupComponent } from './routes/desk-group/desk-group.component';
 import { HomeComponent } from './routes/home/home.component';
 import { LicenseComponent } from './routes/license/license.component';
 import { SettingsComponent } from './routes/settings/settings.component';
@@ -46,6 +47,7 @@ import { SettingsComponent } from './routes/settings/settings.component';
     DeskAppComponent,
     WidgetComponent,
     IconComponent,
+    DeskGroupComponent,
   ],
   imports: [
     BrowserModule,
