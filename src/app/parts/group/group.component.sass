@@ -1,0 +1,53 @@
+$bg-body: #232f34
+$bg-body-hover: #232f34
+
+$fg-body: #f0f0f0
+$fg-body-hover: #fffffff
+
+$bg-indicator: #b15dff
+$bg-indicator-selected: #ff7000
+
+\:host
+  margin: 8px
+  display: flex
+  flex-direction: column
+
+  width: 208px
+  height: max-content
+
+  align-items: stretch
+  box-sizing: border-box
+
+  padding: 0
+
+  background-color: $bg-body
+  color: $fg-body
+
+  transition: all 0.3s ease-in-out
+
+  &:hover
+    background-color: $bg-body-hover
+    color: $fg-body-hover
+
+  .content
+    display: flex
+    flex-direction: column
+
+    min-height: 64px
+
+    justify-content: left
+
+    padding: 8px
+    box-sizing: border-box
+
+    user-select: none
+
+  .indicator
+    display: block
+    height: 5px
+
+    background-color: $bg-indicator
+    transition: all 0.3s ease-in-out
+
+    &.selected
+      background-color: $bg-indicator-selected
