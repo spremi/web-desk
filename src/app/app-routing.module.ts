@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AboutComponent } from '@routes/about/about.component';
 import { DeskAppComponent } from '@routes/desk-app/desk-app.component';
+import { DeskGroupComponent } from '@routes/desk-group/desk-group.component';
 import { HomeComponent } from '@routes/home/home.component';
 import { LicenseComponent } from '@routes/license/license.component';
 import { SettingsComponent } from '@routes/settings/settings.component';
@@ -32,6 +33,10 @@ const routes: Routes = [
   {
     path: 'desk-app',
     component: DeskAppComponent,
+  },
+  {
+    path: 'desk-group',
+    component: DeskGroupComponent,
   },
 ];
 
