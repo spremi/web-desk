@@ -32,6 +32,12 @@ export abstract class IpcNg2E {
   static readonly WIN_MINIMIZE  = 'win-minimize';
   static readonly WIN_RESTORE   = 'win-restore';
   static readonly WIN_CLOSE     = 'win-close';
+
+  static readonly GET_GROUPS    = 'get-groups';
+
+  static readonly GROUP_CREATE  = 'grp-create';
+  static readonly GROUP_DELETE  = 'grp-delete';
+  static readonly GROUP_MODIFY  = 'grp-modify';
 }
 
 /**
