@@ -1,1 +1,16 @@
-<p>groups works!</p>
+<mat-toolbar>
+  <span>Groups</span>
+
+  <span class="h-spacer"></span>
+
+  <button mat-icon-button aria-label="Close"
+    [routerLink]="['/']">
+    <mat-icon svgIcon="close"></mat-icon>
+  </button>
+</mat-toolbar>
+
+<div class="contents" *ngIf="groups$ | async">
+  <sp-group
+    *ngFor="let group of groups$ | async" [group]="group">
+  </sp-group>
+</div>

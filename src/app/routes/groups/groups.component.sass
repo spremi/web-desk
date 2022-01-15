@@ -1,0 +1,29 @@
+\:host
+  display: flex
+  flex-direction: column
+  height: 100%
+  width: 100%
+
+  .contents
+    display: flex
+    padding: 32px
+
+    box-sizing: border-box
+
+    flex-flow: row wrap
+
+    align-content: baseline
+    justify-content: space-evenly
+
+    flex: 1 1 auto
+    overflow-y: auto
+
+@media only screen and (max-width: 640px)
+  \:host
+    .contents
+      padding: 16px
+
+@media only screen and (max-height: 640px)
+  \:host
+    .contents
+      padding: 16px

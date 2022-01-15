@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { DeskGroup } from '@models/desk-config';
+import { DataService } from '@services/data.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'sp-groups',
@@ -7,9 +10,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GroupsComponent implements OnInit {
 
-  constructor() { }
+  groups$: Observable<DeskGroup[]>;
+
+  constructor(private dataSvc: DataService) { }
 
   ngOnInit(): void {
+    this.groups$ = this.dataSvc.getDeskGroups();
   }
-
 }
