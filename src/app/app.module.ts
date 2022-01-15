@@ -22,6 +22,7 @@ import { BodyComponent } from './parts/body/body.component';
 import { DeskAppEditComponent } from './parts/desk-app-edit/desk-app-edit.component';
 import { DeskAppViewComponent } from './parts/desk-app-view/desk-app-view.component';
 import { FooterComponent } from './parts/footer/footer.component';
+import { GroupViewComponent } from './parts/group-view/group-view.component';
 import { GroupComponent } from './parts/group/group.component';
 import { HeaderComponent } from './parts/header/header.component';
 import { IconComponent } from './parts/icon/icon.component';
@@ -52,6 +53,7 @@ import { SettingsComponent } from './routes/settings/settings.component';
     GroupsComponent,
     GroupComponent,
     DeskGroupComponent,
+    GroupViewComponent,
   ],
   imports: [
     BrowserModule,
