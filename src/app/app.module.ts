@@ -29,6 +29,7 @@ import { WidgetComponent } from './parts/widget/widget.component';
 import { AboutComponent } from './routes/about/about.component';
 import { DeskAppComponent } from './routes/desk-app/desk-app.component';
 import { DeskGroupComponent } from './routes/desk-group/desk-group.component';
+import { GroupsComponent } from './routes/groups/groups.component';
 import { HomeComponent } from './routes/home/home.component';
 import { LicenseComponent } from './routes/license/license.component';
 import { SettingsComponent } from './routes/settings/settings.component';
@@ -50,6 +51,7 @@ import { SettingsComponent } from './routes/settings/settings.component';
     IconComponent,
     DeskGroupComponent,
     GroupComponent,
+    GroupsComponent,
   ],
   imports: [
     BrowserModule,
