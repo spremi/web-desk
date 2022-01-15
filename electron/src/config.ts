@@ -16,7 +16,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 import { logE } from './logger';
-import { initDeskApp, initDeskConfig, DeskApp, DeskConfig } from './models/desk-config';
+import { initDeskApp, initDeskConfig, initDeskGroup, DeskApp, DeskConfig, DeskGroup } from './models/desk-config';
 
 /**
  * Directory containing the configuration.
@@ -211,6 +211,108 @@ export function delDeskApp(aid: string): boolean {
                 elem !== null && typeof elem === 'object' && elem.aid !== aid);
 
   cfg.apps = apps;
+
+  return saveConfig(cfg);
+}
+
+//
+// GROUPS
+//
+
+/**
+ * Add new group.
+ */
+export function addDeskGroup(
+  label: string,
+  desc: string): DeskGroup {
+  const cfg = readConfig();
+
+  if (!cfg) {
+    return null;
+  }
+
+  const gid = uuidV4();
+
+  const group = initDeskGroup(gid, label, desc, 0);
+
+  cfg.groups.push(group);
+
+  if (saveConfig(cfg)) {
+    return group;
+  }
+
+  return null;
+}
+
+/**
+ * Get configuration of desk group with specified id.
+ */
+export function getDeskGroup(id: string): DeskGroup {
+  const cfg = readConfig();
+
+  if (!cfg) {
+    return null;
+  }
+
+  const i = cfg.groups.findIndex((elem) =>
+    elem !== null && typeof elem === 'object' && elem.gid === id);
+
+  let group: DeskGroup = null;
+
+  if (i !== -1) {
+    group = { ...cfg.groups[i] };
+  }
+
+  return group;
+}
+
+/**
+ * Modify attributes of a desk group.
+ */
+export function modDeskGroup(
+  gid: string,
+  label: string,
+  desc: string,
+  seq: number): DeskGroup {
+  const cfg = readConfig();
+
+  if (!cfg) {
+    return null;
+  }
+
+  const i = cfg.groups.findIndex((elem) =>
+    elem !== null && typeof elem === 'object' && elem.gid === gid);
+
+  if (i === -1) {
+    return null;
+  }
+
+  cfg.groups[i].gid = gid;
+  cfg.groups[i].label = label;
+  cfg.groups[i].desc = desc;
+  cfg.groups[i].seq = seq;
+
+  if (saveConfig(cfg)) {
+    return getDeskGroup(gid);
+  }
+
+  return null;
+}
+
+/**
+ * Delete group from configuration.
+ */
+export function delDeskGroup(id: string): boolean {
+  const cfg = readConfig();
+
+  if (!cfg) {
+    return null;
+  }
+
+  const groups = cfg.groups.filter((elem) =>
+    elem !== null && typeof elem === 'object' && elem.gid !== id);
+
+  cfg.groups = groups;
 
   return saveConfig(cfg);
 }
