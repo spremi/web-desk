@@ -73,6 +73,14 @@ export const ActionIcons: IconSet = {
       file: 'stop-24px.svg',
     },
     {
+      icon: 'toggle_off',
+      file: 'toggle_off-24px.svg',
+    },
+    {
+      icon: 'toggle_on',
+      file: 'toggle_on-24px.svg',
+    },
+    {
       icon: 'view',
       file: 'article-24px.svg',
     },
