@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { initDeskApp, DeskApp, DeskConfig } from '@models/desk-config';
+import { initDeskApp, DeskApp, DeskConfig, DeskGroup } from '@models/desk-config';
 import { initIpcRequest, IpcNg2E } from '@models/ipc-request';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { distinctUntilChanged, filter } from 'rxjs/operators';
@@ -12,6 +12,7 @@ import { IpcService } from './ipc.service';
 export class DataService {
   private config: DeskConfig = null;
 
+  private deskGroups$: BehaviorSubject<DeskGroup[]> = new BehaviorSubject<DeskGroup[]>(null);
   private deskApps$: BehaviorSubject<DeskApp[]> = new BehaviorSubject<DeskApp[]>(null);
 
   constructor(private ipcSvc: IpcService) { }
@@ -25,6 +26,7 @@ export class DataService {
     this.ipcSvc.send<DeskConfig>(reqConfig).then(result => {
       if (result) {
         this.config = result;
+        this.deskGroups$.next(result.groups);
         this.deskApps$.next(result.apps);
       } else {
         console.log('DataSvc: IPC failure.');
@@ -87,6 +89,16 @@ export class DataService {
   }
 
   /**
+   * Get observable to array of desk applications.
+   */
+  public getDeskGroups(): Observable<DeskGroup[]> {
+    return this.deskGroups$.asObservable().pipe(
+      filter(c => c !== null),
+      distinctUntilChanged()
+    );
+  }
+
+  /**
    * Provide dummy data. Useful for standalone development.
    * TODO: Remove after interface is ready.
    */
@@ -142,6 +154,7 @@ export class DataService {
       ],
     };
 
+    this.deskGroups$.next(this.config.groups);
     this.deskApps$.next(this.config.apps);
   }
 }
