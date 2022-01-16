@@ -1,1 +1,43 @@
-<p>desk-group works!</p>
+<mat-toolbar>
+  <span>Desk Group</span>
+
+  <span class="h-spacer"></span>
+
+  <button mat-icon-button aria-label="Delete"
+    [disabled]=" (canEdit$ | async) === false || edit || delete || add"
+    (click)="onDelete()">
+    <mat-icon svgIcon="delete"></mat-icon>
+  </button>
+  <button mat-icon-button aria-label="Edit"
+    [disabled]="(canEdit$ | async) === false || edit || delete"
+    (click)="onEdit()">
+    <mat-icon svgIcon="edit"></mat-icon>
+  </button>
+  <button mat-icon-button aria-label="Close"
+    (click)="onClose()">
+    <mat-icon svgIcon="close"></mat-icon>
+  </button>
+</mat-toolbar>
+
+<div class="content-area">
+  <sp-group-edit *ngIf="edit"
+    [data]="group"
+    (status)="onStatus($event)"
+    ></sp-group-edit>
+
+  <sp-group-view *ngIf="!edit"
+    [data]="group"
+    ></sp-group-view>
+
+  <div class="delete-bar" *ngIf="delete">
+    <button mat-raised-button aria-label="Cancel deletion"
+      [disabled]="deleteConfirm"
+      (click)="onDeleteCancel()"
+      >CANCEL</button>
+
+    <button mat-raised-button color="warn" aria-label="Confirm deletion"
+      [disabled]="deleteConfirm"
+      (click)="onDeleteConfirm()"
+      >DELETE</button>
+  </div>
+</div>
