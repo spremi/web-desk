@@ -1,1 +1,18 @@
-<p>group-view works!</p>
+<mat-card *ngIf="data">
+  <mat-card-title>{{data.gid}}</mat-card-title>
+
+  <mat-card-content>
+    <p class="form-label">Label</p>
+    <p class="form-value mat-body">{{data.label}}</p>
+
+    <p class="form-label">Description</p>
+    <p class="form-value mat-body">{{data.desc}}</p>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <sp-icon icon="{{isSelected ? 'toggle_on' : 'toggle_off'}}"
+      label="Toggle selection"
+      [ngClass]="{'selected' : isSelected}"
+      (click)="onSelect()"></sp-icon>
+  </mat-card-actions>
+</mat-card>

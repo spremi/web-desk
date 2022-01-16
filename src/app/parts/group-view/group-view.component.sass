@@ -1,0 +1,41 @@
+$fill-normal: #b15dff
+$fill-selected: #ff7000
+
+\:host
+  margin: 32px
+  display: flex
+  flex-direction: column
+
+  .form-label
+    font-size: 20px
+    font-weight: 600
+    color: #808080
+
+  .form-label:not(:first-child)
+    margin-top: 32px
+
+  .form-value
+    font-weight: 500
+
+  .mat-card-title
+    font-family: Lekton
+    font-weight: 500
+    color: #dedede
+
+    white-space: nowrap
+    overflow: hidden
+
+  .mat-card-content
+    padding: 16px 0
+    overflow: hidden
+
+  .mat-card-actions
+    display: flex
+    justify-content: flex-end
+    overflow: hidden
+
+  sp-icon
+    color: $fill-normal
+
+    &.selected
+      color: $fill-selected
