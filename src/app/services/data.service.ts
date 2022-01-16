@@ -99,6 +99,46 @@ export class DataService {
   }
 
   /**
+   * Get desk group with specified id.
+   */
+  public getDeskGroup(id: string): DeskGroup {
+    return this.config.groups.find(o => o.gid === id);
+  }
+
+  /**
+   * Add new desk application.
+   */
+  public addDeskGroup(group: DeskGroup): void {
+    const groups = [... this.config.apps, group];
+
+    this.config.groups = groups;
+
+    this.deskGroups$.next(groups);
+  }
+
+  /**
+   * Modify desk application.
+   */
+  public modDeskGroup(group: DeskGroup): void {
+    const groups = this.config.apps.map(o => o.aid === group.gid ? { ...group } : o);
+
+    this.config.groups = groups;
+
+    this.deskGroups$.next(groups);
+  }
+
+  /**
+   * Delete desk application.
+   */
+  public delDeskGroup(id: string): void {
+    const groups = this.config.groups.filter(o => o.gid !== id);
+
+    this.config.groups = groups;
+
+    this.deskGroups$.next(groups);
+  }
+
+  /**
    * Provide dummy data. Useful for standalone development.
    * TODO: Remove after interface is ready.
    */
