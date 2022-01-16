@@ -8,6 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
+import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -70,6 +71,7 @@ import { SettingsComponent } from './routes/settings/settings.component';
     MatIconModule,
     MatInputModule,
     MatListModule,
+    MatSelectModule,
     MatSlideToggleModule,
     MatSnackBarModule,
     MatTabsModule,
