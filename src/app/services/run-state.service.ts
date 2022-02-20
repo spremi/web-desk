@@ -23,6 +23,8 @@ export class RunStateService {
    */
   private run$: BehaviorSubject<AppRunAttrs> = new BehaviorSubject<AppRunAttrs>({});
 
+  private KEY_EDIT = 'edit';
+
   constructor(private ipcSvc: IpcService) { }
 
   /**
@@ -31,6 +33,9 @@ export class RunStateService {
   public init(): void {
     this.state = initAppRunState();
 
+    this.state.canEdit = this.getFlagEdit();
+    this.edit$.next(this.state.canEdit);
+
     this.run$.next(this.state.runApps);
   }
 
@@ -38,7 +43,10 @@ export class RunStateService {
    * Set 'edit' flag.
    */
   public setEdit(flag: boolean): void {
+    this.setFlagEdit(flag);
+
     this.state.canEdit = flag;
+    this.edit$.next(this.state.canEdit);
 
     this.edit$.next(this.state.canEdit);
   }
@@ -102,5 +110,23 @@ export class RunStateService {
 
       this.run$.next(this.state.runApps);
     }
+  }
+
+  /**
+   * Get value of KEY_EDIT from local storage.
+   */
+  private getFlagEdit(): boolean {
+    const v = localStorage.getItem(this.KEY_EDIT);
+
+    return v === 'true';
+  }
+
+  /**
+   * Set value of KEY_EDIT in local storage.
+   */
+  private setFlagEdit(flag: boolean): void {
+    const v = (flag === true) ? 'true' : 'false';
+
+    localStorage.setItem(this.KEY_EDIT, v);
   }
 }
