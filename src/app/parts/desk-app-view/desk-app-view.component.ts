@@ -2,8 +2,9 @@ import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { RuntimeAttrs } from '@models/app-state';
 
-import { DeskApp } from '@models/desk-config';
+import { DeskApp, DeskGroup } from '@models/desk-config';
 import { initIpcRequest, IpcNg2E } from '@models/ipc-request';
+import { DataService } from '@services/data.service';
 import { IpcService } from '@services/ipc.service';
 import { RunStateService } from '@services/run-state.service';
 import { Subscription } from 'rxjs';
@@ -25,16 +26,21 @@ export class DeskAppViewComponent implements OnInit, OnDestroy {
   isRunning = false;
   isMinimized = false;
 
+  group: DeskGroup = null;
+
   private sub: Subscription;
 
   constructor(
     private ipcSvc: IpcService,
     private runSvc: RunStateService,
+    private dataSvc: DataService,
     private snackBar: MatSnackBar,
     private cd: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
+    this.group = this.dataSvc.getDeskGroup(this.app?.gid);
+
     this.sub = this.runSvc.getApps().pipe(
       filter(obj => this.app?.aid in obj),  // Continue if 'aid' exists as key
       map(obj => obj[this.app.aid])         // Extract attributes for the 'aid'
