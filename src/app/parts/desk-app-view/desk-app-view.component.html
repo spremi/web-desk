@@ -1,13 +1,11 @@
 <mat-card *ngIf="app">
+  <mat-card-title>{{app.aid}}</mat-card-title>
   <mat-card-content>
     <p class="form-label">Label</p>
     <p class="form-value">{{app.label}}</p>
 
     <p class="form-label">URL</p>
     <p class="form-value">{{app.url}}</p>
-
-    <p class="form-label dim-text">Application ID</p>
-    <p class="form-value fixed-text dim-text">{{app.aid}}</p>
   </mat-card-content>
 
   <mat-card-actions>
