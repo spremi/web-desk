@@ -37,6 +37,51 @@
             "style": "camelCase"
           }
         ],
+        "@typescript-eslint/naming-convention": [
+          "error",
+          {
+            "selector": [
+              "classProperty"
+            ],
+            "modifiers": [
+              "readonly"
+            ],
+            "format": [
+              "UPPER_CASE"
+            ]
+          },
+          {
+            "selector": [
+              "variable"
+            ],
+            "modifiers": [
+              "const",
+              "global"
+            ],
+            "format": [
+              "strictCamelCase",
+              "StrictPascalCase",
+              "UPPER_CASE"
+            ]
+          },
+          {
+            "selector": "variable",
+            "types": [
+              "boolean"
+            ],
+            "format": [
+              "PascalCase"
+            ],
+            "prefix": [
+              "is",
+              "should",
+              "has",
+              "can",
+              "did",
+              "will"
+            ]
+          }
+        ],
         "comma-dangle": [
           "error",
           {
