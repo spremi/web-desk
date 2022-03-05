@@ -20,8 +20,6 @@ const RESTORE_FAILURE = 'Unable to restore desk application window.';
   styleUrls: ['./widget.component.sass'],
 })
 export class WidgetComponent implements OnInit, OnDestroy {
-  private subs: Subscription[] = [];
-
   @Input() app: DeskApp;
 
   isRunning = false;
@@ -29,90 +27,14 @@ export class WidgetComponent implements OnInit, OnDestroy {
 
   isHover = false;
 
+  private subs: Subscription[] = [];
+
   constructor(
     private router: Router,
     private ipcSvc: IpcService,
     private runSvc: RunStateService,
     private cd: ChangeDetectorRef,
     private snackBar: MatSnackBar) { }
-
-  ngOnInit(): void {
-    const runState = this.runSvc.getApps().pipe(
-      filter(obj => this.app.aid in obj),   // Continue if 'aid' exists as key
-      map(obj => obj[this.app.aid])         // Extract attributes for the 'aid'
-    ).subscribe((attrs: RuntimeAttrs) => {
-      this.isRunning = attrs.isRunning;
-      this.isMinimized = attrs.isMinimized;
-
-      this.cd.detectChanges();              // Force immediate detection
-    });
-  }
-
-  ngOnDestroy(): void {
-    this.subs.forEach(sub => {
-      if (sub) {
-        sub.unsubscribe();
-      }
-    });
-  }
-
-  onDetails(): void {
-    this.router.navigate(['desk-app', {id: this.app.aid}]);
-  }
-
-  onStart(): void {
-    const cmd = initIpcRequest(IpcNg2E.APP_LAUNCH);
-    cmd.reqParams = [ this.app.aid ];
-
-    this.ipcSvc.send<boolean>(cmd).then(result => {
-      //
-      // Successful launch is reported via parallel event channel.
-      //
-      if (!result) {
-        this.snackBar.open(START_FAILURE, 'DISMISS');
-      }
-    }).catch(err => {
-      this.snackBar.open(START_FAILURE, 'DISMISS');
-    });
-  }
-
-  onStop(): void {
-    const cmd = initIpcRequest(IpcNg2E.APP_CLOSE);
-    cmd.reqParams = [ this.app.aid ];
-
-    this.ipcSvc.send<boolean>(cmd).then(result => {
-      //
-      // Successful closure is reported via parallel event channel.
-      //
-      if (!result) {
-        this.snackBar.open(STOP_FAILURE, 'DISMISS');
-      }
-    }).catch(err => {
-      this.snackBar.open(STOP_FAILURE, 'DISMISS');
-    });
-  }
-
-  onVisibility(): void {
-    if (!this.isRunning) {
-      return;
-    }
-
-    const cmd = initIpcRequest(
-                  this.isMinimized ? IpcNg2E.WIN_RESTORE : IpcNg2E.WIN_MINIMIZE);
-    cmd.reqParams = [ this.app.aid ];
-
-    const failMsg = this.isMinimized ? RESTORE_FAILURE : MINIMIZE_FAILURE;
-
-    this.ipcSvc.send<boolean>(cmd).then(result => {
-      if (result) {
-        this.isMinimized = !this.isMinimized;
-      } else {
-        this.snackBar.open(failMsg, 'DISMISS');
-      }
-    }).catch(err => {
-      this.snackBar.open(failMsg, 'DISMISS');
-    });
-  }
 
   @HostListener('mouseenter')
   onMouseEnter(ev: MouseEvent): void {
@@ -137,5 +59,83 @@ export class WidgetComponent implements OnInit, OnDestroy {
   @HostBinding('class')
   get elevation(): string {
     return this.isHover ? 'mat-elevation-z8' : 'mat-elevation-z1';
+  }
+
+  ngOnInit(): void {
+    const runState = this.runSvc.getApps().pipe(
+      filter(obj => this.app.aid in obj),   // Continue if 'aid' exists as key
+      map(obj => obj[this.app.aid])         // Extract attributes for the 'aid'
+    ).subscribe((attrs: RuntimeAttrs) => {
+      this.isRunning = attrs.isRunning;
+      this.isMinimized = attrs.isMinimized;
+
+      this.cd.detectChanges();              // Force immediate detection
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.subs.forEach(sub => {
+      if (sub) {
+        sub.unsubscribe();
+      }
+    });
+  }
+
+  onDetails(): void {
+    this.router.navigate(['desk-app', { id: this.app.aid }]);
+  }
+
+  onStart(): void {
+    const cmd = initIpcRequest(IpcNg2E.APP_LAUNCH);
+    cmd.reqParams = [this.app.aid];
+
+    this.ipcSvc.send<boolean>(cmd).then(result => {
+      //
+      // Successful launch is reported via parallel event channel.
+      //
+      if (!result) {
+        this.snackBar.open(START_FAILURE, 'DISMISS');
+      }
+    }).catch(err => {
+      this.snackBar.open(START_FAILURE, 'DISMISS');
+    });
+  }
+
+  onStop(): void {
+    const cmd = initIpcRequest(IpcNg2E.APP_CLOSE);
+    cmd.reqParams = [this.app.aid];
+
+    this.ipcSvc.send<boolean>(cmd).then(result => {
+      //
+      // Successful closure is reported via parallel event channel.
+      //
+      if (!result) {
+        this.snackBar.open(STOP_FAILURE, 'DISMISS');
+      }
+    }).catch(err => {
+      this.snackBar.open(STOP_FAILURE, 'DISMISS');
+    });
+  }
+
+  onVisibility(): void {
+    if (!this.isRunning) {
+      return;
+    }
+
+    const cmd = initIpcRequest(
+      this.isMinimized ? IpcNg2E.WIN_RESTORE : IpcNg2E.WIN_MINIMIZE);
+    cmd.reqParams = [this.app.aid];
+
+    const failMsg = this.isMinimized ? RESTORE_FAILURE : MINIMIZE_FAILURE;
+
+    this.ipcSvc.send<boolean>(cmd).then(result => {
+      if (result) {
+        this.isMinimized = !this.isMinimized;
+      } else {
+        this.snackBar.open(failMsg, 'DISMISS');
+      }
+    }).catch(err => {
+      this.snackBar.open(failMsg, 'DISMISS');
+    });
   }
 }

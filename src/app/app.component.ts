@@ -19,10 +19,32 @@ export class AppComponent implements OnInit, OnDestroy {
   private sub: Subscription;
 
   constructor(private prevRouteSvc: PreviousRouteService,
-              private dataSvc: DataService,
-              private runSvc: RunStateService,
-              private ipcSvc: IpcService
+    private dataSvc: DataService,
+    private runSvc: RunStateService,
+    private ipcSvc: IpcService
   ) { }
+
+  @HostListener('window:beforeunload', ['$event'])
+  beforeWinClose(e: Event): void {
+    if (this.runningApps > 0) {
+      e.preventDefault();
+      e.returnValue = false;
+
+      //
+      // Don't close the application.
+      // Instead, request electron to minimize window.
+      //
+      const req = initIpcRequest(IpcNg2E.WIN_MINIMIZE);
+
+      this.ipcSvc.send<string>(req).then(result => {
+        if (!result) {
+          console.log('IPC failure during WIN_MINIMIZE.');
+        }
+      }).catch(err => {
+        console.log(err);
+      });
+    }
+  }
 
   ngOnInit(): void {
     this.dataSvc.init();
@@ -57,28 +79,6 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     if (this.sub) {
       this.sub.unsubscribe();
-    }
-  }
-
-  @HostListener('window:beforeunload', ['$event'])
-  beforeWinClose(e: Event): void {
-    if (this.runningApps > 0) {
-      e.preventDefault();
-      e.returnValue = false;
-
-      //
-      // Don't close the application.
-      // Instead, request electron to minimize window.
-      //
-      const req = initIpcRequest(IpcNg2E.WIN_MINIMIZE);
-
-      this.ipcSvc.send<string>(req).then(result => {
-        if (!result) {
-          console.log('IPC failure during WIN_MINIMIZE.');
-        }
-      }).catch(err => {
-          console.log(err);
-      });
     }
   }
 }

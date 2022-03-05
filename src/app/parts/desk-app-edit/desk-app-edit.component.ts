@@ -14,11 +14,11 @@ import { IpcService } from '@services/ipc.service';
 })
 export class DeskAppEditComponent implements OnInit {
 
-  appForm: FormGroup;
-
   @Input() data: DeskApp;
 
   @Output() status = new EventEmitter<OpStatus>();
+
+  appForm: FormGroup;
 
   constructor(private ipcSvc: IpcService, private dataSvc: DataService) { }
 
@@ -79,9 +79,9 @@ export class DeskAppEditComponent implements OnInit {
           this.status.emit(OpStatus.FAILURE);
         }
       }).catch(err => {
-          this.appForm.enable();
+        this.appForm.enable();
 
-          this.status.emit(OpStatus.FAILURE);
+        this.status.emit(OpStatus.FAILURE);
       });
     }
   }

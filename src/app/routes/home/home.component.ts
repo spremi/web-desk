@@ -9,9 +9,9 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./home.component.sass'],
 })
 export class HomeComponent implements OnInit, OnDestroy {
-  private sub: Subscription;
-
   apps: DeskApp[];
+
+  private sub: Subscription;
 
   constructor(private dataSvc: DataService) { }
 

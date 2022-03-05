@@ -65,21 +65,17 @@ export interface IpcResponse {
 /**
  * Creates an instance of IpcRequest.
  */
-export function initIpcRequest(key: string, params?: string[]): IpcRequest {
-  return {
-    reqKey: key,
-    reqParams: (params ? params : null),
-    resChannel: IPC_E2NG,
-  };
-}
+export const initIpcRequest = (key: string, params?: string[]): IpcRequest => ({
+  reqKey: key,
+  reqParams: (params ? params : null),
+  resChannel: IPC_E2NG,
+});
 
 /**
  * Creates an instance of IpcResponse.
  */
-export function initIpcResponse(flag: boolean, arg?: any): IpcResponse {
-  return {
-    status: true,
-    data: (arg ? (typeof(arg) === 'object' ? JSON.stringify(arg) : arg) : ''),
-    type: (arg ? typeof(arg) : 'string'),
-  };
-}
+export const initIpcResponse = (flag: boolean, arg?: any): IpcResponse => ({
+  status: true,
+  data: (arg ? (typeof (arg) === 'object' ? JSON.stringify(arg) : arg) : ''),
+  type: (arg ? typeof (arg) : 'string'),
+});

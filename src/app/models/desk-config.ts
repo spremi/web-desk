@@ -44,31 +44,27 @@ export interface DeskConfig {
 /**
  * Initializer for DeskApp.
  */
-export function initDeskApp(
+export const initDeskApp = (
   aid?: string,
   gid?: string,
   seq?: number,
   label?: string,
-  url?: string): DeskApp {
-  return {
+  url?: string): DeskApp => ({
     aid: (typeof aid === 'string' ? aid : null),
     gid: (typeof gid === 'string' ? gid : null),
     seq: (typeof seq === 'number' ? seq : -1),
     label: (typeof label === 'string' ? label : null),
     url: (typeof url === 'string' ? url : null),
-  };
-}
+  });
 
 /**
  * Initializer for DeskConfig.
  */
-export function initDeskConfig(): DeskConfig {
-  return {
-    ver: 0,
-    seq: 0,
-    apps: [],
-  };
-}
+export const initDeskConfig = (): DeskConfig => ({
+  ver: 0,
+  seq: 0,
+  apps: [],
+});
 
 /**
  * Describes various events related to the web application.
@@ -99,14 +95,11 @@ export interface DeskAppEvent {
 /**
  * Initializer for DeskAppEvent.
  */
-export function initDeskAppEvent(
+export const initDeskAppEvent = (
   evt: DeskAppEvents,
   aid: string,
-  wid: number
-  ): DeskAppEvent {
-  return {
+  wid: number): DeskAppEvent => ({
     event: (evt ? evt : null),
     aid: (typeof aid === 'string' ? aid : ''),
     wid: (typeof wid === 'number' ? wid : -1),
-  };
-}
+  });

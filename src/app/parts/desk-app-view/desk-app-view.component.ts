@@ -20,12 +20,12 @@ const RESTORE_FAILURE = 'Unable to restore desk application window.';
   styleUrls: ['./desk-app-view.component.sass'],
 })
 export class DeskAppViewComponent implements OnInit, OnDestroy {
-  private sub: Subscription;
-
   @Input() app: DeskApp;
 
   isRunning = false;
   isMinimized = false;
+
+  private sub: Subscription;
 
   constructor(
     private ipcSvc: IpcService,
@@ -54,7 +54,7 @@ export class DeskAppViewComponent implements OnInit, OnDestroy {
 
   onStart(): void {
     const cmd = initIpcRequest(IpcNg2E.APP_LAUNCH);
-    cmd.reqParams = [ this.app.aid ];
+    cmd.reqParams = [this.app.aid];
 
     this.ipcSvc.send<boolean>(cmd).then(result => {
       //
@@ -70,7 +70,7 @@ export class DeskAppViewComponent implements OnInit, OnDestroy {
 
   onStop(): void {
     const cmd = initIpcRequest(IpcNg2E.APP_CLOSE);
-    cmd.reqParams = [ this.app.aid ];
+    cmd.reqParams = [this.app.aid];
 
     this.ipcSvc.send<boolean>(cmd).then(result => {
       //
@@ -90,8 +90,8 @@ export class DeskAppViewComponent implements OnInit, OnDestroy {
     }
 
     const cmd = initIpcRequest(
-                  this.isMinimized ? IpcNg2E.WIN_RESTORE : IpcNg2E.WIN_MINIMIZE);
-    cmd.reqParams = [ this.app.aid ];
+      this.isMinimized ? IpcNg2E.WIN_RESTORE : IpcNg2E.WIN_MINIMIZE);
+    cmd.reqParams = [this.app.aid];
 
     const failMsg = this.isMinimized ? RESTORE_FAILURE : MINIMIZE_FAILURE;
 

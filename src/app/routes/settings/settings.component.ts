@@ -10,12 +10,12 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./settings.component.sass'],
 })
 export class SettingsComponent implements OnInit, OnDestroy {
+  canEdit = false;
+
   /**
    * Array of subscriptions.
    */
   private subs: Subscription[] = [];
-
-  canEdit = false;
 
   constructor(private router: Router, private runSvc: RunStateService) { }
 

@@ -39,19 +39,15 @@ export interface AppRunState {
 /**
  * Initializer for RuntimeAttrs.
  */
-export function initRuntimeAttrs(run?: boolean, min?: boolean): RuntimeAttrs {
-  return {
-    isRunning: run ? run : false,
-    isMinimized: min ? min : false,
-  };
-}
+export const initRuntimeAttrs = (run?: boolean, min?: boolean): RuntimeAttrs => ({
+  isRunning: run ? run : false,
+  isMinimized: min ? min : false,
+});
 
 /**
  * Initializer for AppRunState.
  */
-export function initAppRunState(): AppRunState {
-  return {
-    canEdit: false,
-    runApps: {} as AppRunAttrs,
-  };
-}
+export const initAppRunState = (): AppRunState => ({
+  canEdit: false,
+  runApps: {} as AppRunAttrs,
+});

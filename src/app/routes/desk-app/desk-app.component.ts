@@ -24,8 +24,6 @@ const DEL_FAILURE = 'Unable to delete the desk application.';
   styleUrls: ['./desk-app.component.sass'],
 })
 export class DeskAppComponent implements OnInit, OnDestroy {
-  private sub: Subscription;
-
   app: DeskApp;
 
   aid: string = null;
@@ -37,6 +35,8 @@ export class DeskAppComponent implements OnInit, OnDestroy {
   delete = false;
   deleteConfirm = false;
 
+  private sub: Subscription;
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -44,7 +44,7 @@ export class DeskAppComponent implements OnInit, OnDestroy {
     private ipcSvc: IpcService,
     private runSvc: RunStateService,
     private snackBar: MatSnackBar
-   ) { }
+  ) { }
 
   ngOnInit(): void {
     this.aid = this.route.snapshot.paramMap.get('id');
@@ -80,7 +80,7 @@ export class DeskAppComponent implements OnInit, OnDestroy {
     this.deleteConfirm = true;
 
     const cmd = initIpcRequest(IpcNg2E.APP_DELETE);
-    cmd.reqParams = [ this.aid ];
+    cmd.reqParams = [this.aid];
 
     this.ipcSvc.send<boolean>(cmd).then(result => {
       const msg = result ? DEL_SUCCESS : DEL_FAILURE;
