@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DeskApp, DeskConfig } from '@models/desk-config';
+import { DeskApp, DeskConfig, initDeskApp } from '@models/desk-config';
 import { initIpcRequest, IpcNg2E } from '@models/ipc-request';
 import { OpStatus } from '@models/op-status';
 import { DataService } from '@services/data.service';
@@ -56,6 +56,8 @@ export class DeskAppComponent implements OnInit, OnDestroy {
         this.canEdit = flag;
       });
     } else {
+      this.app = initDeskApp();
+
       this.add = true;
       this.edit = true;
       this.canEdit = true;
