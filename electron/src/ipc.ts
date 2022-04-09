@@ -9,7 +9,9 @@
 
 import { BrowserWindow, IpcMainEvent } from 'electron/main';
 
-import { addDeskApp, delDeskApp, modDeskApp, readConfig } from './config';
+import {
+  addDeskApp, addDeskGroup, delDeskApp, delDeskGroup, modDeskApp, modDeskGroup, readConfig
+} from './config';
 import {
   addRunConfig, closeDeskApp, delRunConfig, launchDeskApp, minimizeDeskApp, modRunConfig, restoreDeskApp
 } from './desk-app';
@@ -97,6 +99,31 @@ export function ipcHandler(event: IpcMainEvent, arg: IpcRequest): void {
 
         delRunConfig(arg.reqParams[0]);
         updateTray = true;
+        break;
+      }
+
+    case IpcNg2E.GROUP_CREATE: {
+        const res = addDeskGroup(arg.reqParams[0],      // label
+                                 arg.reqParams[1]);     // desc
+
+        ret = JSON.stringify(initIpcResponse(true, res));
+        break;
+      }
+
+    case IpcNg2E.GROUP_MODIFY: {
+        const res = modDeskGroup(arg.reqParams[0],                  // gid
+                                 arg.reqParams[1],                  // label
+                                 arg.reqParams[2],                  // desc
+                                 parseInt(arg.reqParams[3], 10));   // seq
+
+        ret = JSON.stringify(initIpcResponse(true, res));
+        break;
+      }
+
+    case IpcNg2E.GROUP_DELETE: {
+        const res = delDeskGroup(arg.reqParams[0]);     // gid
+
+        ret = JSON.stringify(initIpcResponse(true, res));
         break;
       }
 
