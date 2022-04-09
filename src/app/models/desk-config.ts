@@ -103,6 +103,18 @@ export const initDeskGroup = (
   });
 
 /**
+ * Check if object is a valid desk application group.
+ */
+export const isDeskGroup = (obj: DeskGroup): boolean => {
+  if (obj && obj.gid && obj.label && obj.desc) {
+    return true;
+  }
+
+  return false;
+};
+
+
+/**
  * Initializer for DeskConfig.
  */
 export const initDeskConfig = (): DeskConfig => ({
