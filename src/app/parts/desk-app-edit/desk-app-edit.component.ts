@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
-import { DeskApp, DeskGroup } from '@models/desk-config';
+import { DeskApp, DeskGroup, isDeskApp } from '@models/desk-config';
 import { initIpcRequest, IpcNg2E, IpcRequest } from '@models/ipc-request';
 import { OpStatus } from '@models/op-status';
 import { DataService } from '@services/data.service';
@@ -61,7 +61,7 @@ export class DeskAppEditComponent implements OnInit {
       let cmd: IpcRequest;
       const params: string[] = [];
 
-      if (this.data) {
+      if (isDeskApp(this.data)) {
         cmd = initIpcRequest(IpcNg2E.APP_MODIFY);
 
         params.push(this.appForm.get('group').value);

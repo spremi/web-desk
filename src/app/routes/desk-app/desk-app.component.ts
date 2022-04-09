@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DeskApp, DeskConfig, initDeskApp } from '@models/desk-config';
+import { DeskApp, DeskConfig, initDeskApp, isDeskApp } from '@models/desk-config';
 import { initIpcRequest, IpcNg2E } from '@models/ipc-request';
 import { OpStatus } from '@models/op-status';
 import { DataService } from '@services/data.service';
@@ -117,7 +117,7 @@ export class DeskAppComponent implements OnInit, OnDestroy {
     if (status !== OpStatus.CANCEL) {
       let msg: string;
 
-      if (this.app) {
+      if (isDeskApp(this.app)) {
         msg = status === OpStatus.SUCCESS ? MOD_SUCCESS : MOD_FAILURE;
       } else {
         msg = status === OpStatus.SUCCESS ? ADD_SUCCESS : ADD_FAILURE;
