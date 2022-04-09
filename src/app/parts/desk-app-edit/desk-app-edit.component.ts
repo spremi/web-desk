@@ -53,8 +53,6 @@ export class DeskAppEditComponent implements OnInit {
       return;
     }
 
-    const DEFAULT_GID = '0';
-
     if (this.appForm.valid) {
       this.appForm.disable();
 
@@ -69,7 +67,7 @@ export class DeskAppEditComponent implements OnInit {
         params.push(this.data.seq.toString());
       } else {
         cmd = initIpcRequest(IpcNg2E.APP_CREATE);
-        params.push(DEFAULT_GID);
+        params.push(this.appForm.get('group').value);
       }
 
       params.push(this.appForm.get('label').value);
