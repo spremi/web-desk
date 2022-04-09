@@ -83,11 +83,11 @@ export const initDeskApp = (
 export const initDeskGroup = (
   gid?: string,
   label?: string,
-  group?: string,
+  desc?: string,
   seq?: number): DeskGroup => ({
     gid: (typeof gid === 'string' ? gid : null),
     label: (typeof label === 'string' ? label : null),
-    desc: (typeof label === 'string' ? group : null),
+    desc: (typeof label === 'string' ? desc : null),
     seq: (typeof seq === 'number' ? seq : -1),
   });
 
