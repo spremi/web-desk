@@ -1,20 +1,29 @@
-import { Component, HostBinding, HostListener, Input, OnInit } from '@angular/core';
+import { Component, HostBinding, HostListener, Input, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DeskGroup } from '@models/desk-config';
+import { RunStateService } from '@services/run-state.service';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'sp-group',
   templateUrl: './group.component.html',
   styleUrls: ['./group.component.sass'],
 })
-export class GroupComponent implements OnInit {
+export class GroupComponent implements OnInit, OnDestroy {
 
   @Input() group: DeskGroup;
 
   isHover = false;
   isSelected = false;
 
-  constructor(private router: Router) { }
+  selectedGroups$: Observable<string[]>;
+
+  private sub: Subscription;
+
+  constructor(
+    private router: Router,
+    private runSvc: RunStateService
+  ) { }
 
   @HostListener('mouseenter')
   onMouseEnter(ev: MouseEvent): void {
@@ -37,10 +46,28 @@ export class GroupComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.sub = this.runSvc.getSelectedGroups()
+      .subscribe(list => {
+        if (list && list.indexOf(this.group.gid) !== -1) {
+          this.isSelected = true;
+        }
+      });
+  }
+
+  ngOnDestroy(): void {
+    if (this.sub) {
+      this.sub.unsubscribe();
+    }
   }
 
   onSelect(): void {
     this.isSelected = !this.isSelected;
+
+    if (this.isSelected) {
+      this.runSvc.addSelectedGroup(this.group.gid);
+    } else {
+      this.runSvc.delSelectedGroup(this.group.gid);
+    }
   }
 
   onDetails(): void {
