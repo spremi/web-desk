@@ -34,7 +34,7 @@ export let deskApps: BrowserWindow[] = null;
  * Custom 'UserAgent' definition.
  * Required to get through some websites that don't like 'electron' default.
  */
-const UserAgent = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36';
+const UserAgent = 'Mozilla/5.0 (X11; Linux x86_64; rv:94.0) AppleWebKit/605.1.15 (KHTML, like Gecko) Chrome/100.0.4896.75 Safari/605.1.15';
 
 /**
  * Initialize desk applications.
