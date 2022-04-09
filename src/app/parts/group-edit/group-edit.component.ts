@@ -44,8 +44,6 @@ export class GroupEditComponent implements OnInit {
       return;
     }
 
-    const DEFAULT_GID = '0';
-
     if (this.groupForm.valid) {
       this.groupForm.disable();
 
@@ -56,15 +54,15 @@ export class GroupEditComponent implements OnInit {
         cmd = initIpcRequest(IpcNg2E.GROUP_MODIFY);
 
         params.push(this.data.gid);
+        params.push(this.groupForm.get('label').value);
+        params.push(this.groupForm.get('desc').value);
         params.push(this.data.seq.toString());
       } else {
         cmd = initIpcRequest(IpcNg2E.GROUP_CREATE);
 
-        params.push(DEFAULT_GID);
+        params.push(this.groupForm.get('label').value);
+        params.push(this.groupForm.get('desc').value);
       }
-
-      params.push(this.groupForm.get('label').value);
-      params.push(this.groupForm.get('desc').value);
 
       cmd.reqParams = params;
 
