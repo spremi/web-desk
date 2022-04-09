@@ -106,10 +106,10 @@ export class DataService {
   }
 
   /**
-   * Add new desk application.
+   * Add new desk application group.
    */
   public addDeskGroup(group: DeskGroup): void {
-    const groups = [... this.config.apps, group];
+    const groups = [... this.config.groups, group];
 
     this.config.groups = groups;
 
@@ -117,10 +117,10 @@ export class DataService {
   }
 
   /**
-   * Modify desk application.
+   * Modify desk application group.
    */
   public modDeskGroup(group: DeskGroup): void {
-    const groups = this.config.apps.map(o => o.aid === group.gid ? { ...group } : o);
+    const groups = this.config.groups.map(o => o.gid === group.gid ? { ...group } : o);
 
     this.config.groups = groups;
 
