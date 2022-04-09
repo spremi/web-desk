@@ -78,6 +78,17 @@ export const initDeskApp = (
   });
 
 /**
+ * Check if object is a valid desk application.
+ */
+export const isDeskApp = (obj: DeskApp): boolean => {
+  if (obj && obj.aid && obj.gid && obj.label && obj.url) {
+    return true;
+  }
+
+  return false;
+};
+
+/**
  * Initializer for DeskGroup.
  */
 export const initDeskGroup = (
