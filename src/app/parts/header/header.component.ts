@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { RunStateService } from '@services/run-state.service';
 
 @Component({
   selector: 'sp-header',
@@ -8,7 +9,12 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  private showSettings = false;
+
+  constructor(
+    private router: Router,
+    private runSvc: RunStateService
+  ) { }
 
   ngOnInit(): void {
   }
@@ -19,6 +25,12 @@ export class HeaderComponent implements OnInit {
     } else {
       this.router.navigate(['desk-app']);
     }
+  }
+
+  onSettings(): void {
+    this.showSettings = !this.showSettings;
+
+    this.runSvc.showSettings(this.showSettings);
   }
 
   /**
