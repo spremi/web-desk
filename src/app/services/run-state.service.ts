@@ -19,6 +19,13 @@ export class RunStateService {
   private edit$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   /**
+   * BehaviorSubject for 'show-settings' flag.
+   */
+  private showSettings$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+  // TODO: Consolidate multiple flags inside 'AppRunState'.
+
+  /**
    * BehaviorSubject for running desk applications.
    */
   private run$: BehaviorSubject<AppRunAttrs> = new BehaviorSubject<AppRunAttrs>({});
@@ -79,6 +86,23 @@ export class RunStateService {
         filter(o => o !== null),
         distinctUntilChanged()
       );
+  }
+
+  /**
+   * Set 'show-settings' flag.
+   */
+  public showSettings(flag: boolean): void {
+    this.showSettings$.next(flag);
+  }
+
+  /**
+   * Get observable to 'show-settings' flag.
+   */
+  public isShowSettings(): Observable<boolean> {
+    return this.showSettings$.asObservable().pipe(
+      filter(o => o !== null),
+      distinctUntilChanged()
+    );
   }
 
   /**
