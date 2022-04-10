@@ -1,5 +1,10 @@
 <sp-header></sp-header>
 <sp-body>
-  <router-outlet></router-outlet>
+  <div class="outlet">
+    <router-outlet></router-outlet>
+  </div>
+  <div *ngIf="showSettings$ | async" class="side">
+    <sp-settings></sp-settings>
+  </div>
 </sp-body>
 <sp-footer></sp-footer>

@@ -5,7 +5,7 @@ import { DataService } from '@services/data.service';
 import { IpcService } from '@services/ipc.service';
 import { PreviousRouteService } from '@services/previous-route.service';
 import { RunStateService } from '@services/run-state.service';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'sp-root',
@@ -14,6 +14,8 @@ import { Subscription } from 'rxjs';
 })
 export class AppComponent implements OnInit, OnDestroy {
   title = 'web-desk';
+
+  showSettings$: Observable<boolean>;
 
   private runningApps = 0;
   private sub: Subscription;
@@ -49,6 +51,8 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.dataSvc.init();
     this.runSvc.init();
+
+    this.showSettings$ = this.runSvc.isShowSettings();
 
     this.sub = this.ipcSvc.getAppEvents().subscribe((ev: DeskAppEvent) => {
       switch (ev.event) {
