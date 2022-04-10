@@ -35,7 +35,6 @@ import { DeskGroupComponent } from './routes/desk-group/desk-group.component';
 import { GroupsComponent } from './routes/groups/groups.component';
 import { HomeComponent } from './routes/home/home.component';
 import { LicenseComponent } from './routes/license/license.component';
-import { SettingsComponent } from './routes/settings/settings.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +45,6 @@ import { SettingsComponent } from './routes/settings/settings.component';
     FooterComponent,
     BodyComponent,
     LicenseComponent,
-    SettingsComponent,
     DeskAppViewComponent,
     DeskAppEditComponent,
     DeskAppComponent,
