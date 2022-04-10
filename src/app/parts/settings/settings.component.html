@@ -1,1 +1,28 @@
-<p>settings works!</p>
+<mat-list>
+  <mat-list-item>
+    <span matLine>Edit applications</span>
+
+    <mat-slide-toggle color="accent"
+      [checked]="canEdit$ | async"
+      (change)="onToggleEdit($event.checked)"
+      ></mat-slide-toggle>
+  </mat-list-item>
+
+  <mat-list-item>
+    <span matLine>View by group</span>
+
+    <mat-slide-toggle color="accent"
+      [checked]="viewByGroup$ | async"
+      (change)="onViewByGroup($event.checked)"
+      ></mat-slide-toggle>
+  </mat-list-item>
+
+  <mat-list-item>
+    <span matLine>View selected groups only</span>
+
+    <mat-slide-toggle color="accent"
+      [checked]="viewByFilter$ | async"
+      (change)="onViewByFilter($event.checked)"
+      ></mat-slide-toggle>
+  </mat-list-item>
+</mat-list>
