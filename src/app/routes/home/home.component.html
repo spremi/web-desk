@@ -1,5 +1,53 @@
-<ng-container *ngIf="apps">
-  <sp-widget
-    *ngFor="let app of apps" [app]="app">
-  </sp-widget>
+<ng-container *ngIf="apps && (viewByGroup$ | async) === false">
+  <ng-container *ngIf="(viewSelGroups$ | async) === false">
+    <div class="apps">
+      <sp-widget
+        *ngFor="let app of apps"
+        [app]="app">
+      </sp-widget>
+    </div>
+  </ng-container>
+
+  <div class="apps" *ngIf="(viewSelGroups$ | async) === true">
+    <ng-container *ngFor="let app of apps">
+      <ng-container *ngFor="let group of groups$ | async">
+        <sp-widget *ngIf="(selGroups$ | async).includes(group.gid) && app.gid === group.gid"
+          [app]="app">
+        </sp-widget>
+      </ng-container>
+    </ng-container>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="apps && (viewByGroup$ | async) === true">
+  <ng-container *ngIf="(viewSelGroups$ | async) === false">
+    <div *ngFor="let group of groups$ | async" class="group">
+      <h3 class="mat-h3 label">{{group.label}}</h3>
+
+      <div class="apps">
+        <ng-container *ngFor="let app of apps">
+          <sp-widget *ngIf="app.gid === group.gid"
+            [app]="app">
+          </sp-widget>
+        </ng-container>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="(viewSelGroups$ | async) === true">
+    <ng-container *ngFor="let group of groups$ | async">
+      <div *ngIf="(selGroups$ | async).includes(group.gid)" class="group">
+        <h3 class="mat-h3 label">{{group.label}}</h3>
+
+        <div class="apps">
+          <ng-container *ngFor="let app of apps">
+            <sp-widget *ngIf="app.gid === group.gid"
+              [app]="app">
+            </sp-widget>
+          </ng-container>
+        </div>
+      </div>
+    </ng-container>
+  </ng-container>
+
 </ng-container>

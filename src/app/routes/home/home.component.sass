@@ -1,22 +1,50 @@
 \:host
   display: flex
-  height: 100%
-  width: 100%
+  flex-direction: column
+  flex: 1 0 fit-content
 
-  padding: 64px
+  padding: 16px 32px
+
   box-sizing: border-box
 
-  flex-flow: row wrap
+  div.contents
+    display: flex
+    height: 100%
+    padding: 16px 32px
+    box-sizing: border-box
+    overflow-y: auto
+    flex: 1 1 auto
 
-  align-content: baseline
-  justify-content: space-evenly
+  div.default
+    display: flex
+    flex-flow: row wrap
 
-  overflow-y: auto
+    align-content: baseline
+    justify-content: flex-start
+
+  div.group
+    display: flex
+    flex-flow: column
+
+    .label
+      margin: 8px
+      font-size: 14px
+      font-weight: 500
+      border-bottom: 1px solid
+
+  div.apps
+    display: flex
+    flex-flow: row wrap
+
+    align-content: baseline
+    justify-content: flex-start
 
 @media only screen and (max-width: 640px)
   \:host
-    padding: 16px
+    div.contents
+      padding: 8px
 
 @media only screen and (max-height: 640px)
   \:host
-    padding: 16px
+    div.contents
+      padding: 8px
