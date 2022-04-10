@@ -25,11 +25,17 @@ export class RunStateService {
 
   private KEY_EDIT = 'edit';
   private KEY_SEL_GROUPS = 'sel-groups';
+  private KEY_VIEW_BY_GROUP = 'view-by-group';
 
   /**
    * BehaviorSubject for selected groups.
    */
   private selectedGroups$: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
+
+  /**
+   * BehaviorSubject for 'view by groups'.
+   */
+  private viewByGroup$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor(private ipcSvc: IpcService) { }
 
@@ -45,6 +51,7 @@ export class RunStateService {
     this.run$.next(this.state.runApps);
 
     this.initSelectedGroups();
+    this.initViewByGroup();
   }
 
   /**
@@ -172,6 +179,25 @@ export class RunStateService {
   }
 
   /**
+   * Set flag for 'view by group'.
+   */
+  public setViewByGroup(flag: boolean): void {
+    this.setFlagViewByGroup(flag);
+
+    this.viewByGroup$.next(flag);
+  }
+
+  /**
+   * Get observable to flag for 'view by groups'.
+   */
+  public getViewByGroup(): Observable<boolean> {
+    return this.viewByGroup$.asObservable().pipe(
+      filter(o => o !== null),
+      distinctUntilChanged()
+    );
+  }
+
+  /**
    * Get value of KEY_EDIT from local storage.
    */
   private getFlagEdit(): boolean {
@@ -203,5 +229,31 @@ export class RunStateService {
     }
 
     this.selectedGroups$.next(g);
+  }
+
+  /**
+   * Get value of KEY_VIEW_BY_GROUP from local storage.
+   */
+  private getFlagViewByGroup(): boolean {
+    const v = localStorage.getItem(this.KEY_VIEW_BY_GROUP);
+    return v === 'true';
+  }
+
+  /**
+   * Set value of KEY_VIEW_BY_GROUP in local storage.
+   */
+  private setFlagViewByGroup(flag: boolean): void {
+    const v = (flag === true) ? 'true' : 'false';
+
+    localStorage.setItem(this.KEY_VIEW_BY_GROUP, v);
+  }
+
+  /**
+   * Initialize 'view-by-group' from local storage.
+   */
+  private initViewByGroup(): void {
+    const isEnabled = this.getFlagViewByGroup();
+
+    this.viewByGroup$.next(isEnabled);
   }
 }
