@@ -62,8 +62,6 @@ export class RunStateService {
 
     this.state.canEdit = flag;
     this.edit$.next(this.state.canEdit);
-
-    this.edit$.next(this.state.canEdit);
   }
 
   /**
