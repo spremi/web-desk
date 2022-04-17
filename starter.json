@@ -4,21 +4,51 @@
   "groups": [
     {
       "gid": "f2e4ad07-10ad-4dc1-b251-65b568157048",
-      "label": "Group 0",
-      "desc": "This is group 0",
+      "label": "Search Engines",
+      "desc": "Common search engines",
       "seq": 0
     },
     {
       "gid": "987d6080-a129-42c8-b24a-0ec507df0478",
-      "label": "Group 1",
-      "desc": "This is group 1",
+      "label": "General Knowledge",
+      "desc": "General information and references",
       "seq": 1
     },
     {
       "gid": "08fd0aa2-3a5f-413f-b518-b4072958ddd4",
-      "label": "Group 2",
-      "desc": "This is group 2",
+      "label": "Education",
+      "desc": "Education and learning",
       "seq": 2
+    },
+    {
+      "gid": "96d4a5d4-714c-4297-87ee-f613acfc3c5e",
+      "label": "Open source",
+      "desc": "Open source repositories",
+      "seq": 3
+    },
+    {
+      "gid": "103322f3-a86c-4843-85a6-d96d0dfb0047",
+      "label": "Linux",
+      "desc": "Linux distributions and related",
+      "seq": 4
+    },
+    {
+      "gid": "bdd01d91-c0bd-4818-ba81-9975e18113ae",
+      "label": "Frameworks",
+      "desc": "Common web frameworks",
+      "seq": 5
+    },
+    {
+      "gid": "4c8af9ff-cd72-418d-a7ab-4d12209e06e8",
+      "label": "Social Media",
+      "desc": "Social media platforms",
+      "seq": 6
+    },
+    {
+      "gid": "c6d8de07-4db4-42c2-b871-e4edb91e2b88",
+      "label": "Tools",
+      "desc": "Useful tools",
+      "seq": 6
     }
   ],
   "apps": [
@@ -31,7 +61,7 @@
     },
     {
       "aid": "bfbd65d8-8d69-40d2-a08d-c387e74c3104",
-      "gid": "22b6bee4-d05d-}f20-ba7f-25de7fb5aee2",
+      "gid": "f2e4ad07-10ad-4dc1-b251-65b568157048",
       "label": "DuckDuckGo",
       "seq": 1,
       "url": "https://www.duckduckgo.com"
@@ -44,11 +74,123 @@
       "url": "https://www.startpage.com"
     },
     {
+      "aid": "d948a885-3dfe-47b3-bffb-4bfbff45ecab",
+      "gid": "4c8af9ff-cd72-418d-a7ab-4d12209e06e8",
+      "seq": 3,
+      "label": "WhatsAPP Web",
+      "url": "https://web.whatsapp.com/"
+    },
+    {
       "aid": "e93aaccd-6720-45e0-b898-c41ae972db7e",
-      "gid": "08fd0aa2-3a5f-413f-b518-b4072958ddd4",
+      "gid": "f2e4ad07-10ad-4dc1-b251-65b568157048",
       "seq": 4,
       "label": "Swiss Cows",
       "url": "https://www.swisscows.com/"
+    },
+    {
+      "aid": "6b42e547-c661-45c0-9694-18e0a616d35f",
+      "gid": "96d4a5d4-714c-4297-87ee-f613acfc3c5e",
+      "seq": 5,
+      "label": "GitHub",
+      "url": "https://github.com/"
+    },
+    {
+      "aid": "32861d6d-de0d-4813-9362-2d999a986fea",
+      "gid": "96d4a5d4-714c-4297-87ee-f613acfc3c5e",
+      "seq": 6,
+      "label": "GitLab",
+      "url": "https://about.gitlab.com/"
+    },
+    {
+      "aid": "1a7b9bb9-a975-4acb-a84b-06044bd75e27",
+      "gid": "103322f3-a86c-4843-85a6-d96d0dfb0047",
+      "seq": 7,
+      "label": "Linux Kernel Archive",
+      "url": "https://www.kernel.org/"
+    },
+    {
+      "aid": "2488fcfd-ccb2-4ae2-8e62-ab0203c0fcfd",
+      "gid": "bdd01d91-c0bd-4818-ba81-9975e18113ae",
+      "seq": 8,
+      "label": "Angular",
+      "url": "https://angular.io/"
+    },
+    {
+      "aid": "992db067-1707-40ab-b4d8-7f76e5a14c02",
+      "gid": "bdd01d91-c0bd-4818-ba81-9975e18113ae",
+      "seq": 9,
+      "label": "Angular Material",
+      "url": "https://material.angular.io/"
+    },
+    {
+      "aid": "2239a1ce-f251-4043-ac81-957ca6772b04",
+      "gid": "96d4a5d4-714c-4297-87ee-f613acfc3c5e",
+      "seq": 10,
+      "label": "Sourceforge",
+      "url": "https://sourceforge.net/"
+    },
+    {
+      "aid": "baffa199-2033-4d97-adc3-64a510a772ca",
+      "gid": "bdd01d91-c0bd-4818-ba81-9975e18113ae",
+      "seq": 11,
+      "label": "ElectronJS",
+      "url": "https://www.electronjs.org/"
+    },
+    {
+      "aid": "606098f7-2937-43a3-864f-1b972c4f350b",
+      "gid": "bdd01d91-c0bd-4818-ba81-9975e18113ae",
+      "seq": 12,
+      "label": "NPM",
+      "url": "https://www.npmjs.com/"
+    },
+    {
+      "aid": "e2ac3b90-49df-4685-801c-cc1b33e0001a",
+      "gid": "987d6080-a129-42c8-b24a-0ec507df0478",
+      "seq": 13,
+      "label": "Thesaurus",
+      "url": "https://www.thesaurus.com/"
+    },
+    {
+      "aid": "5a4403fe-0e2a-43d3-bf27-7ab23c7d2b9a",
+      "gid": "96d4a5d4-714c-4297-87ee-f613acfc3c5e",
+      "seq": 14,
+      "label": "Apache Allura",
+      "url": "https://allura.apache.org/"
+    },
+    {
+      "aid": "443cfe66-267b-4ddd-b7d6-464cdf378dfe",
+      "gid": "987d6080-a129-42c8-b24a-0ec507df0478",
+      "seq": 15,
+      "label": "Britannica",
+      "url": "https://www.britannica.com/"
+    },
+    {
+      "aid": "7b709f17-5720-49a8-b246-5dd836adb62b",
+      "gid": "4c8af9ff-cd72-418d-a7ab-4d12209e06e8",
+      "seq": 16,
+      "label": "Koo Application",
+      "url": "https://www.kooapp.com/"
+    },
+    {
+      "aid": "d38d9ea4-4344-4db9-9083-9e2b27e779a9",
+      "gid": "08fd0aa2-3a5f-413f-b518-b4072958ddd4",
+      "seq": 17,
+      "label": "Swayam",
+      "url": "https://swayam.gov.in/"
+    },
+    {
+      "aid": "0c7c7e48-4066-4ff3-bb57-c120cadc5952",
+      "gid": "103322f3-a86c-4843-85a6-d96d0dfb0047",
+      "seq": 18,
+      "label": "Fedora Spins",
+      "url": "https://spins.fedoraproject.org/"
+    },
+    {
+      "aid": "fbf9ba5c-d668-4df8-b573-d4ce83dbf761",
+      "gid": "c6d8de07-4db4-42c2-b871-e4edb91e2b88",
+      "seq": 19,
+      "label": "FFmpeg",
+      "url": "https://ffmpeg.org/"
     }
   ]
 }
