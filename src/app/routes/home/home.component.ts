@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { DeskApp, DeskGroup } from '@models/desk-config';
 import { DataService } from '@services/data.service';
-import { RunStateService } from '@services/run-state.service';
 import { UiStateService } from '@services/ui-state.service';
 import { Observable, Subscription } from 'rxjs';
 
@@ -23,7 +22,6 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   constructor(
     private dataSvc: DataService,
-    private runSvc: RunStateService,
     private uiSvc: UiStateService
   ) { }
 
@@ -31,7 +29,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     this.viewByGroup$ = this.uiSvc.isViewByGroup();
     this.viewSelGroups$ = this.uiSvc.isViewSelectedGroups();
-    this.selGroups$ = this.runSvc.getSelectedGroups();
+    this.selGroups$ = this.uiSvc.getSelectedGroups();
 
     this.sub = this.dataSvc.getDeskApps().subscribe(result => {
       this.apps = result;

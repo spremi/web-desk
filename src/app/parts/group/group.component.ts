@@ -1,7 +1,7 @@
 import { Component, HostBinding, HostListener, Input, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DeskGroup } from '@models/desk-config';
-import { RunStateService } from '@services/run-state.service';
+import { UiStateService } from '@services/ui-state.service';
 import { Observable, Subscription } from 'rxjs';
 
 @Component({
@@ -22,7 +22,7 @@ export class GroupComponent implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
-    private runSvc: RunStateService
+    private uiSvc: UiStateService
   ) { }
 
   @HostListener('mouseenter')
@@ -46,7 +46,7 @@ export class GroupComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.sub = this.runSvc.getSelectedGroups()
+    this.sub = this.uiSvc.getSelectedGroups()
       .subscribe(list => {
         if (list && list.indexOf(this.group.gid) !== -1) {
           this.isSelected = true;
@@ -64,9 +64,9 @@ export class GroupComponent implements OnInit, OnDestroy {
     this.isSelected = !this.isSelected;
 
     if (this.isSelected) {
-      this.runSvc.addSelectedGroup(this.group.gid);
+      this.uiSvc.addSelectedGroup(this.group.gid);
     } else {
-      this.runSvc.delSelectedGroup(this.group.gid);
+      this.uiSvc.delSelectedGroup(this.group.gid);
     }
   }
 
