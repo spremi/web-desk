@@ -19,6 +19,14 @@ export const AppIcons: IconSet = {
       file: 'anchor-24px.svg',
     },
     {
+      icon: 'app_edit',
+      file: 'app_registration-24px.svg',
+    },
+    {
+      icon: 'app_view',
+      file: 'apps-24px.svg',
+    },
+    {
       icon: 'category',
       file: 'category-24px.svg',
     },
@@ -37,6 +45,30 @@ export const AppIcons: IconSet = {
     {
       icon: 'style',
       file: 'style-24px.svg',
+    },
+    {
+      icon: 'view_all',
+      file: 'filter_alt_off-24px.svg',
+    },
+    {
+      icon: 'view_compact',
+      file: 'density_small-24px.svg',
+    },
+    {
+      icon: 'view_group',
+      file: 'list_alt-24px.svg',
+    },
+    {
+      icon: 'view_normal',
+      file: 'density_medium-24px.svg',
+    },
+    {
+      icon: 'view_select',
+      file: 'filter_alt-24px.svg',
+    },
+    {
+      icon: 'view_seq',
+      file: 'notes-24px.svg',
     },
   ],
 };
