@@ -6,7 +6,7 @@ import { initIpcRequest, IpcNg2E } from '@models/ipc-request';
 import { OpStatus } from '@models/op-status';
 import { DataService } from '@services/data.service';
 import { IpcService } from '@services/ipc.service';
-import { RunStateService } from '@services/run-state.service';
+import { UiStateService } from '@services/ui-state.service';
 import { Subscription } from 'rxjs';
 
 const ADD_SUCCESS = 'Desk application added.';
@@ -42,7 +42,7 @@ export class DeskAppComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private dataSvc: DataService,
     private ipcSvc: IpcService,
-    private runSvc: RunStateService,
+    private uiSvc: UiStateService,
     private snackBar: MatSnackBar
   ) { }
 
@@ -52,7 +52,7 @@ export class DeskAppComponent implements OnInit, OnDestroy {
     if (this.aid) {
       this.app = this.dataSvc.getDeskApp(this.aid);
 
-      this.sub = this.runSvc.getEdit().subscribe(flag => {
+      this.sub = this.uiSvc.getEdit().subscribe(flag => {
         this.canEdit = flag;
       });
     } else {

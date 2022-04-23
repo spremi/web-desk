@@ -14,11 +14,6 @@ export class RunStateService {
   private state: AppRunState = null;
 
   /**
-   * BehaviorSubject for 'edit' flag.
-   */
-  private edit$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-
-  /**
    * BehaviorSubject for 'show-settings' flag.
    */
   private showSettings$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
@@ -30,7 +25,6 @@ export class RunStateService {
    */
   private run$: BehaviorSubject<AppRunAttrs> = new BehaviorSubject<AppRunAttrs>({});
 
-  private KEY_EDIT = 'edit';
   private KEY_SEL_GROUPS = 'sel-groups';
   private KEY_VIEW_BY_GROUP = 'view-by-group';
   private KEY_VIEW_SEL_GROUPS = 'view-sel-groups';
@@ -58,34 +52,11 @@ export class RunStateService {
   public init(): void {
     this.state = initAppRunState();
 
-    this.state.canEdit = this.getFlagEdit();
-    this.edit$.next(this.state.canEdit);
-
     this.run$.next(this.state.runApps);
 
     this.initSelectedGroups();
     this.initViewByGroup();
     this.initViewSelectedGroups();
-  }
-
-  /**
-   * Set 'edit' flag.
-   */
-  public setEdit(flag: boolean): void {
-    this.setFlagEdit(flag);
-
-    this.state.canEdit = flag;
-    this.edit$.next(this.state.canEdit);
-  }
-
-  /**
-   * Get observable to 'edit' flag.
-   */
-  public getEdit(): Observable<boolean> {
-    return this.edit$.asObservable().pipe(
-        filter(o => o !== null),
-        distinctUntilChanged()
-      );
   }
 
   /**
@@ -243,24 +214,6 @@ export class RunStateService {
       filter(o => o !== null),
       distinctUntilChanged()
     );
-  }
-
-  /**
-   * Get value of KEY_EDIT from local storage.
-   */
-  private getFlagEdit(): boolean {
-    const v = localStorage.getItem(this.KEY_EDIT);
-
-    return v === 'true';
-  }
-
-  /**
-   * Set value of KEY_EDIT in local storage.
-   */
-  private setFlagEdit(flag: boolean): void {
-    const v = (flag === true) ? 'true' : 'false';
-
-    localStorage.setItem(this.KEY_EDIT, v);
   }
 
   /**

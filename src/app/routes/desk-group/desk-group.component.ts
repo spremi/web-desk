@@ -6,7 +6,7 @@ import { initIpcRequest, IpcNg2E } from '@models/ipc-request';
 import { OpStatus } from '@models/op-status';
 import { DataService } from '@services/data.service';
 import { IpcService } from '@services/ipc.service';
-import { RunStateService } from '@services/run-state.service';
+import { UiStateService } from '@services/ui-state.service';
 import { Observable } from 'rxjs';
 
 const ADD_SUCCESS = 'Desk group added.';
@@ -41,12 +41,12 @@ export class DeskGroupComponent implements OnInit {
     private route: ActivatedRoute,
     private dataSvc: DataService,
     private ipcSvc: IpcService,
-    private runSvc: RunStateService,
+    private uiSvc: UiStateService,
     private snackBar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
-    this.canEdit$ = this.runSvc.getEdit();
+    this.canEdit$ = this.uiSvc.getEdit();
     this.gid = this.route.snapshot.paramMap.get('id');
 
     if (this.gid) {
