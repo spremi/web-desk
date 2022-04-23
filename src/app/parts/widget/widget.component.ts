@@ -6,7 +6,8 @@ import { DeskApp } from '@models/desk-config';
 import { initIpcRequest, IpcNg2E } from '@models/ipc-request';
 import { IpcService } from '@services/ipc.service';
 import { RunStateService } from '@services/run-state.service';
-import { Subscription } from 'rxjs';
+import { UiStateService } from '@services/ui-state.service';
+import { Observable, Subscription } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 
 const START_FAILURE = 'Unable to start the desk application.';
@@ -27,12 +28,15 @@ export class WidgetComponent implements OnInit, OnDestroy {
 
   isHover = false;
 
+  isCompact$: Observable<boolean>;
+
   private subs: Subscription[] = [];
 
   constructor(
     private router: Router,
     private ipcSvc: IpcService,
     private runSvc: RunStateService,
+    private uiSvc: UiStateService,
     private cd: ChangeDetectorRef,
     private snackBar: MatSnackBar) { }
 
@@ -62,6 +66,8 @@ export class WidgetComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.isCompact$ = this.uiSvc.isViewCompact();
+
     const runState = this.runSvc.getApps().pipe(
       filter(obj => this.app.aid in obj),   // Continue if 'aid' exists as key
       map(obj => obj[this.app.aid])         // Extract attributes for the 'aid'

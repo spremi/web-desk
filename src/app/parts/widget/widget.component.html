@@ -1,5 +1,6 @@
 <ng-container *ngIf="app">
-  <div class="content mat-h3" aria-label="Application Name">
+  <div class="content mat-h3" [class.compact]="isCompact$ | async"
+    aria-label="Application Name">
     {{app.label}}
   </div>
 
