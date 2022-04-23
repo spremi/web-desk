@@ -1,3 +1,4 @@
+import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { DeskAppEvent, DeskAppEvents } from '@models/desk-config';
 import { initIpcRequest, IpcNg2E } from '@models/ipc-request';
@@ -12,6 +13,39 @@ import { Observable, Subscription } from 'rxjs';
   selector: 'sp-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.sass'],
+  animations: [
+    trigger(
+      'sideAnimation',
+      [
+        transition(
+          ':enter',
+          [
+            style({
+              opacity: 0,
+            }),
+            animate(
+              '300ms ease-out',
+              style({
+                opacity: 1,
+              })
+            ),
+          ]),
+        transition(
+          ':leave',
+          [
+            style({
+              opacity: 1,
+            }),
+            animate(
+              '300ms ease-out',
+              style({
+                opacity: 0,
+              })
+            ),
+          ]),
+      ]
+    ),
+  ],
 })
 export class AppComponent implements OnInit, OnDestroy {
   title = 'web-desk';

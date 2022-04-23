@@ -3,7 +3,9 @@
   <div class="outlet">
     <router-outlet></router-outlet>
   </div>
-  <div *ngIf="showSettings$ | async" class="side">
+  <div *ngIf="showSettings$ | async"
+    [@sideAnimation]
+    class="side">
     <sp-settings></sp-settings>
   </div>
 </sp-body>
