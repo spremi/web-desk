@@ -5,6 +5,7 @@ import { DataService } from '@services/data.service';
 import { IpcService } from '@services/ipc.service';
 import { PreviousRouteService } from '@services/previous-route.service';
 import { RunStateService } from '@services/run-state.service';
+import { UiStateService } from '@services/ui-state.service';
 import { Observable, Subscription } from 'rxjs';
 
 @Component({
@@ -22,6 +23,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   constructor(private prevRouteSvc: PreviousRouteService,
     private dataSvc: DataService,
+    private uiSvc: UiStateService,
     private runSvc: RunStateService,
     private ipcSvc: IpcService
   ) { }
@@ -50,6 +52,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.dataSvc.init();
+    this.uiSvc.init();
     this.runSvc.init();
 
     this.showSettings$ = this.runSvc.isShowSettings();
