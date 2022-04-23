@@ -1,28 +1,17 @@
-<mat-list>
-  <mat-list-item>
-    <span matLine>Edit applications</span>
+<sp-toggle
+  icons="app_view;app_edit"
+  labels="Read Only;Editable"
+  [flag]="canEdit$ | async"
+  (mutate)="onToggleEdit($event)"></sp-toggle>
 
-    <mat-slide-toggle color="accent"
-      [checked]="canEdit$ | async"
-      (change)="onToggleEdit($event.checked)"
-      ></mat-slide-toggle>
-  </mat-list-item>
+<sp-toggle
+  icons="view_seq;view_group"
+  labels="View sequential;View by group"
+  [flag]="viewByGroup$ | async"
+  (mutate)="onViewByGroup($event)"></sp-toggle>
 
-  <mat-list-item>
-    <span matLine>View by group</span>
-
-    <mat-slide-toggle color="accent"
-      [checked]="viewByGroup$ | async"
-      (change)="onViewByGroup($event.checked)"
-      ></mat-slide-toggle>
-  </mat-list-item>
-
-  <mat-list-item>
-    <span matLine>View selected groups only</span>
-
-    <mat-slide-toggle color="accent"
-      [checked]="viewByFilter$ | async"
-      (change)="onViewByFilter($event.checked)"
-      ></mat-slide-toggle>
-  </mat-list-item>
-</mat-list>
+<sp-toggle
+  icons="view_all;view_select"
+  labels="View all;Selected groups"
+  [flag]="viewByFilter$ | async"
+  (mutate)="onViewByFilter($event)"></sp-toggle>
