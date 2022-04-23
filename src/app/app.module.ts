@@ -36,6 +36,7 @@ import { GroupsComponent } from './routes/groups/groups.component';
 import { HomeComponent } from './routes/home/home.component';
 import { LicenseComponent } from './routes/license/license.component';
 import { SettingsComponent } from './parts/settings/settings.component';
+import { ToggleComponent } from './parts/toggle/toggle.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { SettingsComponent } from './parts/settings/settings.component';
     GroupViewComponent,
     GroupEditComponent,
     SettingsComponent,
+    ToggleComponent,
   ],
   imports: [
     BrowserModule,
