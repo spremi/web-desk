@@ -19,21 +19,10 @@ export interface RuntimeAttrs {
 }
 
 /**
- * Describes map of application-id running applications.
- */
-export interface AppRunAttrs {
-  [aid: string]: RuntimeAttrs;
-}
-
-/**
  * Describes Unified app application state.
  */
 export interface AppRunState {
-  /** User can edit application? */
-  canEdit: boolean;
-
-  /** Map of running applications. */
-  runApps: AppRunAttrs;
+  [aid: string]: RuntimeAttrs;
 }
 
 /**
@@ -48,6 +37,4 @@ export const initRuntimeAttrs = (run?: boolean, min?: boolean): RuntimeAttrs => 
  * Initializer for AppRunState.
  */
 export const initAppRunState = (): AppRunState => ({
-  canEdit: false,
-  runApps: {} as AppRunAttrs,
 });

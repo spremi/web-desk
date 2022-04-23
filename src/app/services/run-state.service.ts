@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { initAppRunState, initRuntimeAttrs, AppRunAttrs, AppRunState } from '@models/app-state';
+import { initAppRunState, initRuntimeAttrs, AppRunState } from '@models/app-state';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { distinctUntilChanged, filter } from 'rxjs/operators';
 import { IpcService } from './ipc.service';
@@ -16,7 +16,7 @@ export class RunStateService {
   /**
    * BehaviorSubject for running desk applications.
    */
-  private run$: BehaviorSubject<AppRunAttrs> = new BehaviorSubject<AppRunAttrs>({});
+  private run$: BehaviorSubject<AppRunState> = new BehaviorSubject<AppRunState>(null);
 
   constructor(private ipcSvc: IpcService) { }
 
@@ -26,13 +26,13 @@ export class RunStateService {
   public init(): void {
     this.state = initAppRunState();
 
-    this.run$.next(this.state.runApps);
+    this.run$.next(this.state);
   }
 
   /**
    * Get observable to map of application attributes.
    */
-  public getApps(): Observable<AppRunAttrs> {
+  public getApps(): Observable<AppRunState> {
     return this.run$.asObservable().pipe(
         filter(o => o !== null),
         distinctUntilChanged()
@@ -43,40 +43,40 @@ export class RunStateService {
    * Set application state as 'OPEN'.
    */
   public appOpen(aid: string): void {
-    const apps = { ...this.state.runApps };
+    const apps = { ...this.state };
 
     apps[aid] = initRuntimeAttrs(true, false);
 
-    this.state.runApps = apps;
+    this.state = apps;
 
-    this.run$.next(this.state.runApps);
+    this.run$.next(this.state);
   }
 
   /**
    * Set application state as 'CLOSED'.
    */
   public appClose(aid: string): void {
-    const apps = { ... this.state.runApps };
+    const apps = { ...this.state };
 
     apps[aid] = initRuntimeAttrs(false, false);
 
-    this.state.runApps = apps;
+    this.state = apps;
 
-    this.run$.next(this.state.runApps);
+    this.run$.next(this.state);
   }
 
   /**
    * Set application window state.
    */
   public appMinimize(aid: string, flag: boolean): void {
-    if (aid in this.state.runApps) {
-      const apps = {... this.state.runApps};
+    if (aid in this.state) {
+      const apps = { ... this.state };
 
       apps[aid].isMinimized = flag;
 
-      this.state.runApps = apps;
+      this.state = apps;
 
-      this.run$.next(this.state.runApps);
+      this.run$.next(this.state);
     }
   }
 }
