@@ -21,7 +21,7 @@ export class SettingsComponent implements OnInit {
 
   ngOnInit(): void {
     this.canEdit$ = this.uiSvc.getEdit();
-    this.viewByGroup$ = this.runSvc.getViewByGroup();
+    this.viewByGroup$ = this.uiSvc.isViewByGroup();
     this.viewByFilter$ = this.runSvc.getViewSelectedGroups();
   }
 
@@ -30,7 +30,7 @@ export class SettingsComponent implements OnInit {
   }
 
   onViewByGroup(flag: boolean): void {
-    this.runSvc.setViewByGroup(flag);
+    this.uiSvc.setViewByGroup(flag);
   }
 
   onViewByFilter(flag: boolean): void {

@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { DeskApp, DeskGroup } from '@models/desk-config';
 import { DataService } from '@services/data.service';
 import { RunStateService } from '@services/run-state.service';
+import { UiStateService } from '@services/ui-state.service';
 import { Observable, Subscription } from 'rxjs';
 
 @Component({
@@ -22,12 +23,13 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   constructor(
     private dataSvc: DataService,
-    private runSvc: RunStateService
+    private runSvc: RunStateService,
+    private uiSvc: UiStateService
   ) { }
 
   ngOnInit(): void {
 
-    this.viewByGroup$ = this.runSvc.getViewByGroup();
+    this.viewByGroup$ = this.uiSvc.isViewByGroup();
     this.viewSelGroups$ = this.runSvc.getViewSelectedGroups();
     this.selGroups$ = this.runSvc.getSelectedGroups();
 
