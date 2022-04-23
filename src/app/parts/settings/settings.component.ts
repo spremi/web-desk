@@ -12,6 +12,7 @@ export class SettingsComponent implements OnInit {
   canEdit$: Observable<boolean>;
   viewByGroup$: Observable<boolean>;
   viewByFilter$: Observable<boolean>;
+  viewCompact$: Observable<boolean>;
 
   constructor(
     private uiSvc: UiStateService
@@ -21,6 +22,7 @@ export class SettingsComponent implements OnInit {
     this.canEdit$ = this.uiSvc.getEdit();
     this.viewByGroup$ = this.uiSvc.isViewByGroup();
     this.viewByFilter$ = this.uiSvc.isViewSelectedGroups();
+    this.viewCompact$ = this.uiSvc.isViewCompact();
   }
 
   onToggleEdit(flag: boolean): void {
@@ -33,5 +35,9 @@ export class SettingsComponent implements OnInit {
 
   onViewByFilter(flag: boolean): void {
     this.uiSvc.setViewSelectedGroups(flag);
+  }
+
+  onViewCompact(flag: boolean): void {
+    this.uiSvc.setViewCompact(flag);
   }
 }

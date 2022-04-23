@@ -15,3 +15,9 @@
   labels="View all;Selected groups"
   [flag]="viewByFilter$ | async"
   (mutate)="onViewByFilter($event)"></sp-toggle>
+
+<sp-toggle
+  icons="view_normal;view_compact"
+  labels="View normal;View compact"
+  [flag]="viewCompact$ | async"
+  (mutate)="onViewCompact($event)"></sp-toggle>
