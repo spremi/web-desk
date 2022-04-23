@@ -26,17 +26,11 @@ export class RunStateService {
   private run$: BehaviorSubject<AppRunAttrs> = new BehaviorSubject<AppRunAttrs>({});
 
   private KEY_SEL_GROUPS = 'sel-groups';
-  private KEY_VIEW_SEL_GROUPS = 'view-sel-groups';
 
   /**
    * BehaviorSubject for selected groups.
    */
   private selectedGroups$: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
-
-  /**
-   * BehaviorSubject for 'view selected groups only'.
-   */
-  private viewSelectedGroups$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor(private ipcSvc: IpcService) { }
 
@@ -49,7 +43,6 @@ export class RunStateService {
     this.run$.next(this.state.runApps);
 
     this.initSelectedGroups();
-    this.initViewSelectedGroups();
   }
 
   /**
@@ -172,25 +165,6 @@ export class RunStateService {
   }
 
   /**
-   * Set flag for 'view selected groups only'.
-   */
-  public setViewSelectedGroups(flag: boolean): void {
-    this.setFlagViewSelectedGroups(flag);
-
-    this.viewSelectedGroups$.next(flag);
-  }
-
-  /**
-   * Get observable to flag for 'view selected groups only'.
-   */
-  public getViewSelectedGroups(): Observable<boolean> {
-    return this.viewSelectedGroups$.asObservable().pipe(
-      filter(o => o !== null),
-      distinctUntilChanged()
-    );
-  }
-
-  /**
    * Initialize selected groups from local storage.
    */
   private initSelectedGroups(): void {
@@ -204,31 +178,5 @@ export class RunStateService {
     }
 
     this.selectedGroups$.next(g);
-  }
-
-  /**
-   * Get value of KEY_VIEW_SEL_GROUPS from local storage.
-   */
-  private getFlagViewSelectedGroups(): boolean {
-    const v = localStorage.getItem(this.KEY_VIEW_SEL_GROUPS);
-    return v === 'true';
-  }
-
-  /**
-   * Set value of KEY_VIEW_SEL_GROUPS in local storage.
-   */
-  private setFlagViewSelectedGroups(flag: boolean): void {
-    const v = (flag === true) ? 'true' : 'false';
-
-    localStorage.setItem(this.KEY_VIEW_SEL_GROUPS, v);
-  }
-
-  /**
-   * Initialize 'view-sel-groups' from local storage.
-   */
-  private initViewSelectedGroups(): void {
-    const isEnabled = this.getFlagViewSelectedGroups();
-
-    this.viewSelectedGroups$.next(isEnabled);
   }
 }

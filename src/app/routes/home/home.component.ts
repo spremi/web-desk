@@ -30,7 +30,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
 
     this.viewByGroup$ = this.uiSvc.isViewByGroup();
-    this.viewSelGroups$ = this.runSvc.getViewSelectedGroups();
+    this.viewSelGroups$ = this.uiSvc.isViewSelectedGroups();
     this.selGroups$ = this.runSvc.getSelectedGroups();
 
     this.sub = this.dataSvc.getDeskApps().subscribe(result => {

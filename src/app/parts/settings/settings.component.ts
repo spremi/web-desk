@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { RunStateService } from '@services/run-state.service';
 import { UiStateService } from '@services/ui-state.service';
 import { Observable } from 'rxjs';
 
@@ -15,14 +14,13 @@ export class SettingsComponent implements OnInit {
   viewByFilter$: Observable<boolean>;
 
   constructor(
-    private runSvc: RunStateService,
     private uiSvc: UiStateService
   ) { }
 
   ngOnInit(): void {
     this.canEdit$ = this.uiSvc.getEdit();
     this.viewByGroup$ = this.uiSvc.isViewByGroup();
-    this.viewByFilter$ = this.runSvc.getViewSelectedGroups();
+    this.viewByFilter$ = this.uiSvc.isViewSelectedGroups();
   }
 
   onToggleEdit(flag: boolean): void {
@@ -34,6 +32,6 @@ export class SettingsComponent implements OnInit {
   }
 
   onViewByFilter(flag: boolean): void {
-    this.runSvc.setViewSelectedGroups(flag);
+    this.uiSvc.setViewSelectedGroups(flag);
   }
 }
