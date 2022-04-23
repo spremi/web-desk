@@ -55,7 +55,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.uiSvc.init();
     this.runSvc.init();
 
-    this.showSettings$ = this.runSvc.isShowSettings();
+    this.showSettings$ = this.uiSvc.isViewSettings();
 
     this.sub = this.ipcSvc.getAppEvents().subscribe((ev: DeskAppEvent) => {
       switch (ev.event) {

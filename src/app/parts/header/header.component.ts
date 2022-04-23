@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { RunStateService } from '@services/run-state.service';
+import { UiStateService } from '@services/ui-state.service';
 
 @Component({
   selector: 'sp-header',
@@ -13,7 +13,7 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private runSvc: RunStateService
+    private uiSvc: UiStateService
   ) { }
 
   ngOnInit(): void {
@@ -30,7 +30,7 @@ export class HeaderComponent implements OnInit {
   onSettings(): void {
     this.showSettings = !this.showSettings;
 
-    this.runSvc.showSettings(this.showSettings);
+    this.uiSvc.setViewSettings(this.showSettings);
   }
 
   /**
