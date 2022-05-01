@@ -105,7 +105,7 @@ export function ensureConfig(packaged: boolean, dir: string): void {
     fs.statSync(cfgFile);
   } catch (e) {
     if (e.code === 'ENOENT') {
-      saveConfig(initDeskConfig());
+      fs.copyFileSync('starter.json', cfgFile);
     } else {
       logE(e.name + ' ' + e.message);
     }
