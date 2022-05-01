@@ -1,0 +1,209 @@
+#
+# SPDX-License-Identifier: MIT
+#
+# Update the version at all appropriate places & apply tag.
+#
+# (c) 2022 Sanjeev Premi.
+#
+
+function banner() {
+  echo ""
+  echo "::: mk-version           Update the version number"
+  echo ""
+}
+
+function usage() {
+  echo " :: Usage:"
+  echo "  :"
+  echo "  :   mk-version -o <op> [-t] [-n name]"
+  echo "  :"
+  echo "  :   Here,"
+  echo "  :     -o OPERAND    Operand is one of major | minor | patch"
+  echo "  :     -n NAME       Name associated with version"
+  echo "  :     -t            Create a tag as well."
+  echo "  :"
+  echo ""
+}
+
+function bye() {
+  local arg=${*}
+
+  if [ "${arg}" == "" ]; then
+    echo ""
+    echo " :: Done."
+    echo ""
+  else
+    error ${arg}
+    echo ""
+    echo " :: Encountered error(s)."
+    echo ""
+
+    exit 1
+  fi
+}
+
+function info() {
+  echo "  : ${*}"
+}
+
+function error() {
+  echo "  : ERROR: ${*}"
+  echo ""
+}
+
+function isDirty() {
+  dirty=$(git status --porcelain | grep -v "^??" | wc -l)
+  echo ${dirty}
+}
+
+#
+# BEGIN
+#
+banner
+
+#
+# Abort if current branch is dirty
+#
+dirty=$(isDirty)
+
+if [ ${dirty} -gt 0 ]; then
+  error "Detected local changes in the repo."
+
+  exit 1
+fi
+
+if [[ ${#} -eq 0 ]]; then
+  usage
+
+  exit 1
+fi
+
+ARG_OP=""
+ARG_NAME=""
+ARG_TAG=""
+
+opts=":hto:n:"
+
+while getopts ${opts} arg; do
+  case ${arg} in
+    h)
+      usage
+      exit 0
+      ;;
+
+    o)
+      case ${OPTARG} in
+        major|minor|patch)
+          ARG_OP="${OPTARG}"
+          ;;
+
+        *)
+          error "Invalid operand for '-${arg}' - ${OPTARG}."
+          ;;
+
+      esac
+      ;;
+
+    n)
+      ARG_NAME="${OPTARG}"
+      ;;
+
+    t)
+      ARG_TAG="Y"
+      ;;
+
+    *)
+      error "Invalid option: '-${OPTARG}'."
+      ;;
+  esac
+done
+
+[ "${ARG_OP}" == "" ] && usage && exit 1
+
+
+#
+# Extract version from 'package.json'
+#
+VERSION=$(grep version package.json | cut -d":" -f2 | cut -d "," -f1 | xargs echo)
+
+info "Current version is ${VERSION}."
+
+V_CUR=($(echo ${VERSION} | tr '.' ' '))
+
+
+#
+# Derive the new version string.
+#
+V_NEW=()
+
+case ${ARG_OP} in
+
+  major)
+    V_NEW[0]=$(( V_CUR[0] + 1 ))
+    V_NEW[1]=0
+    V_NEW[2]=0
+    ;;
+
+  minor)
+    V_NEW[0]=${V_CUR[0]}
+    V_NEW[1]=$(( V_CUR[1] + 1 ))
+    V_NEW[2]=0
+    ;;
+
+  patch)
+    V_NEW[0]=${V_CUR[0]}
+    V_NEW[1]=${V_CUR[1]}
+    V_NEW[2]=$(( V_CUR[2] + 1 ))
+    ;;
+
+  *)
+    ;;
+esac
+
+
+#
+# Update the version string.
+#
+NEXT="${V_NEW[0]}.${V_NEW[1]}.${V_NEW[2]}"
+
+info "New version is ${NEXT}"
+
+#
+# Substitute in the file(s).
+#
+sed -i -r "s/(\"version\": \")${VERSION}(\")/\1${NEXT}\2/" ./package.json
+sed -i -r "s/(\"version\": \")${VERSION}(\")/\1${NEXT}\2/" ./package-lock.json
+
+sed -i -r "s/(Version )${VERSION}/\1${NEXT}/" ./src/app/routes/about/about.component.html
+
+
+#
+# Create a commit with changes.
+#
+info "Create commit"
+
+git add ./package.json
+git add ./package-lock.json
+git add ./src/app/routes/about/about.component.html
+
+if [ "${ARG_NAME}" == "" ]; then
+  COMMIT_MSG="chore: pkg: Set version '${NEXT}'"
+else
+  COMMIT_MSG="chore: pkg: Set version '${NEXT}' (${ARG_NAME})"
+fi
+
+git commit -s -m"${COMMIT_MSG}" > /dev/null
+[ $? -ne 0 ] && bye "Failed to create commit :("
+
+
+#
+# Apply tag (if requested).
+#
+if [ "${ARG_TAG}" == "Y" ]; then
+  info "Create tag v${NEXT}"
+
+  git tag -a v${NEXT} -m"Version ${NEXT}"
+  [ $? -ne 0 ] && bye "Failed to create tag :("
+fi
+
+bye
