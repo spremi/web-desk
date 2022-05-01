@@ -20,7 +20,7 @@
     "ele-watch": "cd electron && tsc -w",
     "ele-lint": "cd electron && eslint -c .eslintrc --ext .ts ./src",
     "ele-start": "electron dist/main.js",
-    "ele-seed": "cp starter.json dist/config.json",
+    "ele-seed": "cp starter.json dist/.",
     "pkg-linux-64": "electron-packager . web-desk --overwrite --asar --platform=linux --arch=x64  --icon=src/assets/app-logo.png --prune=true --out=pkg",
     "rpm-linux-64": "electron-installer-redhat --config rpm64.json"
   },
