@@ -37,7 +37,7 @@ regular browsers.
 
 ### Technical specifications
 * Built with node v16.14.2.
-* Based on Electron v18.x.y.
+* Based on Electron v19.x.y.
 * Uses Angular, Angular Material v12.x
 * ``contextIsolation`` is ``true`` and ``nodeIntegration`` is ``false``.
   * Translates to better security.
